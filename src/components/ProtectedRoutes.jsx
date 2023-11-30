@@ -4,10 +4,11 @@ import { useEffect } from "react";
 import { useStateContext } from "../context/ContextProvider.jsx";
 import { API } from "../config.js";
 API.withCredentials = true;
+import {useSelector} from "react-redux"
 import { InstructorHeader } from "./instructor/header/index.jsx";
 
 export default function ProtectedRoutes() {
-  const { user, token, setUser, setToken, notification } = useStateContext();
+  const { user, token } = useSelector((state) => state.authReducer);
 console.log("SALUT")
 console.log(token)
   if (!token) {
@@ -18,14 +19,14 @@ console.log(token)
     ev.preventDefault();
 
     API.post("/logout").then(() => {
-      setUser({});
-      setToken(null);
+    //   setUser({});
+    //   setToken(null);
     });
   };
 
   useEffect(() => {
     API.get("/me").then(({ data }) => {
-      setUser(data);
+    //   setUser(data);
       console.log("MIAOU");
     });
   }, []);

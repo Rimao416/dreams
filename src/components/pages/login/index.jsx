@@ -22,12 +22,12 @@ const Login = () => {
   const [passwordType, setPasswordType] = useState("password");
   const handleSubmit=(event)=>{
     event.preventDefault();
-    // dispatch(login(credentials))
-    API.post('/login', credentials)
-    .then(({data}) => {
-      setUser(data.user)
-      setToken(data.token);
-    })
+    dispatch(login(credentials))
+    // API.post('/login', credentials)
+    // .then(({data}) => {
+    //   setUser(data.user)
+    //   setToken(data.token);
+    // })
     .catch((err) => {
       const response = err.response;
       if (response && response.status === 422) {

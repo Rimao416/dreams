@@ -5,9 +5,9 @@ import { API } from "../../config";
 // Action asynchrone pour la connexion
 export const login = createAsyncThunk("auth/login", async (credentials) => {
   try {
-    console.log(credentials)
+    console.log(credentials);
     const response = await API.post("/login", credentials);
-    console.log(response)
+    console.log(response);
     return response.data;
     // console.log(response)
     // console.log(response)
@@ -22,16 +22,29 @@ export const login = createAsyncThunk("auth/login", async (credentials) => {
   }
 });
 
-
-
 // Slice Redux pour gérer l'authentification
 const authSlice = createSlice({
   name: "auth",
   initialState: {
     user: null,
     loading: false,
+    token: localStorage.getItem("ACCESS_TOKEN"),
   },
-  reducers: {},
+  reducers: {
+    logout: (state) => {
+      state.user = null;
+      state.loading = false;
+      state.token = null;
+      localStorage.removeItem("ACCESS_TOKEN");
+    },
+    setToken: (state, action) => {
+        if(action.payload.token){
+            localStorage.setItem('ACCESS_TOKEN', action.payload.token);
+        }else{
+            localStorage.removeItem('ACCESS_TOKEN');
+        }
+    },
+  },
   extraReducers: (builder) => {
     builder
       .addCase(login.pending, (state) => {
@@ -39,11 +52,18 @@ const authSlice = createSlice({
         state.error = null;
       })
       .addCase(login.fulfilled, (state, action) => {
-        console.log(action.payload)
-        state.loading = false;
-        state.user = action.payload;
-        state.error = null;
+        console.log(action.payload);
         localStorage.setItem("ACCESS_TOKEN", action?.payload.access_token);
+        return{
+            ...state, 
+            loading: false,
+            user: action.payload,
+            error: null,
+            // token: action.payload.access_token,
+        }
+        
+
+    
         // console.log(state.user)
         // console.log(role)
 
