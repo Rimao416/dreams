@@ -6,10 +6,17 @@ import FeatherIcon from "feather-icons-react";
 import Footer from "../../../footer";
 import { Link } from "react-router-dom";
 import Select from "react-select";
-import { useState } from "react";
-
+import { useState,useEffect } from "react";
+import {useDispatch} from "react-redux"
+import { getCours } from "../../../../redux/slice/coursSlice";
 
 const CourseList = () => {
+  const dispatch=useDispatch()
+  useEffect(()=>{
+    dispatch(getCours()).then((result)=>{
+      console.log(result)
+    })
+  },[])
 
   const customStyles = {
     option: (base, { isFocused }) => {

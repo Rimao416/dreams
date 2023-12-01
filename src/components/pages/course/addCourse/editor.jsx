@@ -1,8 +1,8 @@
 import React from "react";
 import { CKEditor } from "@ckeditor/ckeditor5-react";
 import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
-
-const TextEditor = () => {
+import PropTypes from "prop-types"
+const TextEditor = ({onChange}) => {
   return (
     <CKEditor
       editor={ClassicEditor}
@@ -10,10 +10,7 @@ const TextEditor = () => {
     //     // You can store the "editor" and use when it is needed.
        
     //   }}
-    //   onChange={(event, editor) => {
-    //     const data = editor.getData();
-    //     console.log({ event, editor, data });
-    //   }}
+      onChange={onChange}
     //   onBlur={(event, editor) => {
     //     console.log("Blur.", editor);
     //   }}
@@ -22,6 +19,9 @@ const TextEditor = () => {
     //   }}
     />
   );
+};
+TextEditor.propTypes = {
+  onChange: PropTypes.func.isRequired, // onChange doit être une fonction et est obligatoire
 };
 
 export default TextEditor;

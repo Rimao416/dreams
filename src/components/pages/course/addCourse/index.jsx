@@ -8,8 +8,11 @@ import CourseMedia from "./courseMedia";
 import Curriculum from "./curriculum";
 import Settings from "./settings";
 import Success from "./success";
+// import { useStateContext } from "../../../../context/ContextProvider";
 
 const AddCourse = () => {
+  // const {user}=useStateContext()
+  // console.log(user)
   const [TabChange, setTabChange] = useState(false);
   const [TabChange1, setTabChange1] = useState(false);
   const [TabChange2, setTabChange2] = useState(false);
@@ -91,56 +94,7 @@ const AddCourse = () => {
                 <div className="card">
                   <div className="widget-set">
                     <div className="widget-setcount">
-                      <ul id="progressbar">
-                        <li
-                          className={
-                            TabChange ? "progress-activated" : "progress-active"
-                          }
-                        >
-                          <p>
-                            <span></span> Basic Information
-                          </p>
-                        </li>
-                        <li
-                          className={
-                            TabChange1
-                              ? "progress-activated"
-                              : "" || TabChange
-                              ? "progress-active"
-                              : ""
-                          }
-                        >
-                          <p>
-                            <span></span> Courses Media
-                          </p>
-                        </li>
-                        <li
-                          className={
-                            TabChange2
-                              ? "progress-activated"
-                              : "" || TabChange1
-                              ? "progress-active"
-                              : ""
-                          }
-                        >
-                          <p>
-                            <span></span> Curriculum
-                          </p>
-                        </li>
-                        <li
-                          className={
-                            TabChange3
-                              ? "progress-activated"
-                              : "" || TabChange2
-                              ? "progress-active"
-                              : ""
-                          }
-                        >
-                          <p>
-                            <span /> Settings
-                          </p>
-                        </li>
-                      </ul>
+               
                     </div>
 
                     <div className="widget-content multistep-form">

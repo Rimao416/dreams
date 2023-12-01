@@ -71,7 +71,7 @@ const blogSlice = createSlice({
     status: "idle",
     index: 1,
     meta: null,
-    categories:[],
+    categories: [],
   },
   reducers: {
     incrementIndex: (state) => {
@@ -116,7 +116,8 @@ const blogSlice = createSlice({
         console.log(action);
         state.loading = false;
         state.error = true;
-      }).addCase(getBlogsCategories.pending, (state) => {
+      })
+      .addCase(getBlogsCategories.pending, (state) => {
         state.loading = true;
       })
       .addCase(getBlogsCategories.fulfilled, (state, action) => {

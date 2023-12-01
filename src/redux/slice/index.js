@@ -3,6 +3,8 @@ import profReducer from "./profSlice";
 import coursReducer from "./coursSlice";
 import authReducer from "./authSlice";
 import blogReducer from "./blogSlice"
+import categoryReducer from "./categorySlice"
+
 import { configureStore } from "@reduxjs/toolkit";
 
 // import academicYearReducer from "./academicYearReducer";
@@ -12,7 +14,8 @@ export const store = configureStore({
         profReducer,
         coursReducer,
         authReducer,
-        blogReducer
+        blogReducer,
+        categoryReducer
     }
 });
 // export const store = configureStore({ auth: authReducer });

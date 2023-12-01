@@ -3,26 +3,72 @@ import { Link } from "react-router-dom";
 import TextEditor from "./editor";
 import Select from "react-select";
 import { useState } from "react";
-
+import { useSelector, useDispatch } from "react-redux";
+import { useEffect } from "react";
+import { getCourseCategories } from "../../../../redux/slice/categorySlice";
+import { useStateContext } from "../../../../context/ContextProvider";
+import { addCours } from "../../../../redux/slice/coursSlice";
 // eslint-disable-next-line react/prop-types
 const Basic = ({ nextTab }) => {
-
+  const [cours, setCours] = useState({
+    title: "",
+    description: "",
+    user_id: "1",
+    tool_id: "1",
+    price: 0,
+    old_price: 0,
+    categorie_id: "",
+  });
+  const {user}=useStateContext()
   const [input, setInput] = useState(null);
+ 
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(getCourseCategories());
+    // setCours({
+    //   ...cours,
+    //   user_id: user?.id,
+    // });
+    
+  }, [dispatch, user?.id]);
 
-  const option = [
-    { label: "Category 01", value: "" },
-    { label: "Category 02", value: "Category 02" },
-    { label: "Category 03", value: "Category 03" },
-    { label: "Category 04", value: "Category 04" },
-  ];
+  const { categoriesCourse, loading } = useSelector(
+    (state) => state?.categoryReducer
+  );
+  // console.log(categoriesCourse)
+  const option = categoriesCourse?.map((category) => ({
+    label: category.name, // Assurez-vous de remplacer 'label' par la clé réelle de vos données
+    value: category.id, // Assurez-vous de remplacer 'value' par la clé réelle de vos données
+  }));
+  
 
-  const options = [
-    { label: "Level 01", value: "" },
-    { label: "Level 02", value: "Level 02" },
-    { label: "Level 03", value: "Level 03" },
-    { label: "Level 04", value: "Level 04" },
-  ];
+ 
+  const handleChange = (e) => {
+    setCours({ ...cours, [e.target.name]: e.target.value });
+  };
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    const descriptionWithoutParagraphs = cours.description.replace(
+      /<\/?p>/g,
+      ""
+    );
 
+    // Mettre à jour la valeur de la description dans l'objet cours
+    setCours({
+      ...cours,
+
+      description: descriptionWithoutParagraphs,
+    });
+
+    // Envoyer la nouvelle valeur de la description au serveur
+    dispatch(addCours(cours)).then((result)=>{
+      console.log(result)
+    });
+
+    // console.log(cours)
+
+    // nextTab();
+  };
   const customStyles = {
     option: (base, { isFocused }) => {
       return {
@@ -30,11 +76,6 @@ const Basic = ({ nextTab }) => {
         backgroundColor: isFocused ? "#FFDEDA" : "white",
       };
     },
-    // dropdownIndicator: (base, state) => ({
-    //   ...base,
-    //   transform: state.selectProps.menuIsOpen ? 'rotate(-180deg)' : 'rotate(0)',
-    //   transition: '300ms',
-    // }),
   };
 
   return (
@@ -42,57 +83,71 @@ const Basic = ({ nextTab }) => {
       <fieldset id="first">
         <div className="add-course-info">
           <div className="add-course-inner-header">
-            <h4>Basic Information</h4>
+            <h4>Informations Générales</h4>
           </div>
           <div className="add-course-form">
-            <form action="#">
+            <form onSubmit={handleSubmit}>
               <div className="form-group">
-                <label className="add-course-label">Course Title</label>
+                <label className="add-course-label">Titre</label>
                 <input
                   type="text"
                   className="form-control"
                   placeholder="Course Title"
+                  name="title"
+                  onChange={handleChange}
                 />
               </div>
               <div className="form-group">
-                <label className="add-course-label">Courses Category</label>
+                <label className="add-course-label">Catégorie</label>
                 <Select
                   options={option}
                   defaultValue={input}
-                  onChange={setInput}
-                  placeholder="Category 01"
-                  styles={customStyles}
-                ></Select>
-              </div>
-              <div className="form-group">
-                <label className="add-course-label">Courses Level</label>
-                <Select
-                  options={options}
-                  defaultValue={input}
-                  onChange={setInput}
-                  placeholder="Level 01"
+                  // CHANGE CATEGORIE INTO CATEGORIE_ID
+                  onChange={(selectedOption) =>
+                    setCours({ ...cours, categorie_id: selectedOption.value })
+                  }
+                  placeholder="Votre categorie"
                   styles={customStyles}
                 ></Select>
               </div>
               <div className="form-group mb-0">
                 <label className="add-course-label">Course Description</label>
                 <div id="editor">
-                  <TextEditor />
+                  <TextEditor
+                    onChange={(event, editor) => {
+                      const data = editor.getData();
+                      setCours({ ...cours, description: data });
+                    }}
+                  />
                 </div>
               </div>
+              <div className="form-group">
+                <label className="add-course-label">Prix</label>
+                <input
+                  type="number"
+                  className="form-control"
+                  placeholder="Course Title"
+                  name="price"
+                  onChange={handleChange}
+                />
+              </div>
+              <div className="form-group">
+                <label className="add-course-label">Ancien prix promotionnel</label>
+                <input
+                  type="number"
+                  className="form-control"
+                  placeholder="Course Title"
+                  name="old_price"
+                  onChange={handleChange}
+                />
+              </div>
+
+              <div className="widget-btn">
+                <button className="btn btn-info-light next_btn">
+                  Enregistrer
+                </button>
+              </div>
             </form>
-          </div>
-          <div className="widget-btn">
-            <Link to="#" className="btn btn-black">
-              Back
-            </Link>
-            <Link
-              to="#"
-              className="btn btn-info-light next_btn"
-              onClick={nextTab}
-            >
-              Continue
-            </Link>
           </div>
         </div>
       </fieldset>

@@ -111,6 +111,8 @@ const Approuter = () => {
           <Route path="/instructor-list" element={<InstructorList />} />
           <Route path="/instructor-grid" element={<InstructorGrid />} />
           <Route path="/prof-cours" element={<InstructorCourse />} />
+          <Route path="/add-course" element={<AddCourse />} />
+          <Route path="/course-list" element={<CourseList />} />
         </Route>
 
         {/* Blog */}
@@ -122,8 +124,8 @@ const Approuter = () => {
         <Route path="/pricing-plan" element={<PricingPlan />} />
         <Route path="/pricing-plan2" element={<PricingPlan2 />} />
         <Route path="/wishlist" element={<Wishlist />} />
-        <Route path="/add-course" element={<AddCourse />} />
-        <Route path="/course-list" element={<CourseList />} />
+
+
         <Route path="/course-grid" element={<CourseGrid />} />
         <Route path="/course-details" element={<CourseDetails />} />
         <Route path="/course-details1" element={<CourseDetails1 />} />
