@@ -4,13 +4,11 @@ import { useEffect } from "react";
 import { useStateContext } from "../context/ContextProvider.jsx";
 import { API } from "../config.js";
 API.withCredentials = true;
-import {useSelector} from "react-redux"
 import { InstructorHeader } from "./instructor/header/index.jsx";
 
 export default function ProtectedRoutes() {
-  const { user, token } = useSelector((state) => state.authReducer);
-console.log("SALUT")
-console.log(token)
+  const { user, token, setUser, setToken, notification } = useStateContext();
+
   if (!token) {
     return <Navigate to="/login" />;
   }
@@ -19,15 +17,14 @@ console.log(token)
     ev.preventDefault();
 
     API.post("/logout").then(() => {
-    //   setUser({});
-    //   setToken(null);
+      setUser({});
+      setToken(null);
     });
   };
 
   useEffect(() => {
     API.get("/me").then(({ data }) => {
-    //   setUser(data);
-      console.log("MIAOU");
+      setUser(data.data);
     });
   }, []);
 

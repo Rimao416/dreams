@@ -3,6 +3,9 @@ import { Link } from "react-router-dom";
 import OwlCarousel from "react-owl-carousel";
 import { LoginImg, logo, NetIcon1, NetIcon2 } from "../../imagepath";
 import { useState } from "react";
+import { useStateContext } from "../../../context/ContextProvider";
+import { API } from "../../../config";
+import PropTypes from "prop-types"
 
 const hasNumber = (value) => {
   return new RegExp(/[0-9]/).test(value);
@@ -24,17 +27,40 @@ const strengthColor = (count) => {
 const Register = () => {
   const [eye, seteye] = useState(true);
   const [password, setPassword] = useState("");
+  const { setToken } = useStateContext();
   const [validationError, setValidationError] = useState("");
   const [strength, setStrength] = useState("");
+  const [errors, setErrors] = useState(null);
+  const [credentials, setCredentials] = useState({
+    first_name: "",
+    last_name: "",
+    pseudo: "",
+    email: "",
+    password: "",
+  });
+  const isDisabled = () => {
+    return (
+      !credentials.first_name ||
+      !credentials.last_name ||
+      !credentials.pseudo ||
+      !credentials.email ||
+      !credentials.password ||
+      validationError != 5
+    );
+  };
   // const [pwdError, setPwdError] = useState("Use 8 or more characters with a mix of letters, numbers & symbols.")
 
   const onEyeClick = () => {
     seteye(!eye);
   };
+  const handleChange = (event) => {
+    setCredentials({ ...credentials, [event.target.name]: event.target.value });
+  };
 
   const handlePasswordChange = (event) => {
     const newPassword = event.target.value;
-    setPassword(newPassword);
+    // setPassword(newPassword);
+    setCredentials({ ...credentials, password: newPassword });
     validatePassword(newPassword);
   };
 
@@ -50,6 +76,22 @@ const Register = () => {
     } else {
       setValidationError(5);
     }
+  };
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    API.post("/register", credentials)
+      .then(({ data }) => {
+        console.log(data);
+        setToken(data.access_token);
+      })
+      .catch((err) => {
+        const response = err.response;
+        if (response && response.status === 422) {
+          // console.log(response.data.data);
+          console.log(response.data.data.pseudo[0]);
+          setErrors(response.data.data);
+        }
+      });
   };
 
   const messages = () => {
@@ -141,16 +183,42 @@ const Register = () => {
   };
 
   useEffect(() => {
-    if (password) {
-      if (password !== "") {
-        let strength = strengthIndicator(password);
+    if (credentials.password) {
+      if (credentials.password !== "") {
+        let strength = strengthIndicator(credentials.password);
         let color = strengthColor(strength);
         setStrength(color);
       } else {
         setStrength("");
       }
     }
-  }, [password]);
+  }, [credentials.password]);
+  
+const FormField = ({ label, type, placeholder, name, value, onChange, error }) => (
+  <div className="form-group">
+    <label className="form-control-label">{label}</label>
+    <input
+      type={type}
+      className="form-control"
+      placeholder={placeholder}
+      name={name}
+      value={value}
+      onChange={onChange}
+    />
+    <span style={{ fontSize: 12, color: "#DC3545", fontWeight: "500" }}>{error ? error[0] : ""}</span>
+  </div>
+);
+FormField.propTypes = {
+  label: PropTypes.string.isRequired,
+  type: PropTypes.string.isRequired,
+  placeholder: PropTypes.string.isRequired,
+  name: PropTypes.string.isRequired,
+  value: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
+  onChange: PropTypes.func.isRequired,
+  error: PropTypes.oneOfType([PropTypes.string, PropTypes.array]),
+};
+
+
 
   return (
     <>
@@ -224,23 +292,51 @@ const Register = () => {
                   </div>
                 </div>
                 <h1>Sign up</h1>
-                <form action="/reactjs/login">
-                  <div className="form-group">
-                    <label className="form-control-label">Full Name</label>
-                    <input
-                      type="text"
-                      className="form-control"
-                      placeholder="Enter your Full Name"
-                    />
-                  </div>
+                <form onSubmit={handleSubmit}>
                   <div className="form-group">
                     <label className="form-control-label">Email</label>
                     <input
                       type="email"
                       className="form-control"
                       placeholder="Enter your email address"
+                      name="email"
+                      onChange={handleChange}
+                    />
+                    <span style={{ fontSize: 12, color: "#DC3545", fontWeight: "500" }}>{errors ? errors.email[0] : ""}</span>
+                    {/* {errors} */}
+                  </div>
+                  <div className="form-group">
+                    <label className="form-control-label">First Name</label>
+                    <input
+                      type="text"
+                      className="form-control"
+                      placeholder="Enter your first name"
+                      name="first_name"
+                      onChange={handleChange}
                     />
                   </div>
+                  <div className="form-group">
+                    <label className="form-control-label">Last Name</label>
+                    <input
+                      type="text"
+                      className="form-control"
+                      placeholder="Enter your last name"
+                      name="last_name"
+                      onChange={handleChange}
+                    />
+                  </div>
+                  <div className="form-group">
+                    <label className="form-control-label">Pseudo</label>
+                    <input
+                      type="text"
+                      className="form-control"
+                      placeholder="Enter your pseudo"
+                      name="pseudo"
+                      onChange={handleChange}
+                    />
+                      <span style={{ fontSize: 12, color: "#DC3545", fontWeight: "500" }}>{errors? errors.pseudo[0] : ""}</span>
+                  </div>
+
                   <div className="form-group">
                     <label className="form-control-label">Password</label>
                     <div className="pass-group" id="passwordInput">
@@ -249,6 +345,7 @@ const Register = () => {
                         placeholder="Enter your password"
                         type={eye ? "password" : "text"}
                         onChange={handlePasswordChange}
+                        name="password"
                       />
                       {/* <span onClick={onEyeClick} className={`fa toggle-password feather-eye" ${eye ? "fa-eye" : "fa-eye-slash" }`}/> */}
                       <span
@@ -299,14 +396,13 @@ const Register = () => {
                     </label>
                   </div>
                   <div className="d-grid">
-                    <Link
-                      to="/login"
-                      className="btn btn-primary btn-start"
+                    <button
+                      disabled={isDisabled()}
                       type="submit"
-                      // onClick={() => navigate("/reactjs/login")}
+                      className="btn btn-primary btn-start"
                     >
                       Create Account
-                    </Link>
+                    </button>
                   </div>
                 </form>
               </div>

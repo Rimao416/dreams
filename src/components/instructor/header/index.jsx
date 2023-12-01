@@ -17,10 +17,14 @@ import {
   User3,
   Wish,
 } from "../../imagepath";
+import { useStateContext } from "../../../context/ContextProvider";
+
 
 // eslint-disable-next-line react/prop-types
 export function InstructorHeader({ activeMenu }) {
   const [navbar, setNavbar] = useState(false);
+  const {user}=useStateContext()
+  console.log(user)
 
   const [showCart, setShowCart] = useState(false);
   const [showWish, setShowWish] = useState(false);
@@ -191,15 +195,7 @@ export function InstructorHeader({ activeMenu }) {
                     <li>
                       <Link to="/">Home</Link>
                     </li>
-                    <li>
-                      <Link to="/home2">Home Two</Link>
-                    </li>
-                    <li>
-                      <Link to="/home3">Home Three</Link>
-                    </li>
-                    <li>
-                      <Link to="/home4">Home Four</Link>
-                    </li>
+               
                   </ul>
                 </li>
                 <li className="has-submenu active">
@@ -684,125 +680,7 @@ export function InstructorHeader({ activeMenu }) {
                   <img src={Messages} alt="img" />
                 </Link>
               </li>
-              <li className="nav-item cart-nav">
-                <Link
-                  to="#"
-                  className={
-                    showCart ? "dropdown-toggle show" : "dropdown-toggle"
-                  }
-                  data-bs-toggle="dropdown"
-                >
-                  <img onClick={cartClick} src={Cart} alt="img" />
-                </Link>
-                {/* Cart Content shows on Click */}
-
-                <div
-                  ref={cart}
-                  className={
-                    showCart
-                      ? "wishes-list dropdown-menu dropdown-menu-right show modalPosition"
-                      : "wishes-list dropdown-menu dropdown-menu-right"
-                  }
-                  // data-bs-popper={cart && "none"}
-                >
-                  <div className="wish-header">
-                    <Link to="#">View Cart</Link>
-                    <Link to="#" className="float-end">
-                      Checkout
-                    </Link>
-                  </div>
-                  <div className="wish-content">
-                    <ul>
-                      <li>
-                        <div className="media">
-                          <div className="d-flex media-wide">
-                            <div className="avatar">
-                              <Link to="/course-details">
-                                <img alt="" src={Course4} />
-                              </Link>
-                            </div>
-                            <div className="media-body">
-                              <h6>
-                                <Link to="/course-details">
-                                  Learn Angular...
-                                </Link>
-                              </h6>
-                              <p>By Dave Franco</p>
-                              <h5>
-                                $200 <span>$99.00</span>
-                              </h5>
-                            </div>
-                          </div>
-                          <div className="remove-btn">
-                            <Link to="#" className="btn">
-                              Remove
-                            </Link>
-                          </div>
-                        </div>
-                      </li>
-                      <li>
-                        <div className="media">
-                          <div className="d-flex media-wide">
-                            <div className="avatar">
-                              <Link to="/course-details">
-                                <img alt="" src={Course14} />
-                              </Link>
-                            </div>
-                            <div className="media-body">
-                              <h6>
-                                <Link to="/course-details">
-                                  Build Responsive Real...
-                                </Link>
-                              </h6>
-                              <p>Jenis R.</p>
-                              <h5>
-                                $200 <span>$99.00</span>
-                              </h5>
-                            </div>
-                          </div>
-                          <div className="remove-btn">
-                            <Link to="#" className="btn">
-                              Remove
-                            </Link>
-                          </div>
-                        </div>
-                      </li>
-                      <li>
-                        <div className="media">
-                          <div className="d-flex media-wide">
-                            <div className="avatar">
-                              <Link to="/course-details">
-                                <img alt="" src={Course15} />
-                              </Link>
-                            </div>
-                            <div className="media-body">
-                              <h6>
-                                <Link to="/course-details">
-                                  C# Developers Double ...
-                                </Link>
-                              </h6>
-                              <p>Jesse Stevens</p>
-                              <h5>
-                                $200 <span>$99.00</span>
-                              </h5>
-                            </div>
-                          </div>
-                          <div className="remove-btn">
-                            <Link to="#" className="btn">
-                              Remove
-                            </Link>
-                          </div>
-                        </div>
-                      </li>
-                    </ul>
-                    <div className="total-item">
-                      <h6>Subtotal : $ 600</h6>
-                      <h5>Total : $ 600</h5>
-                    </div>
-                  </div>
-                </div>
-                {/* Wish Content shows on Click */}
-              </li>
+  
               <li className="nav-item wish-nav">
                 <Link
                   to="#"
@@ -1042,7 +920,8 @@ export function InstructorHeader({ activeMenu }) {
                   onClick={profileClick}
                 >
                   <span className="user-img">
-                    <img src={ProfileAvatar} alt="" />
+                    {/* MON FROFILE */}
+                    <img src={user?.photo} alt="" />
                     <span className="status online"></span>
                   </span>
                 </Link>
@@ -1058,14 +937,14 @@ export function InstructorHeader({ activeMenu }) {
                   <div className="user-header">
                     <div className="avatar avatar-sm">
                       <img
-                        src={User15}
+                        src={user?.photo} 
                         alt="User Image"
                         className="avatar-img rounded-circle"
                       />
                     </div>
                     <div className="user-text">
-                      <h6>Jenny Wilson</h6>
-                      <p className="text-muted text mb-0">Instructor</p>
+                      <h6>{user?.first_name + " "+user?.last_name}</h6>
+                      <p className="text-muted text mb-0">{user?.role}</p>
                     </div>
                   </div>
                   <Link
@@ -1082,18 +961,7 @@ export function InstructorHeader({ activeMenu }) {
                     <Star size={14} color={"#FF875A"} className="headerIcon" />{" "}
                     Edit Profile
                   </Link>
-                  <div className="dropdown-item text night-mode">
-                    <span>
-                      <Moon size={14} className="headerIcon" /> Night Mode{" "}
-                    </span>
-                    <div className="form-check form-switch check-on m-0">
-                      <input
-                        className="form-check-input focusShadow"
-                        type="checkbox"
-                        id="night-mode"
-                      />
-                    </div>
-                  </div>
+             
                   <Link className="dropdown-item text" to="/">
                     <LogOut
                       size={14}

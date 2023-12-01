@@ -143,9 +143,10 @@ const Approuter = () => {
         <Route path="/checkout" element={<Checkout />} />
         <Route element={<GuestLayout />}>
           <Route path="/login" element={<Login />} />
+          <Route path="/register" element={<Register />} />
         </Route>
         <Route path="/new-password" element={<NewPassword />} />
-        <Route path="/register" element={<Register />} />
+       
         <Route path="/register1" element={<RegisterOne />} />
         <Route path="/register2" element={<RegisterTwo />} />
         <Route path="/register3" element={<RegisterThree />} />

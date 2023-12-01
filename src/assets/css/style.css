@@ -26377,3 +26377,10 @@ svg.feather.feather-log-out.me-1 {
     background-color: #FF875A !important;
     border: 1px solid #FF875A !important;
 } */
+
+.alert{
+    transition: all 0.5s ease;
+    background-color: #ff4040;
+    color: white;
+    border-radius: 0.5rem;
+}

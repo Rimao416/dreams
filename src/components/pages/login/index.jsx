@@ -6,36 +6,41 @@ import { LoginImg, logo, NetIcon1, NetIcon2 } from "../../imagepath";
 import FeatherIcon from "feather-icons-react";
 import { Link } from "react-router-dom";
 import { useState } from "react";
-import {useDispatch} from "react-redux"
+import { useDispatch } from "react-redux";
 import { login } from "../../../redux/slice/authSlice";
 import { API } from "../../../config";
 import { useStateContext } from "../../../context/ContextProvider";
+import Message from "../../Message";
 
 const Login = () => {
-  const dispatch=useDispatch()
+  const dispatch = useDispatch();
   const [credentials, setCredentials] = useState({
     email: "",
     password: "",
   });
-  const { setUser, setToken } = useStateContext()
+  const [errors, setErrors] = useState(null);
+  const { setUser, setToken } = useStateContext();
+  const isDisabled = () => {
+    return !credentials.email || !credentials.password;
+  };
 
   const [passwordType, setPasswordType] = useState("password");
-  const handleSubmit=(event)=>{
+  const handleSubmit = (event) => {
     event.preventDefault();
-    dispatch(login(credentials))
-    // API.post('/login', credentials)
-    // .then(({data}) => {
-    //   setUser(data.user)
-    //   setToken(data.token);
-    // })
-    .catch((err) => {
-      const response = err.response;
-      if (response && response.status === 422) {
-        // setMessage(response.data.message)
-      }
-    })
-
-  }
+    API.post("/login", credentials)
+      .then(({ data }) => {
+        console.log(data);
+        // setUser(data.user)
+        setToken(data.access_token);
+      })
+      .catch((err) => {
+        const response = err.response;
+        if (response && response.status === 422) {
+          console.log(response.data.message);
+          setErrors(response.data.message);
+        }
+      });
+  };
 
   const handleChange = (event) => {
     setCredentials({ ...credentials, [event.target.name]: event.target.value });
@@ -147,6 +152,7 @@ const Login = () => {
                     </div>
                   </div>
                   <h1>Sign into Your Account</h1>
+                  {errors && <Message message={errors} />}
                   <form onSubmit={handleSubmit}>
                     <div className="form-group">
                       <label className="form-control-label">Email</label>
@@ -158,7 +164,9 @@ const Login = () => {
                         name="email"
                         value={credentials.email}
                       />
+
                     </div>
+
                     <div className="form-group">
                       <label className="form-control-label">Password</label>
                       <div className="pass-group">
@@ -199,7 +207,7 @@ const Login = () => {
                     </div>
                     <div className="d-grid">
                       <button
-                        
+                        disabled={isDisabled()}
                         className="btn btn-start"
                         type="submit"
                       >
