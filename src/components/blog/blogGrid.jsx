@@ -1,6 +1,7 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
 import Footer from "../footer";
+import {useSelector,useDispatch} from "react-redux"
 // import Header from "../header";
 import {
   Blog1,
@@ -16,8 +17,16 @@ import {
   Icon23,
 } from "../imagepath";
 import BlogHeader from "./header";
+import { getBlogs } from "../../redux/slice/blogSlice";
 
 const BlogGrid = () => {
+  const dispatch=useDispatch()
+
+  useEffect(()=>{
+      dispatch(getBlogs());
+  },[dispatch])
+  const { blogs, loading } = useSelector((state) => state.blogReducer);
+
   return (
     <>
       <div className="main-wrapper">
@@ -108,291 +117,8 @@ const BlogGrid = () => {
                     </div>
                     {/* /Blog Post */}
                   </div>
-                  <div className="col-md-6 col-sm-12">
-                    {/* Blog Post */}
-                    <div className="blog grid-blog">
-                      <div className="blog-image">
-                        <Link to="/blog-details">
-                          <img
-                            className="img-fluid"
-                            src={Blog9}
-                            alt="Post Image"
-                          />
-                        </Link>
-                      </div>
-                      <div className="blog-grid-box">
-                        <div className="blog-info clearfix">
-                          <div className="post-left">
-                            <ul>
-                              <li>
-                                <img
-                                  className="img-fluid"
-                                  src={Icon22}
-                                  alt=""
-                                />
-                                May 24, 2022
-                              </li>
-                              <li>
-                                <img
-                                  className="img-fluid"
-                                  src={Icon23}
-                                  alt=""
-                                />
-                                Programming, Courses
-                              </li>
-                            </ul>
-                          </div>
-                        </div>
-                        <h3 className="blog-title">
-                          <Link to="/blog-details">
-                            Expand Your Career Opportunities With Python
-                          </Link>
-                        </h3>
-                        <div className="blog-content blog-read">
-                          <p>
-                            Lorem ipsum dolor sit amet, consectetuer adipiscing
-                            elit. Phasellus hendrerit. Sed egestas, ante et
-                            vulputate volutpat, eros pede […]
-                          </p>
-                          <Link
-                            to="/blog-details"
-                            className="read-more btn btn-primary"
-                          >
-                            Read More
-                          </Link>
-                        </div>
-                      </div>
-                    </div>
-                    {/* /Blog Post */}
-                  </div>
-                  <div className="col-md-6 col-sm-12">
-                    {/* Blog Post */}
-                    <div className="blog grid-blog">
-                      <div className="blog-image">
-                        <Link to="/blog-details">
-                          <img
-                            className="img-fluid"
-                            src={Blog10}
-                            alt="Post Image"
-                          />
-                        </Link>
-                      </div>
-                      <div className="blog-grid-box">
-                        <div className="blog-info clearfix">
-                          <div className="post-left">
-                            <ul>
-                              <li>
-                                <img
-                                  className="img-fluid"
-                                  src={Icon22}
-                                  alt=""
-                                />
-                                Jun 14, 2022
-                              </li>
-                              <li>
-                                <img
-                                  className="img-fluid"
-                                  src={Icon23}
-                                  alt=""
-                                />
-                                Programming, Web Design
-                              </li>
-                            </ul>
-                          </div>
-                        </div>
-                        <h3 className="blog-title">
-                          <Link to="/blog-details">
-                            Complete PHP Programming Career Guideline
-                          </Link>
-                        </h3>
-                        <div className="blog-content blog-read">
-                          <p>
-                            Lorem ipsum dolor sit amet, consectetuer adipiscing
-                            elit. Phasellus hendrerit. Sed egestas, ante et
-                            vulputate volutpat, eros pede […]
-                          </p>
-                          <Link
-                            to="/blog-details"
-                            className="read-more btn btn-primary"
-                          >
-                            Read More
-                          </Link>
-                        </div>
-                      </div>
-                    </div>
-                    {/* /Blog Post */}
-                  </div>
-                  <div className="col-md-6 col-sm-12">
-                    {/* Blog Post */}
-                    <div className="blog grid-blog">
-                      <div className="blog-image">
-                        <Link to="/blog-details">
-                          <img
-                            className="img-fluid"
-                            src={Blog11}
-                            alt="Post Image"
-                          />
-                        </Link>
-                      </div>
-                      <div className="blog-grid-box">
-                        <div className="blog-info clearfix">
-                          <div className="post-left">
-                            <ul>
-                              <li>
-                                <img
-                                  className="img-fluid"
-                                  src={Icon22}
-                                  alt=""
-                                />
-                                Sep 18, 2022
-                              </li>
-                              <li>
-                                <img
-                                  className="img-fluid"
-                                  src={Icon23}
-                                  alt=""
-                                />
-                                Programming, Courses
-                              </li>
-                            </ul>
-                          </div>
-                        </div>
-                        <h3 className="blog-title">
-                          <Link to="/blog-details">
-                            Programming Content Guideline For Beginners
-                          </Link>
-                        </h3>
-                        <div className="blog-content blog-read">
-                          <p>
-                            Lorem ipsum dolor sit amet, consectetuer adipiscing
-                            elit. Phasellus hendrerit. Sed egestas, ante et
-                            vulputate volutpat, eros pede […]
-                          </p>
-                          <Link
-                            to="/blog-details"
-                            className="read-more btn btn-primary"
-                          >
-                            Read More
-                          </Link>
-                        </div>
-                      </div>
-                    </div>
-                    {/* /Blog Post */}
-                  </div>
-                  <div className="col-md-6 col-sm-12">
-                    {/* Blog Post */}
-                    <div className="blog grid-blog">
-                      <div className="blog-image">
-                        <Link to="/blog-details">
-                          <img
-                            className="img-fluid"
-                            src={Blog12}
-                            alt="Post Image"
-                          />
-                        </Link>
-                      </div>
-                      <div className="blog-grid-box">
-                        <div className="blog-info clearfix">
-                          <div className="post-left">
-                            <ul>
-                              <li>
-                                <img
-                                  className="img-fluid"
-                                  src={Icon22}
-                                  alt=""
-                                />
-                                Jun 26, 2022
-                              </li>
-                              <li>
-                                <img
-                                  className="img-fluid"
-                                  src={Icon23}
-                                  alt=""
-                                />
-                                Programming, Web Design
-                              </li>
-                            </ul>
-                          </div>
-                        </div>
-                        <h3 className="blog-title">
-                          <Link to="/blog-details">
-                            The Complete JavaScript Course for Beginners
-                          </Link>
-                        </h3>
-                        <div className="blog-content blog-read">
-                          <p>
-                            Lorem ipsum dolor sit amet, consectetuer adipiscing
-                            elit. Phasellus hendrerit. Sed egestas, ante et
-                            vulputate volutpat, eros pede […]
-                          </p>
-                          <Link
-                            to="/blog-details"
-                            className="read-more btn btn-primary"
-                          >
-                            Read More
-                          </Link>
-                        </div>
-                      </div>
-                    </div>
-                    {/* /Blog Post */}
-                  </div>
-                  <div className="col-md-6 col-sm-12">
-                    {/* Blog Post */}
-                    <div className="blog grid-blog">
-                      <div className="blog-image">
-                        <Link to="/blog-details">
-                          <img
-                            className="img-fluid"
-                            src={Blog13}
-                            alt="Post Image"
-                          />
-                        </Link>
-                      </div>
-                      <div className="blog-grid-box">
-                        <div className="blog-info clearfix">
-                          <div className="post-left">
-                            <ul>
-                              <li>
-                                <img
-                                  className="img-fluid"
-                                  src={Icon22}
-                                  alt=""
-                                />
-                                Feb 14, 2022
-                              </li>
-                              <li>
-                                <img
-                                  className="img-fluid"
-                                  src={Icon23}
-                                  alt=""
-                                />
-                                Programming, Courses
-                              </li>
-                            </ul>
-                          </div>
-                        </div>
-                        <h3 className="blog-title">
-                          <Link to="/blog-details">
-                            Learn Mobile Applications Development from Experts
-                          </Link>
-                        </h3>
-                        <div className="blog-content blog-read">
-                          <p>
-                            Lorem ipsum dolor sit amet, consectetuer adipiscing
-                            elit. Phasellus hendrerit. Sed egestas, ante et
-                            vulputate volutpat, eros pede […]
-                          </p>
-                          <Link
-                            to="/blog-details"
-                            className="read-more btn btn-primary"
-                          >
-                            Read More
-                          </Link>
-                        </div>
-                      </div>
-                    </div>
-                    {/* /Blog Post */}
-                  </div>
+             
+           
                 </div>
                 {/* Blog pagination */}
                 <div className="row">

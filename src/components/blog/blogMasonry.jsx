@@ -12,8 +12,16 @@ import {
   Icon23,
 } from "../imagepath";
 import BlogHeader from "./header";
+import {useDispatch, useSelector} from "react-redux"
+import { useEffect } from "react";
+import { getBlogs } from "../../redux/slice/blogSlice";
 
 const BlogMasonry = () => {
+  const dispatch=useDispatch();
+  useEffect(()=>{
+    dispatch(getBlogs())
+  },[])
+  const { blogs, loading } = useSelector((state) => state.blogReducer);
   return (
     <>
       <div className="main-wrapper">
@@ -47,47 +55,7 @@ const BlogMasonry = () => {
             <div className="row masonry-blog-blk">
               <div className="col-lg-4 col-md-6">
                 {/* Blog Post */}
-                <div className="blog grid-blog">
-                  <div className="blog-image">
-                    <Link to="/blog-details">
-                      <img className="img-fluid" src={Blog8} alt="Post Image" />
-                    </Link>
-                  </div>
-                  <div className="blog-grid-box masonry-box">
-                    <div className="blog-info clearfix">
-                      <div className="post-left">
-                        <ul>
-                          <li>
-                            <img className="img-fluid" src={Icon22} alt="" />
-                            Jun 14, 2022
-                          </li>
-                          <li>
-                            <img className="img-fluid" src={Icon23} alt="" />
-                            Programming, Web Design
-                          </li>
-                        </ul>
-                      </div>
-                    </div>
-                    <h3 className="blog-title">
-                      <Link to="/blog-details">
-                        Learn Webs Applications Development from Experts
-                      </Link>
-                    </h3>
-                    <div className="blog-content blog-read">
-                      <p>
-                        Lorem ipsum dolor sit amet, consectetuer adipiscing
-                        elit. Phasellus hendrerit. Sed egestas, ante et
-                        vulputate volutpat, eros pede […]
-                      </p>
-                      <Link
-                        to="/blog-details"
-                        className="read-more btn btn-primary"
-                      >
-                        Read More
-                      </Link>
-                    </div>
-                  </div>
-                </div>
+               
                 {/* /Blog Post */}
                 {/* Blog Post */}
                 <div className="blog grid-blog">

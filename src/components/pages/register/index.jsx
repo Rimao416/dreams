@@ -5,7 +5,8 @@ import { LoginImg, logo, NetIcon1, NetIcon2 } from "../../imagepath";
 import { useState } from "react";
 import { useStateContext } from "../../../context/ContextProvider";
 import { API } from "../../../config";
-import PropTypes from "prop-types"
+import PropTypes from "prop-types";
+import Message from "../../Message";
 
 const hasNumber = (value) => {
   return new RegExp(/[0-9]/).test(value);
@@ -193,32 +194,41 @@ const Register = () => {
       }
     }
   }, [credentials.password]);
-  
-const FormField = ({ label, type, placeholder, name, value, onChange, error }) => (
-  <div className="form-group">
-    <label className="form-control-label">{label}</label>
-    <input
-      type={type}
-      className="form-control"
-      placeholder={placeholder}
-      name={name}
-      value={value}
-      onChange={onChange}
-    />
-    <span style={{ fontSize: 12, color: "#DC3545", fontWeight: "500" }}>{error ? error[0] : ""}</span>
-  </div>
-);
-FormField.propTypes = {
-  label: PropTypes.string.isRequired,
-  type: PropTypes.string.isRequired,
-  placeholder: PropTypes.string.isRequired,
-  name: PropTypes.string.isRequired,
-  value: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
-  onChange: PropTypes.func.isRequired,
-  error: PropTypes.oneOfType([PropTypes.string, PropTypes.array]),
-};
 
-
+  const FormField = ({
+    label,
+    type,
+    placeholder,
+    name,
+    value,
+    onChange,
+    error,
+  }) => (
+    <div className="form-group">
+      <label className="form-control-label">{label}</label>
+      <input
+        type={type}
+        className="form-control"
+        placeholder={placeholder}
+        name={name}
+        value={value}
+        onChange={onChange}
+      />
+      <Message message={error ? error[0] : ""} className="alert-message" />
+      {/* <span style={{ fontSize: 12, color: "#DC3545", fontWeight: "500" }}>
+        {error ? error[0] : ""}
+      </span> */}
+    </div>
+  );
+  FormField.propTypes = {
+    label: PropTypes.string.isRequired,
+    type: PropTypes.string.isRequired,
+    placeholder: PropTypes.string.isRequired,
+    name: PropTypes.string.isRequired,
+    value: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
+    onChange: PropTypes.func.isRequired,
+    error: PropTypes.oneOfType([PropTypes.string, PropTypes.array]),
+  };
 
   return (
     <>
@@ -293,18 +303,15 @@ FormField.propTypes = {
                 </div>
                 <h1>Sign up</h1>
                 <form onSubmit={handleSubmit}>
-                  <div className="form-group">
-                    <label className="form-control-label">Email</label>
-                    <input
-                      type="email"
-                      className="form-control"
-                      placeholder="Enter your email address"
-                      name="email"
-                      onChange={handleChange}
-                    />
-                    <span style={{ fontSize: 12, color: "#DC3545", fontWeight: "500" }}>{errors ? errors.email[0] : ""}</span>
-                    {/* {errors} */}
-                  </div>
+                  <FormField
+                    label="Email"
+                    type="email"
+                    placeholder="Enter your email"
+                    name="email"
+                    value={credentials.email}
+                    onChange={handleChange}
+                    error={errors?.email}
+                  />
                   <div className="form-group">
                     <label className="form-control-label">First Name</label>
                     <input
@@ -325,17 +332,16 @@ FormField.propTypes = {
                       onChange={handleChange}
                     />
                   </div>
-                  <div className="form-group">
-                    <label className="form-control-label">Pseudo</label>
-                    <input
-                      type="text"
-                      className="form-control"
-                      placeholder="Enter your pseudo"
-                      name="pseudo"
-                      onChange={handleChange}
-                    />
-                      <span style={{ fontSize: 12, color: "#DC3545", fontWeight: "500" }}>{errors? errors.pseudo[0] : ""}</span>
-                  </div>
+                  {/* FORMFILED FOR PSEUDO */}
+                  <FormField
+                    label="Pseudo"
+                    type="text"
+                    placeholder="Enter your pseudo"
+                    name="pseudo"
+                    value={credentials.pseudo}
+                    onChange={handleChange}
+                    error={errors?.pseudo}
+                  />
 
                   <div className="form-group">
                     <label className="form-control-label">Password</label>

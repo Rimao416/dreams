@@ -26384,3 +26384,8 @@ svg.feather.feather-log-out.me-1 {
     color: white;
     border-radius: 0.5rem;
 }
+.alert-message{
+    color:#DC3545 !important;
+    font-weight: 500;
+    font-size: 12px;
+}
