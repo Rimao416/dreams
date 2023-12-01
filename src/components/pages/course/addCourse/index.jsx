@@ -11,6 +11,18 @@ import Success from "./success";
 // import { useStateContext } from "../../../../context/ContextProvider";
 
 const AddCourse = () => {
+  const [cours, setCours] = useState({
+    title: "",
+    description: "",
+    user_id: "1",
+    tool_id: "1",
+    price: 0,
+    old_price: 0,
+    categorie_id: "",
+    image: "",
+    video: null,
+    lessons: [],
+  });
   // const {user}=useStateContext()
   // console.log(user)
   const [TabChange, setTabChange] = useState(false);
@@ -57,7 +69,6 @@ const AddCourse = () => {
     setPageChange("success");
   };
 
-
   return (
     <>
       <div className="main-wrapper">
@@ -94,36 +105,99 @@ const AddCourse = () => {
                 <div className="card">
                   <div className="widget-set">
                     <div className="widget-setcount">
-               
+                      <ul id="progressbar">
+                        <li
+                          className={
+                            TabChange ? "progress-activated" : "progress-active"
+                          }
+                        >
+                          <p>
+                            <span></span> Basic Information
+                          </p>
+                        </li>
+                        <li
+                          className={
+                            TabChange1
+                              ? "progress-activated"
+                              : "" || TabChange
+                              ? "progress-active"
+                              : ""
+                          }
+                        >
+                          <p>
+                            <span></span> Courses Media
+                          </p>
+                        </li>
+                        <li
+                          className={
+                            TabChange2
+                              ? "progress-activated"
+                              : "" || TabChange1
+                              ? "progress-active"
+                              : ""
+                          }
+                        >
+                          <p>
+                            <span></span> Curriculum
+                          </p>
+                        </li>
+                        <li
+                          className={
+                            TabChange3
+                              ? "progress-activated"
+                              : "" || TabChange2
+                              ? "progress-active"
+                              : ""
+                          }
+                        >
+                          <p>
+                            <span /> Settings
+                          </p>
+                        </li>
+                      </ul>
                     </div>
 
                     <div className="widget-content multistep-form">
                       {PageChange === "basic" ? (
-                        <Basic nextTab={nextTab} />
+                        <Basic
+                          nextTab={nextTab}
+                          cours={cours}
+                          setCours={setCours}
+                        />
                       ) : (
                         ""
                       )}
                       {PageChange === "courseMedia" ? (
-                        <CourseMedia nextTab2={nextTab2} prevTab1={prevTab1} />
+                        <CourseMedia
+                          nextTab2={nextTab2}
+                          prevTab1={prevTab1}
+                          cours={cours}
+                          setCours={setCours}
+                        />
                       ) : (
                         ""
                       )}
                       {PageChange === "curriculum" ? (
-                        <Curriculum nextTab3={nextTab3} prevTab2={prevTab2} />
+                        <Curriculum
+                          nextTab3={nextTab3}
+                          prevTab2={prevTab2}
+                          cours={cours}
+                          setCours={setCours}
+                        />
                       ) : (
                         ""
                       )}
                       {PageChange === "settings" ? (
-                        <Settings nextTab4={nextTab4} prevTab3={prevTab3}/>
+                        <Settings
+                          nextTab4={nextTab4}
+                          prevTab3={prevTab3}
+                          cours={cours}
+                          setCours={setCours}
+                        />
                       ) : (
                         ""
                       )}
-                      {PageChange === "success" ? (
-                        <Success />
-                      ) : (
-                        ""
-                      )}
-
+                      {PageChange === "success" ? <Success /> : ""}
                     </div>
                   </div>
                 </div>

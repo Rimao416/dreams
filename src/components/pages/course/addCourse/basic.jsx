@@ -1,6 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import TextEditor from "./editor";
+import PropTypes from 'prop-types';
 import Select from "react-select";
 import { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
@@ -9,19 +10,11 @@ import { getCourseCategories } from "../../../../redux/slice/categorySlice";
 import { useStateContext } from "../../../../context/ContextProvider";
 import { addCours } from "../../../../redux/slice/coursSlice";
 // eslint-disable-next-line react/prop-types
-const Basic = ({ nextTab }) => {
-  const [cours, setCours] = useState({
-    title: "",
-    description: "",
-    user_id: "1",
-    tool_id: "1",
-    price: 0,
-    old_price: 0,
-    categorie_id: "",
-  });
-  const {user}=useStateContext()
-  const [input, setInput] = useState(null);
+const Basic = ({ nextTab,cours,setCours }) => {
  
+  const { user } = useStateContext();
+  const [input, setInput] = useState(null);
+
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(getCourseCategories());
@@ -29,7 +22,6 @@ const Basic = ({ nextTab }) => {
     //   ...cours,
     //   user_id: user?.id,
     // });
-    
   }, [dispatch, user?.id]);
 
   const { categoriesCourse, loading } = useSelector(
@@ -40,9 +32,7 @@ const Basic = ({ nextTab }) => {
     label: category.name, // Assurez-vous de remplacer 'label' par la clé réelle de vos données
     value: category.id, // Assurez-vous de remplacer 'value' par la clé réelle de vos données
   }));
-  
 
- 
   const handleChange = (e) => {
     setCours({ ...cours, [e.target.name]: e.target.value });
   };
@@ -61,8 +51,8 @@ const Basic = ({ nextTab }) => {
     });
 
     // Envoyer la nouvelle valeur de la description au serveur
-    dispatch(addCours(cours)).then((result)=>{
-      console.log(result)
+    dispatch(addCours(cours)).then((result) => {
+      console.log(result);
     });
 
     // console.log(cours)
@@ -95,6 +85,7 @@ const Basic = ({ nextTab }) => {
                   placeholder="Course Title"
                   name="title"
                   onChange={handleChange}
+                  value={cours?.title}
                 />
               </div>
               <div className="form-group">
@@ -132,7 +123,9 @@ const Basic = ({ nextTab }) => {
                 />
               </div>
               <div className="form-group">
-                <label className="add-course-label">Ancien prix promotionnel</label>
+                <label className="add-course-label">
+                  Ancien prix promotionnel
+                </label>
                 <input
                   type="number"
                   className="form-control"
@@ -141,18 +134,35 @@ const Basic = ({ nextTab }) => {
                   onChange={handleChange}
                 />
               </div>
-
-              <div className="widget-btn">
-                <button className="btn btn-info-light next_btn">
-                  Enregistrer
-                </button>
-              </div>
             </form>
+          </div>
+          <div className="widget-btn">
+            <Link to="#" className="btn btn-black">
+              Back
+            </Link>
+            <Link
+              to="#"
+              className="btn btn-info-light next_btn"
+              onClick={nextTab}
+            >
+              Continue
+            </Link>
           </div>
         </div>
       </fieldset>
     </>
   );
 };
+
+Basic.propTypes ={
+  cours:PropTypes.shape({
+    title: PropTypes.string,
+    description: PropTypes.string,
+    price: PropTypes.number,
+    old_price: PropTypes.number,
+  }),
+  setCours:PropTypes.func,
+  nextTab:PropTypes.func
+}
 
 export default Basic;

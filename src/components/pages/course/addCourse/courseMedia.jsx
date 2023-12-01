@@ -1,9 +1,22 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
+import PropTypes from 'prop-types';
 
 // eslint-disable-next-line react/prop-types
-const CourseMedia = ({prevTab1,nextTab2}) => {
+const CourseMedia = ({prevTab1,nextTab2,cours,setCours}) => {
+
+  const [image, setImage] = useState(null);
+  const handleFileChange = (e) => {
+    const {files}=e.target 
+    console.log(files)
+    files[0] && setCours({ ...cours, image: files[0] });
+    if (files) {
+      setImage(URL.createObjectURL(files[0]));
+    }
+    // setCours({ ...cours, [e.target.name]: e.target.files[0] });
+  }
   return (
+
     <>
       <fieldset className="field-card" style={{display:"block"}}>
         <div className="add-course-info">
@@ -17,14 +30,16 @@ const CourseMedia = ({prevTab1,nextTab2}) => {
                 <div className="relative-form">
                   <span>No File Selected</span>
                   <label className="relative-file-upload">
-                    Upload File <input type="file" />
+                    Upload File <input type="file" onChange={handleFileChange}/>
                   </label>
                 </div>
               </div>
+
               <div className="form-group">
                 <div className="add-image-box">
                   <Link to="#">
-                    <i className="far fa-image" />
+                    {image ? <img src={image} alt="" style={{width:"300px",height:"300px"}}/> : <i className="far fa-image" />}
+                    
                   </Link>
                 </div>
               </div>
@@ -53,5 +68,16 @@ const CourseMedia = ({prevTab1,nextTab2}) => {
     </>
   );
 };
+CourseMedia.propTypes={
+  prevTab1:PropTypes.func,
+  nextTab2:PropTypes.func,
+  cours:PropTypes.shape({
+    title: PropTypes.string,
+    description: PropTypes.string,
+    price: PropTypes.number,
+    old_price: PropTypes.number,
+  }),
+  setCours:PropTypes.func
+}
 
 export default CourseMedia;
