@@ -19,9 +19,11 @@ import {
 import { Link } from "react-router-dom";
 import { InstructorProfileBg, User15 } from "../../imagepath";
 import StickyBox from "react-sticky-box";
+import { useStateContext } from "../../../context/ContextProvider";
 
 // eslint-disable-next-line react/prop-types
 export default function InstructorSidebar({ activeMenu }) {
+  const {user}=useStateContext()
   return (
     <div className="col-xl-3 col-lg-4 col-md-12 theiaStickySidebar">
       <StickyBox offsetTop={20} offsetBottom={20}>
@@ -33,16 +35,16 @@ export default function InstructorSidebar({ activeMenu }) {
               <img src={InstructorProfileBg} alt="" />
               <div className="profile-img">
                 <Link to="/instructor-profile">
-                  <img src={User15} alt="" />
+                  <img src={user?.photo} alt="" />
                 </Link>
               </div>
             </div>
             <div className="profile-group">
               <div className="profile-name text-center">
                 <h4>
-                  <Link to="/instructor-profile">Jenny Wilson</Link>
+                  <Link to="/instructor-profile">{user?.first_name +" "+user?.last_name}</Link>
                 </h4>
-                <p>Instructor</p>
+                <p>{user?.role}</p>
               </div>
               <div className="go-dashboard text-center">
                 <Link to="/add-course" className="btn btn-primary">

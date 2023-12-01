@@ -92,7 +92,7 @@ a {
     text-decoration: none ;
 }
 a:hover {
-	color: #F66962 ;
+	color: #58BBDE ;
 }
 a:hover,
 a:active,
@@ -272,7 +272,7 @@ button.bg-danger:hover {
 }
 .text-primary,
 .dropdown-menu > li > a.text-primary {
-	color: #F66962 !important;
+	color: #58BBDE !important;
 }
 .text-success,
 .dropdown-menu > li > a.text-success {
@@ -304,8 +304,8 @@ button.bg-danger:hover {
 	color: #000 ;
 }
 .btn-primary {
-	background-color: #FF875A ;
-	border: 1px solid #FF875A ;
+	background-color: #58BBDE ;
+	border: 1px solid #58BBDE ;
 }
 .bg-blue {
 	background: #392C7D !important;
@@ -336,8 +336,8 @@ button.bg-danger:hover {
 .btn-primary.active,
 .btn-primary:active,
 .open > .dropdown-toggle.btn-primary {
-	background-color: #fc7f50;
-	border: 1px solid #fc7f50;
+	background-color: #58BBDE;
+	border: 1px solid #58BBDE;
 }
 .btn-primary.active.focus,
 .btn-primary.active:focus,
@@ -348,14 +348,14 @@ button.bg-danger:hover {
 .open > .dropdown-toggle.btn-primary.focus,
 .open > .dropdown-toggle.btn-primary:focus,
 .open > .dropdown-toggle.btn-primary:hover {
-	background-color: #fc7f50;
-	border: 1px solid #fc7f50;
+	background-color: #58BBDE;
+	border: 1px solid #58BBDE;
 }
 .btn-primary.active:not(:disabled):not(.disabled),
 .btn-primary:active:not(:disabled):not(.disabled),
 .show > .btn-primary.dropdown-toggle {
-	background-color: #fc7f50;
-	border-color: #fc7f50;
+	background-color: #58BBDE;
+	border-color: #58BBDE;
 	color: #fff;
 }
 .btn-primary.active:focus:not(:disabled):not(.disabled), 
@@ -370,16 +370,16 @@ button.bg-danger:hover {
 }
 .btn-secondary {
     color: #fff;
-    background: #FF875A !important;
-	border: 1px solid #FF875A !important;
+    background: #58BBDE !important;
+	border: 1px solid #58BBDE !important;
 }
 .btn-secondary:hover,
 .btn-secondary:focus,
 .btn-secondary.active,
 .btn-secondary:active,
 .open > .dropdown-toggle.btn-secondary {
-	background-color: #fc7f50;
-	border: 1px solid #fc7f50;
+	background-color: #58BBDE;
+	border: 1px solid #58BBDE;
 }
 .btn-secondary.active:focus:not(:disabled):not(.disabled), 
 .btn-secondary:active:focus:not(:disabled):not(.disabled), 
@@ -866,7 +866,7 @@ button.bg-danger:hover {
 	padding: 0;
 }
 .main-nav > li.active > a {
-	color: #F66962;
+	color: #58BBDE;
 }
 .main-nav > li .submenu li a {
     display: block;
@@ -1123,7 +1123,7 @@ button.bg-danger:hover {
 }
 .header-navbar-rht .dropdown-menu .dropdown-item:hover, 
 .header-navbar-rht .dropdown-menu .dropdown-item:hover i {
-    color: #FF875A;
+    color: #58BBDE;
 }
 .user-header {
 	display: -webkit-box;
@@ -1165,7 +1165,7 @@ button.bg-danger:hover {
 	background-color: #fff;
 }
 .users .dropdown-item i {
-	color: #FF875A;
+	color: #58BBDE;
 }
 .dropdown-item.night-mode {
 	justify-content: space-between;
@@ -1382,7 +1382,7 @@ button.bg-danger:hover {
 	font-size: 14px;
 }
 .wish-content h6 a:hover {
-	color: #FF5364;
+	color: #000000;
 }
 .wish-content .media-body {
 	overflow: hidden;
@@ -1396,7 +1396,7 @@ button.bg-danger:hover {
 	margin-bottom: 2px;
 }
 .wish-content h5 {
-	color: #F66962;
+	color: #58BBDE;
 	font-size: 14px;
 	font-weight: 700;
 	margin-bottom: 0;
@@ -1412,14 +1412,14 @@ button.bg-danger:hover {
 }
 .remove-btn a {
 	background: #FFFFFF;
-	border: 1px solid #FF5364;
+	border: 1px solid #000000;
 	padding: 5px 10px;
 	border-radius: 0;
 	font-weight: 500;
 	font-size: 12px;
 }
 .remove-btn a:hover {
-	background: #FF5364;
+	background: #000000;
 	color: #FFF;
 }
 .total-item {
@@ -1495,7 +1495,7 @@ button.bg-danger:hover {
     width: 31px;
 }
 .bar-icon span {
-    background-color: #f66962;
+    background-color: #58BBDE;
     display: block;
     float: left;
     height: 3px;
@@ -1579,7 +1579,7 @@ html.menu-opened body {
 	margin-right: 5px;
 }
 .footer-widget.footer-menu ul li a:hover {
-	color: #F66962;
+	color: #58BBDE;
 }
 .footer-contact-info {
 	color: #26292c;
@@ -1620,7 +1620,7 @@ html.menu-opened body {
 	text-align: right;
 }
 .footer-bottom .copyright-text p a:hover {
-	color: #F66962;
+	color: #58BBDE;
 }
 .privacy-policy ul {
 	display: -webkit-inline-box;
@@ -1639,7 +1639,7 @@ html.menu-opened body {
 	color: #000;
 }
 .privacy-policy ul li a:hover {
-	color: #F66962;
+	color: #58BBDE;
 }
 .privacy-policy ul li:last-child {
 	border-right: 0;
@@ -1795,7 +1795,7 @@ html.menu-opened body {
 .banner-content .input-group .search-icon {
 	display: flex;
 	align-items: center;
-	color: #F66962;
+	color: #58BBDE;
 }
 .banner-content .input-group .form-control::placeholder {
 	color: #a2a2a2;
@@ -1879,10 +1879,10 @@ html.menu-opened body {
 	top: auto;
 }
 .banner-content .sub-btn {
-	background: #f66962;
+	background: #58BBDE;
     border-radius: 50px !important;
     font-weight: bold;
-    border: 1px solid #f66962;
+    border: 1px solid #58BBDE;
     margin: 0px;
     font-size: 18px;
     line-height: 18px;
@@ -1892,8 +1892,8 @@ html.menu-opened body {
 }
 .banner-content .sub-btn:hover, 
 .banner-content .sub-btn:focus {
-    background: #fc7f50;
-    border-color: #fc7f50;
+    background: #58BBDE;
+    border-color: #58BBDE;
 }
 .banner-content .form-control.catecory-mentor {
 	background: #FFDEDA;
@@ -1914,7 +1914,7 @@ html.menu-opened body {
 	letter-spacing: 0.9px;
 }
 .section-sub-head span {
-    color: #F66962;
+    color: #58BBDE;
     font-size: 18px;
     font-weight: 700;
     padding-bottom: 18px;
@@ -2122,7 +2122,7 @@ html.menu-opened body {
 }
 .owl-theme .owl-dots .owl-dot.active span, 
 .owl-theme .owl-dots .owl-dot:hover span {
-    background: #F66962 !important;
+    background: #58BBDE !important;
 	width: 50px;
     height: 15px;
 	transition: all 0.5s ease;
@@ -2197,7 +2197,7 @@ html.menu-opened body {
     -webkit-transition: all 0.5s ease;
 }
 .product:hover .course-name h4 a:hover, .product:hover .product-content h3 a:hover {
-	color: #F66962;
+	color: #58BBDE;
 }
 .product:hover .rating-img img,
 .product:hover .course-view img {
@@ -2237,7 +2237,7 @@ html.menu-opened body {
 	line-height: 1.3;
 }
 .product-content h3 a:hover {
-	color: #F66962;
+	color: #58BBDE;
 }
 .product-content .instructor-text {
 	max-width: 320px;
@@ -2280,7 +2280,7 @@ html.menu-opened body {
 	font-weight: 700;
 }
 .course-share i {
-	color: #FF5364;
+	color: #000000;
 	font-size: 20px;
 }
 .course-share a:hover i {
@@ -2402,7 +2402,7 @@ html.menu-opened body {
 }
 .price h3 {
 	font-size: 24px;
-	color: #F66962;
+	color: #58BBDE;
 	font-weight: 700;
 	margin-bottom: 0;
 }
@@ -2462,7 +2462,7 @@ html.menu-opened body {
 .student-count i {
 	display: flex;
 	align-items: center;
-	color: #FF5364;
+	color: #000000;
 	margin-right: 17px;
 }
 .student-count .yellow {
@@ -2480,7 +2480,7 @@ html.menu-opened body {
 .student-count .orange {
 	display: flex;
 	align-items: center;
-	color: #FF875A;
+	color: #58BBDE;
 	margin-right: 17px;
 }
 .student-count span {
@@ -2540,7 +2540,7 @@ html.menu-opened body {
 	margin-bottom: 20px;
 }
 .course-list li i {
-	color: #F66962;
+	color: #58BBDE;
 	margin-right: 15px;
 }
 .latest-blog {
@@ -2777,7 +2777,7 @@ html.menu-opened body {
 .testimonial-four .swiper-button-prev:hover, 
 .testimonial-four .swiper-button-next:hover {
     color: #fff;
-	background: #f66962;
+	background: #58BBDE;
     opacity: 1;
 }
 .testimonial-four .slick-prev:hover:before, 
@@ -2791,7 +2791,7 @@ html.menu-opened body {
 }
 .testimonial-four .slick-next:focus, 
 .testimonial-four .slick-prev:focus {
-    background: #f66962;
+    background: #58BBDE;
 }
 .testimonial-four .slick-prev:before {
     font-family: "Font Awesome 5 Free";
@@ -4591,7 +4591,7 @@ html.menu-opened body {
 }
 .header-navbar-rht .dropdown-menu .dropdown-item:hover, 
 .header-navbar-rht .dropdown-menu .dropdown-item:hover i {
-    color: #FF875A;
+    color: #58BBDE;
 }
 .user-header {
 	display: -webkit-box;
@@ -4635,7 +4635,7 @@ html.menu-opened body {
 	margin: 0;
 }
 .users .dropdown-item i {
-	color: #FF875A;
+	color: #58BBDE;
 }
 .dropdown-item.night-mode {
 	justify-content: space-between;
@@ -4839,7 +4839,7 @@ html.menu-opened body {
 	font-size: 14px;
 }
 .wish-content h6 a:hover {
-	color: #FF5364;
+	color: #000000;
 }
 .wish-content .media-body {
 	overflow: hidden;
@@ -4853,7 +4853,7 @@ html.menu-opened body {
 	margin-bottom: 2px;
 }
 .wish-content h5 {
-	color: #F66962;
+	color: #58BBDE;
 	font-size: 14px;
 	font-weight: 700;
 	margin-bottom: 0;
@@ -4869,14 +4869,14 @@ html.menu-opened body {
 }
 .remove-btn a {
 	background: #FFFFFF;
-	border: 1px solid #FF5364;
+	border: 1px solid #000000;
 	padding: 5px 10px;
 	border-radius: 0;
 	font-weight: 500;
 	font-size: 12px;
 }
 .remove-btn a:hover {
-	background: #FF5364;
+	background: #000000;
 	color: #FFF;
 }
 .total-item {
@@ -5085,7 +5085,7 @@ html.menu-opened body {
 .banner-three-content .input-group .search-icon {
     display: flex;
     align-items: center;
-    color: #F66962;
+    color: #58BBDE;
 }
 .form-three-select .select2-container--default .select2-results__option--highlighted[aria-selected] {
     background-color: red!important;
@@ -11425,7 +11425,7 @@ textarea:focus {
     background: #FFB54A !important;
 }
 .login-slide.owl-theme .owl-dots .owl-dot span {
-	background: #FF875A;
+	background: #58BBDE;
 }
 .login-slide.owl-theme .owl-dots, 
 .login-slide.owl-theme .owl-nav {
@@ -11476,7 +11476,7 @@ textarea:focus {
     color: #000;
 }
 .back-home a:hover{
-    color: #F66962;
+    color: #58BBDE;
 }
 .login-wrapper .loginbox h1 {
 	font-weight: 500;
@@ -11508,7 +11508,7 @@ textarea:focus {
 	border-radius: 0;
 }
 .remember-me a {
-	color: #F66962;
+	color: #58BBDE;
 }
 .pass-group {
     position: relative;
@@ -11539,7 +11539,7 @@ textarea:focus {
 	font-size: 14px;
 }
 .google-bg p a {
-	color: #F66962;
+	color: #58BBDE;
 }
 .sign-google ul li a img {
 	margin-right: 10px;
@@ -11570,7 +11570,7 @@ textarea:focus {
 	color: #6e82a3;
 }
 .toggle-password.feather-eye-off {
-	color: #F66962;
+	color: #58BBDE;
 }
 .pass-checked {
 	position: absolute;
@@ -11597,7 +11597,7 @@ textarea:focus {
 	margin-bottom: 30px;
 }
 .btn.btn-start {
-	background: #FF875A;
+	background: #58BBDE;
 	border-radius: 5px;
 	padding: 12px 15px;
     font-weight: 700;
@@ -11655,8 +11655,8 @@ textarea:focus {
     cursor: pointer;
 }
 .custom_check input:checked ~ .checkmark {
-    background-color: #FF5364;
-    border-color: #FF5364;
+    background-color: #000000;
+    border-color: #000000;
 }
 .custom_check .checkmark {
     position: absolute;
@@ -11664,7 +11664,7 @@ textarea:focus {
     left: 0;
     height: 15px;
     width: 15px;
-    border: 1px solid #FF5364;
+    border: 1px solid #000000;
     background-color: #fff;
     border-radius: 2px;
     -moz-transition: all 0.3s ease-in-out;
@@ -11785,16 +11785,16 @@ textarea:focus {
 	padding: 12px 15px;
 }
 .form-check-input:checked {
-    background-color: #FF5364;
-    border-color: #FF5364;
+    background-color: #000000;
+    border-color: #000000;
 }
 .form-check-input:focus {
 	box-shadow: none;
-	border-color: #FF5364;
+	border-color: #000000;
 }
 .form-switch .form-check-input:checked {
     background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='-4 -4 8 8'%3e%3ccircle r='3' fill='%23fff'/%3e%3c/svg%3e") !important;
-    background-color: #ff5364;
+    background-color: #000000;
     border: none;
 }
 .form-switch .form-check-input:focus {
@@ -11885,7 +11885,7 @@ textarea:focus {
 	color: #685F78 !important;
 }
 .your-done p a {
-	color: #F66962;
+	color: #58BBDE;
 }
 .work-done {
 	position: absolute;
@@ -11914,7 +11914,7 @@ textarea:focus {
 	margin-top: 39px;
 }
 .reset-account p a {
-    color: #F66962;
+    color: #58BBDE;
 }
 .verification-code .form-group {
 	display: -webkit-box;
@@ -12152,7 +12152,7 @@ input[type=password]::-ms-clear
     -webkit-transition: all 0.5s ease;
 }
 .page-breadcrumb ol li a:hover {
-	color: #FF5364;
+	color: #000000;
 }
 .page-breadcrumb ol li.active:hover {
 	color: #22100D;
@@ -12204,7 +12204,7 @@ input[type=password]::-ms-clear
 	color: #000000;
 }
 .course-design .product:hover .course-share i {
-    color: #FF5364;
+    color: #000000;
 }
 .course-design .all-category .btn-primary:hover{
 	color: #fff;
@@ -12233,7 +12233,7 @@ input[type=password]::-ms-clear
 .title-sec h5 {
 	font-weight: 700;
 	font-size: 18px;
-	color: #F66962;
+	color: #58BBDE;
 	margin-bottom: 18px;
 }
 .title-sec h2 {
@@ -12259,7 +12259,7 @@ input[type=password]::-ms-clear
 .plan-box:hover {
 }
 .plan-box h4 {
-	color: #FF5364;
+	color: #000000;
 	margin-bottom: 16px;
 	font-weight: 700;
 }
@@ -12324,7 +12324,7 @@ input[type=password]::-ms-clear
 	color: #685F78;
 }
 .table-price .self-cell {
-	background: #FF5364;
+	background: #000000;
 	color: #FFF;
 }
 .table-price .business-cell {
@@ -12359,7 +12359,7 @@ input[type=password]::-ms-clear
     border: 1px solid #e9ecef;
 }
 .price-box h4 {
-	color: #FF5364;
+	color: #000000;
 	margin-bottom: 16px;
 	font-weight: 700;
 }
@@ -12387,9 +12387,9 @@ input[type=password]::-ms-clear
 	padding: 12px;
     font-weight: 700;
 	background: #FFFFFF;
-	border: 1px solid #F66962;
+	border: 1px solid #58BBDE;
 	border-radius: 5px;
-	color: #F66962;
+	color: #58BBDE;
 	transition: 0.7s;
 }
 .price-box ul {
@@ -12402,8 +12402,8 @@ input[type=password]::-ms-clear
 	margin-bottom: 10px;
 }
 .price-box:hover .btn.btn-free {
-	border: 1px solid #F66962;
-	background: #F66962;
+	border: 1px solid #58BBDE;
+	background: #58BBDE;
 	color: #FFF;
 }
 .recom-badge {
@@ -12422,11 +12422,11 @@ input[type=password]::-ms-clear
 .notify-sec h5 {
 	font-weight: 700;
 	font-size: 18px;
-	color: #F66962;
+	color: #58BBDE;
 	margin-bottom: 38px;
 }
 .btn-mark {
-	background: #FF5364;
+	background: #000000;
 	font-weight: 600;
 	padding: 12px;
 	color: #FFFFFF;
@@ -12461,7 +12461,7 @@ input[type=password]::-ms-clear
     color: #000;
 }
 .notify-detail h6 a:hover{
-    color: #F66962;
+    color: #58BBDE;
 }
 .notify-detail h6 span {
 	font-weight: 500;
@@ -12539,7 +12539,7 @@ input[type=password]::-ms-clear
 	font-family: 'Poppins', sans-serif;
 }
 .wishlist-info h5 a:hover {
-	color: #F66962;
+	color: #58BBDE;
 }
 .wishlist-info .course-view {
 	margin-left: 30px;
@@ -12556,7 +12556,7 @@ input[type=password]::-ms-clear
 	padding: 6px 12px;
 }
 .price-amt h4 {
-	color: #F66962;
+	color: #58BBDE;
 	font-weight: 700;
 	font-family: 'Poppins', sans-serif;
 	margin-bottom: 0;
@@ -12871,7 +12871,7 @@ input[type=password]::-ms-clear
 	font-weight: 700;
 	font-size: 30px;
 	/* color: #159F46; */
-	color: #F66962; 
+	color: #58BBDE; 
 	font-family: 'Poppins', sans-serif;
 	margin-bottom: 12px;
 }
@@ -12899,16 +12899,16 @@ input[type=password]::-ms-clear
 }
 .btn.btn-wish {
     background: #FFFFFF;
-    border: 1px solid #F66962;
+    border: 1px solid #58BBDE;
     border-radius: 50px;
     padding: 10px;
-    color: #F66962;
+    color: #58BBDE;
     font-size: 13px;
     font-weight: 500;
     margin-bottom: 15px;
 }
 .btn.btn-wish:hover {
-	background: #F66962;
+	background: #58BBDE;
 	color: #FFF;
 }
 .include-sec ul, .feature-sec ul {
@@ -12955,8 +12955,8 @@ input[type=password]::-ms-clear
 	margin: 0;
 }
 .btn.btn-cart {
-	background: #F66962;
-	border: 1px solid #F66962;
+	background: #58BBDE;
+	border: 1px solid #58BBDE;
 	border-radius: 50px;
 	font-weight: 500;
 	font-size: 14px;
@@ -13101,11 +13101,11 @@ input[type=password]::-ms-clear
     color: #000;
 }
 .faq-title > a:not(.collapsed) {
-	color: #FF5364;
+	color: #000000;
 }
 .faq-title > a:not(.collapsed):after {
     content: "\f068";
-	color: #FF5364;
+	color: #000000;
 }
 .faq-detail {
 	padding: 0 15px;
@@ -13188,8 +13188,8 @@ input[type=password]::-ms-clear
 	margin-bottom: 15px;
 }
 .btn-submit {
-	background: #FF5364;
-	border: 1px solid #FF5364;
+	background: #000000;
+	border: 1px solid #000000;
 	border-radius: 5px;
 	color: #FFF;
 }
@@ -13251,7 +13251,7 @@ input[type=password]::-ms-clear
 	justify-content: center;
 	-webkit-justify-content: center;
 	-ms-flex-pack: center;
-	background: #FF5364;
+	background: #000000;
 	border-radius: 50%;
 	color: #FFF;
 	font-weight: 500;
@@ -13276,7 +13276,7 @@ input[type=password]::-ms-clear
     font-weight: 600;
 }
 .category-tab ul li a.active, .category-tab ul li a:hover  {
-	background: #FF5364;
+	background: #000000;
 	color: #FFF;
 }
 .category-tab.tickets-tab-blk .nav-justified .nav-item {
@@ -13351,7 +13351,7 @@ input[type=password]::-ms-clear
 .instruct-grid .rating-count {
 	right: 20px;
 	top: 20px;
-	color: #FF5364;
+	color: #000000;
 }
 
 /*-----------------
@@ -13408,7 +13408,7 @@ input[type=password]::-ms-clear
 	display: inline-block;
 	background: rgba(255, 222, 218, 0.36);
 	border-radius: 5px;
-	color: #FF875A;
+	color: #58BBDE;
 	font-size: 14px;
 	padding: 3px 10px;
 	margin-top: 10px;
@@ -13434,7 +13434,7 @@ input[type=password]::-ms-clear
 .edu-name span {
 	width: 40px;
 	height: 40px;
-	background: #FF5364;
+	background: #000000;
 	border-radius: 50%;
 	color: #FFFFFF;
 	font-size: 14px;
@@ -13474,7 +13474,7 @@ input[type=password]::-ms-clear
 	margin-bottom: 15px;
 }
 .terms-text h3 span, .terms-text p a {
-	color: #F66962;
+	color: #58BBDE;
 }
 .terms-text h4 {
     font-size: 16px;
@@ -13532,7 +13532,7 @@ input[type=password]::-ms-clear
 	color: #fff;
 }
 .profile-info-blk h4 a:hover {
-	color: #F66962;
+	color: #58BBDE;
 }
 .profile-info-blk h4 span {
 	background: #fff;
@@ -13554,7 +13554,7 @@ input[type=password]::-ms-clear
 	color: #ffffff;
 }
 .profile-info-social li a:hover {
-	color: #F66962;
+	color: #58BBDE;
 }
 .profile-info-social li:not(:last-child) {
 	margin-right: 14px;
@@ -13571,7 +13571,7 @@ input[type=password]::-ms-clear
 	background: rgba(255, 222, 218, 0.36);
 	padding: 5px 10px;
 	border-radius: 5px;
-	color: #FF875A;
+	color: #58BBDE;
 }
 .sidebar-tag-labels ul li a:hover {
 	background: rgba(255, 222, 218, 0.66);
@@ -13737,7 +13737,7 @@ input[type=password]::-ms-clear
 	font-size: 18px;
 }
 .student-list .profile-info-social li a:hover {
-    color: #F66962;
+    color: #58BBDE;
 }
 
 /*-----------------
@@ -13770,12 +13770,12 @@ input[type=password]::-ms-clear
 .hvr-sweep-to-right a {
 	font-size: 15px;
 	font-weight: 700;
-	color: #FF5364;
+	color: #000000;
 	padding: 8px 20px;
 	border: 1px solid transparent;
 	background-origin: border-box;
 	background-clip: padding-box, border-box;
-	background-image: linear-gradient(#FFF, #FFF), linear-gradient(to right, #392C7D, #FF5364);
+	background-image: linear-gradient(#FFF, #FFF), linear-gradient(to right, #392C7D, #000000);
 	border-radius: 10px;
 	display: inline-block;
 	vertical-align: middle;
@@ -13792,7 +13792,7 @@ input[type=password]::-ms-clear
 }
 .hvr-sweep-to-right a:hover {
 	color: white;
-	background: #FF5364;
+	background: #000000;
 	transition: all 0.5s ease;
     -moz-transition: all 0.5s ease;
     -o-transition: all 0.5s ease;
@@ -13840,7 +13840,7 @@ input[type=password]::-ms-clear
 .btn-action-method {
 	min-width: 35px;
 	display: block;
-	background-color: #FF875A;
+	background-color: #58BBDE;
 	color: #ffffff;
 }
 .btn-action-delete {
@@ -13878,7 +13878,7 @@ input[type=password]::-ms-clear
 	font-weight: 600;
 }
 .modal-styles .btn-theme {
-	background-color: #FF5364;
+	background-color: #000000;
 }
 .modal-styles .btn-cancel {
 	background-color: #455A64;
@@ -13942,7 +13942,7 @@ input[type=password]::-ms-clear
 	font-size: 15px;
 }
 .settings-invoice-blk table tbody tr td .invoice-no {
-	color: #F66962;
+	color: #58BBDE;
 }
 .settings-invoice-blk table tbody tr td .badge {
 	font-size: 14px;
@@ -13981,7 +13981,7 @@ input[type=password]::-ms-clear
 	vertical-align: middle;
 }
 .settings-inner-blk table tbody tr td .btn-style:hover {
-	background-color: #F66962;
+	background-color: #58BBDE;
 	color: #ffffff;
 }
 .settings-inner-blk table tbody tr td .btn-style svg{
@@ -14021,7 +14021,7 @@ input[type=password]::-ms-clear
 	color: #159F46;
 }
 .settings-top-widget .stat-info.avg h3 {
-	color: #FF5364;
+	color: #000000;
 }
 .settings-top-widget .stat-info.refer h3 {
 	color: #1D9CFD;
@@ -14045,7 +14045,7 @@ input[type=password]::-ms-clear
 }
 .link-box a {
 	display: inline-block;
-	background-color: #FF5364;
+	background-color: #000000;
 	border-radius: 5px;
 	padding: 10px 25px;
 	font-size: 15px;
@@ -14088,7 +14088,7 @@ input[type=password]::-ms-clear
 	border-radius: 10px;
 }
 .settings-top-widget .card.withdraw-box {
-	background-image: linear-gradient(#FFF, #FFF), linear-gradient(to right, #392C7D, #FF5364);	
+	background-image: linear-gradient(#FFF, #FFF), linear-gradient(to right, #392C7D, #000000);	
 }
 
 /*----------------------------
@@ -14102,7 +14102,7 @@ input[type=password]::-ms-clear
 	color: #159F46;
 }
 .settings-top-widget .stat-info.close-tickets h3 {
-	color: #FF5364;
+	color: #000000;
 }
 .ticket-grp p {
 	margin:5px 0px 0px;
@@ -14135,10 +14135,10 @@ input[type=password]::-ms-clear
 }
 .filter-tickets ul li a:hover, .filter-tickets ul li a:focus, .filter-tickets ul li a.active {
 	color: #ffffff;
-	background: #FF5364;
+	background: #000000;
 }
 .settings-inner-blk table .link {
-	color: #F66962;
+	color: #58BBDE;
 }
 .settings-inner-blk .info-high {
 	background: #E53935;
@@ -14155,7 +14155,7 @@ input[type=password]::-ms-clear
 .new-ticket-blk h4{
 	font-size: 24px;
 	margin-bottom: 23px;
-	color: #F66962;
+	color: #58BBDE;
 }
 .new-ticket-blk .form-control {
 	border-color: rgba(255, 222, 218, 0.71);
@@ -14238,7 +14238,7 @@ input[type=password]::-ms-clear
 	margin-bottom: 15px;
 }
 .bug-software-head p {
-	color: #F66962;
+	color: #58BBDE;
 	font-size: 14px;
 	font-weight: 400;
 	margin-bottom: 0px;
@@ -14629,7 +14629,7 @@ input[type=password]::-ms-clear
 	height: 50px;
 }
 .export-cvv-btn .btn-primary {
-	background: #FF5364;
+	background: #000000;
 	border-radius: 5px;
 	min-width: 125px;
 	font-size: 14px;
@@ -14705,8 +14705,8 @@ input[type=password]::-ms-clear
 	-ms-flex-pack: center;
 }
 .message-text-img:hover {
-	background: #ff5364;
-	border: 1px solid #ff5364;
+	background: #000000;
+	border: 1px solid #000000;
 	cursor: pointer;
 }
 .message-text-img:hover img {
@@ -14769,7 +14769,7 @@ input[type=password]::-ms-clear
 	margin-left: auto;
 }
 .settings-top-widget .stat-info.ttl-tickets .student-ticket-view h3 {
-    color: #F66962;
+    color: #58BBDE;
 	margin-top: 0;
 }
 .settings-top-widget .stat-info.open-tickets .student-ticket-view h3 {
@@ -14902,7 +14902,6 @@ input[type=password]::-ms-clear
     align-items: center;
     color: #1f1f1f;
     /* display: flex; */
-	background-image: url(../img/error-bg1.png);
     background-repeat: no-repeat;
     background-position: center;
     background-size: cover;
@@ -14929,7 +14928,7 @@ input[type=password]::-ms-clear
 	width: 150px;
 }
 .error-box h3 {
-    color: #FA5560;
+    color: #58BBDE;
 	font-weight: 600;
     font-size: 36px;
 	margin-top: 20px;
@@ -14945,7 +14944,7 @@ input[type=password]::-ms-clear
     font-weight: 600;
     min-width: 158px;
     padding: 9px 15px;
-	background: #FF5364;
+	background: #000000;
     border: none;
 }
 .error-box .btn-primary:hover,
@@ -14996,11 +14995,11 @@ input[type=password]::-ms-clear
 	color: #0A66C2;
 }
 .social-icon-soon ul li i:hover {
-	color: #ff5364;
+	color: #000000;
 }
 .subscribe-soon .btn-danger {
-	background: #FF5364;
-	border: 1px solid #FF5364;
+	background: #000000;
+	border: 1px solid #000000;
 	min-width: 127px;
 	font-size: 16px;
 }
@@ -15061,7 +15060,7 @@ input[type=password]::-ms-clear
 	color: #fff;
 }
 .inner-banner h5 a:hover {
-	color: #F66962;
+	color: #58BBDE;
 }
 .view-icons {
     display: inline-flex;
@@ -15137,10 +15136,10 @@ input[type=password]::-ms-clear
 }
 .course-design .product:hover .product-content h3 a:hover,
 .course-design .product:hover .course-name h4 a:hover {
-    color: #F66962;
+    color: #58BBDE;
 }
 .course-share .active-heart i {
-    color: #FF5364;
+    color: #000000;
 	font-weight: 900;
 }
 .course-design .price .free-color {
@@ -15176,12 +15175,12 @@ input[type=password]::-ms-clear
 	margin-bottom: 20px;
 }
 .lms-page li .page-link:hover { 
-	background-color: #FF5364 !important;
+	background-color: #000000 !important;
 	color: #fff !important;
 }
 .lms-page .page-item.active .page-link {
-    background-color: #FF5364 !important;
-    border-color: #FF5364 !important;
+    background-color: #000000 !important;
+    border-color: #000000 !important;
 }
 .page-item:first-child .page-link {
     border-top-left-radius: 5px;
@@ -15211,7 +15210,7 @@ input[type=password]::-ms-clear
 .show-filter .search-group i {
 	position: absolute;
 	left: 9px;
-	color: #F66962;
+	color: #58BBDE;
 }
 .categories-head i {
 	margin-left: auto;
@@ -15333,7 +15332,7 @@ input[type=password]::-ms-clear
 	font-size: 14px;
 }
 .post-info h4 a:hover {
-	color: #f66962;
+	color: #58BBDE;
 }
 .post-info p {
 	color: #df5f5e;
@@ -15423,7 +15422,7 @@ input[type=password]::-ms-clear
 	color: #000;
 }
 .blog-title a:hover {
-	color: #F66962;
+	color: #58BBDE;
 }
 .blog-content p {
 	margin: 0 0 20px;
@@ -15459,7 +15458,7 @@ input[type=password]::-ms-clear
 	font-weight: 400;
 }
 .blog-info a:hover {
-	color: #F66962
+	color: #58BBDE
 }
 .entry-meta {
 	color: #26292c;
@@ -15570,7 +15569,7 @@ input[type=password]::-ms-clear
 	color: #22100D;
 }
 .blog-widget .post-info h4 a:hover {
-	color: #F66962;
+	color: #58BBDE;
 }
 .blog-widget .post-info p {
 	color: #000000;
@@ -15596,10 +15595,10 @@ input[type=password]::-ms-clear
     font-weight: 500;
 }
 .category-widget .categories li a:hover {
-	color: #F66962;
+	color: #58BBDE;
 }
 .category-widget .categories > li > a > i {
-	color: #F66962;
+	color: #58BBDE;
 	font-size: 18px;
 	margin-right: 19px;
 }
@@ -15706,8 +15705,8 @@ input[type=password]::-ms-clear
 	height: auto;
 }
 .blog-read .btn-primary {
-	background: #FF875A;
-	border: 1px solid #FF875A;
+	background: #58BBDE;
+	border: 1px solid #58BBDE;
 	box-sizing: border-box;
 	border-radius: 5px;
 	font-size: 16px;
@@ -15717,8 +15716,8 @@ input[type=password]::-ms-clear
 }
 .blog-read .btn-primary:hover { 
 	background: #fff !important; 
-	border: 1px solid #FF875A !important;
-	color: #FF875A;
+	border: 1px solid #58BBDE !important;
+	color: #58BBDE;
 }
 .blog-widget {
 	padding: 20px;
@@ -15738,8 +15737,8 @@ input[type=password]::-ms-clear
 	margin-bottom: 20px;
 }
 .blog-search .input-group .btn-primary {
-	background: #FF5364;
-	border: 1px solid #FF5364;
+	background: #000000;
+	border: 1px solid #000000;
 }
 .blog-search .input-group .form-control {
 	background: rgba(229, 229, 229, 0.42);
@@ -15758,8 +15757,8 @@ input[type=password]::-ms-clear
 	margin-right: 6px;
 }
 .load-more .btn-primary {
-	background: #FF5364;
-	border: 1px solid #FF5364;
+	background: #000000;
+	border: 1px solid #000000;
 	border-radius: 5px;
 	font-size: 18px;
 	font-weight: 700;
@@ -15816,7 +15815,7 @@ input[type=password]::-ms-clear
 	color: #fff;
 }
 .blog-modern-box .blog-title a:hover {
-	color: #ff5364;
+	color: #000000;
 }
 .blog-modern-box .post-left ul li {
 	color: #fff;
@@ -15884,7 +15883,7 @@ input[type=password]::-ms-clear
 	color: #fff;
 }
 .student-group .course-name h4 a:hover {
-	color: #F66962;
+	color: #58BBDE;
 }
 .student-group .course-name h4 span {
 	background: #fff;
@@ -15899,8 +15898,8 @@ input[type=password]::-ms-clear
 	color: #fff;
 }
 .student-group .course-share .btn-primary {
-	background-color: #FF5364;
-    border: 1px solid #FF5364;
+	background-color: #000000;
+    border: 1px solid #000000;
 	font-size: 14px;
 	font-weight: 600;
 	padding: 13px 26px;
@@ -16052,7 +16051,7 @@ input[type=password]::-ms-clear
 	border-bottom: 0;
 }
 .play-intro {
-	color: #F66962;
+	color: #58BBDE;
 }
 .lesson-percent {
 	border-bottom: 1px solid #E5E5E5;
@@ -16075,7 +16074,7 @@ input[type=password]::-ms-clear
     border-radius: 10px;
 }
 .lesson-introduction .tittle {
-	color: #F66962;
+	color: #58BBDE;
 	font-size: 24px;
 	font-weight: 500;
 	margin-bottom: 20px;
@@ -16414,7 +16413,7 @@ input[type=password]::-ms-clear
     margin-left: 0;
 }
 .chat-cont-right .chat-body .media.sent .media-body .msg-box > div {
-    background-color: #FF875A;
+    background-color: #58BBDE;
 	float: right;
 }
 .chat-cont-right .chat-body .media.sent .media-body .msg-box > div p {
@@ -16763,16 +16762,16 @@ input[type=password]::-ms-clear
 	margin-right: 10px;
 }
 .add-compose .btn-primary {
-	color: #F66962;
+	color: #58BBDE;
 	font-size: 14px;
 	background: #FFFFFF;
-	border: 1px solid #F66962;
+	border: 1px solid #58BBDE;
 	border-radius: 50px;
 	padding: 13px 41px;
 }
 .add-compose .btn-primary:hover {
-	background-color: #FF875A;
-    border: 1px solid #FF875A;
+	background-color: #58BBDE;
+    border: 1px solid #58BBDE;
 	color: #fff;
 }
 
@@ -16782,9 +16781,9 @@ input[type=password]::-ms-clear
 
 .cart-remove .btn-primary {
 	font-size: 16px;
-	border: 1px solid #FF5364;
+	border: 1px solid #000000;
 	background: #FFFFFF;
-	color: #FF5364;
+	color: #000000;
 	font-weight: 500;
     border-radius: 0;
     padding: 4px 11px;
@@ -16796,8 +16795,8 @@ input[type=password]::-ms-clear
 }
 .cart-remove .btn-primary:hover {
 	font-size: 16px;
-	border: 1px solid #FF5364;
-	background: #FF5364;
+	border: 1px solid #000000;
+	background: #000000;
 	color: #fff;
 }
 .course-design .product:hover {
@@ -16809,7 +16808,7 @@ input[type=password]::-ms-clear
 }
 .course-design .product:hover .cart-remove .btn-primary {
     color: #fff;
-	background: #FF5364;
+	background: #000000;
 	transition: all 0.5s ease;
     -moz-transition: all 0.5s ease;
     -o-transition: all 0.5s ease;
@@ -16841,8 +16840,8 @@ input[type=password]::-ms-clear
 	border-top: 1px solid #e9ecef;
 }
 .check-outs .btn-primary {
-	background: #FF5364;
-	border: 1px solid #FF5364;
+	background: #000000;
+	border: 1px solid #000000;
 	width: 100%;
 	color: #fff;
 	padding: 12px 15px;
@@ -16855,16 +16854,16 @@ input[type=password]::-ms-clear
 }
 .condinue-shop .btn-primary {
 	background: #fff;
-	border: 1px solid #FF5364;
+	border: 1px solid #000000;
 	width: 100%;
-	color: #FF5364;
+	color: #000000;
 	padding: 12px 15px;
 	font-size: 16px;
 	font-weight: 700;
 }
 .condinue-shop .btn-primary:hover {
-	background: #FF5364;
-	border: 1px solid #FF5364;
+	background: #000000;
+	border: 1px solid #000000;
 	color: #fff;
 }
 .cart-subtotal p {
@@ -16931,8 +16930,8 @@ input[type=password]::-ms-clear
 	margin-top: 40px;
 }
 .payment-btn .btn-primary {
-	background: #FF5364;
-	border: 1px solid #FF5364;
+	background: #000000;
+	border: 1px solid #000000;
 	color: #fff;
 	padding: 12px 15px;
 	font-size: 16px;
@@ -16958,7 +16957,7 @@ input[type=password]::-ms-clear
 }
 .basic-plan h3 {
 	font-size: 24px;
-	color: #FF5364;
+	color: #000000;
 	margin-bottom: 15px;
 }
 .basic-plan h2 {
@@ -17129,7 +17128,7 @@ input[type=password]::-ms-clear
 .settings-menu ul li:hover:before {
 	content: "";
 	position: absolute;
-	background: #FF5364;
+	background: #000000;
 	width: 2px;
 	height: 40px;
 	left: 9px;
@@ -17145,7 +17144,7 @@ input[type=password]::-ms-clear
 	opacity: 0;
 	content: "";
 	position: absolute;
-	background: #FF5364;
+	background: #000000;
 	width: 2px;
 	height: 40px;
 	left: 9px;
@@ -17163,10 +17162,10 @@ input[type=password]::-ms-clear
 	background: rgba(255, 222, 218, 0.25);
 }
 .settings-menu ul li i {
-	color: #FF875A;
+	color: #58BBDE;
 }
 .settings-menu ul .active i {
-	color: #FF875A;
+	color: #58BBDE;
 }
 .settings-menu ul li a i {
 	margin-right: 15px;
@@ -17175,7 +17174,7 @@ input[type=password]::-ms-clear
 .settings-menu ul .active:before {
 	content: "";
 	position: absolute;
-	background: #FF5364;
+	background: #000000;
 	width: 2px;
 	height: 40px;
 	left: 9px;
@@ -17297,7 +17296,7 @@ input[type=password]::-ms-clear
 	font-weight: 600;
 }
 .profile-details .course-name h4 a:hover {
-	color: #F66962 !important;
+	color: #58BBDE !important;
 }
 .profile-details .course-name p {
 	color: #303030 !important;
@@ -17333,20 +17332,20 @@ input[type=password]::-ms-clear
 	font-size: 16px;
     padding: 7px 15px;
 	font-weight: 700;
-	border: 1px solid #ff875a;
+	border: 1px solid #58BBDE;
 	border-radius: 5px;
 	min-width: 200px;
 }
 .update-profile .btn-primary:hover {
 	background-color: #fff;
-    border: 1px solid #fc7f50;
-	color: #fc7f50;
+    border: 1px solid #58BBDE;
+	color: #58BBDE;
 }
 .border-line {
     border-bottom: 1px solid rgb(199 199 199 / 25%);
 }
 .personal-info-head p span {
-	color: #F66962;
+	color: #58BBDE;
 }
 .save-social .btn-primary {
 	min-width: 237px;
@@ -17396,7 +17395,7 @@ input[type=password]::-ms-clear
     margin-bottom: 0px;
 }
 .wallet-radio-blk .custom_radio input:checked ~ .checkmark {
-    background-color: #ff5364;
+    background-color: #000000;
 }
 .wallet-radio-blk .custom_radio .checkmark:after {
     background: #fff;
@@ -17426,7 +17425,7 @@ input[type=password]::-ms-clear
 	border: 1px solid transparent;
     background-origin: border-box;
     background-clip: padding-box, border-box;
-    background-image: linear-gradient(#FFF, #FFF), linear-gradient(to right, #392C7D, #FF5364);
+    background-image: linear-gradient(#FFF, #FFF), linear-gradient(to right, #392C7D, #000000);
     border-radius: 10px;
 }
 .grad-border .btn-default {
@@ -17440,7 +17439,7 @@ input[type=password]::-ms-clear
 .add-new-address .btn-primary {
 	font-size: 15px;
 	font-weight: 700;
-	color: #FF5364;
+	color: #000000;
 	padding: 8px 20px;
 }
 .add-new-address .btn-primary:hover:focus,
@@ -17451,7 +17450,7 @@ input[type=password]::-ms-clear
 .upgrade-now .btn-primary {
 	font-size: 15px;
 	font-weight: 700;
-	color: #FF5364;
+	color: #000000;
 	padding: 8px 16px;
 }
 .upgrade-now {
@@ -17487,7 +17486,7 @@ input[type=password]::-ms-clear
 .active-change-plan .btn-primary {
 	font-size: 15px;
 	font-weight: 700;
-	color: #FF5364;
+	color: #000000;
 	padding: 8px 39px;
 }
 .bill-widget {
@@ -17516,7 +17515,7 @@ input[type=password]::-ms-clear
 	font-size: 18px;
 }
 .plan-icons {
-	background: #FF875A;
+	background: #58BBDE;
     color: #fff;
     width: 44px;
     height: 44px;
@@ -17626,7 +17625,7 @@ input[type=password]::-ms-clear
     color: #fff;
 }
 .instructor-profile-content h4 a:hover {
-	color: #F66962;
+	color: #58BBDE;
 }
 .instructor-profile-content h4 span {
     background: #fff;
@@ -17749,7 +17748,7 @@ input[type=password]::-ms-clear
     color: #000;
 }
 .instructor-grid .instructor-product-content h3 a:hover {
-    color: #F66962;
+    color: #58BBDE;
 }
 .instructor-grid .course-view {
     margin-left: 30px;
@@ -17875,7 +17874,7 @@ input[type=password]::-ms-clear
 .add-course-inner-header h4 {
     font-weight: 500;
     font-size: 24px;
-    color: #F66962;
+    color: #58BBDE;
     margin-bottom: 0;
 }
 .add-course-form {
@@ -17971,8 +17970,8 @@ input[type=password]::-ms-clear
 }
 .relative-file-upload {
     color: #fff;
-    background: #F66962;
-    border: 1px solid #F66962;
+    background: #58BBDE;
+    border: 1px solid #58BBDE;
     border-radius: 5px;
     padding: 8px 18px;
     font-size: 14px;
@@ -18019,7 +18018,7 @@ input[type=password]::-ms-clear
 }
 .add-video-box a {
     font-size: 40px;
-    color: #FF5364;
+    color: #000000;
 }
 .add-course-section {
     padding: 0 40px 40px;
@@ -18139,7 +18138,7 @@ input[type=password]::-ms-clear
     margin-right: 8px;
 }
 .faq-right a:hover {
-    color: #F66962;
+    color: #58BBDE;
 }
 .faq-body {
     padding-top: 20px;
@@ -18350,7 +18349,7 @@ input[type=password]::-ms-clear
 		padding: 0 !important;
 	}
 	.main-nav > li > a:hover {
-		color: #F66962;
+		color: #58BBDE;
 	}
 	.main-nav > li > a > i {
 		font-size: 12px;
@@ -18399,17 +18398,17 @@ input[type=password]::-ms-clear
 		transform: translateY(0);
 	}
 	.main-nav .has-submenu.active > a {
-		color: #F66962;
+		color: #58BBDE;
 	}
 	.main-nav .has-submenu.active .submenu li.active > a {
-		color: #F66962;
+		color: #58BBDE;
 	}
 	.header-one .main-nav .has-submenu.active .submenu li.active > a,
 	.header-four .main-nav .has-submenu.active .submenu li.active > a {
 		color: #6255A4;
 	}
 	.header-two .main-nav .has-submenu.active .submenu li.active > a {
-		color: #F66962;
+		color: #58BBDE;
 	}
 	.header-three .main-nav .has-submenu.active .submenu li.active > a {
 		color: #7B1FFE;
@@ -18435,7 +18434,7 @@ input[type=password]::-ms-clear
 		margin-top: 10px;
 	}
 	.main-nav li .submenu a:hover {
-		color: #F66962;
+		color: #58BBDE;
 		letter-spacing: 0.5px;
 		padding-left: 20px;
 	}
@@ -20118,7 +20117,7 @@ input[type=password]::-ms-clear
 		z-index: 1060;
 		transform: translateX(-260px);
 		transition: all 0.4s;
-		background-color: #f66962;
+		background-color: #58BBDE;
 	}
 	.menu-header {
 		display: -webkit-box;
@@ -21809,7 +21808,7 @@ input[type=password]::-ms-clear
 		padding: 15px;
 	}
 	.bar-icon span {
-		background-color: #f66962;
+		background-color: #58BBDE;
 	}
 	.header.header-navbar-rht {
 		display: none;
@@ -26022,7 +26021,7 @@ svg.feather.feather-share-2 {
     color: #22100d;
   }
   .notification-list .media-body h6 a:hover{
-    color: #F66962;
+    color: #58BBDE;
   }
   
   .testimonial-three .prev {
@@ -26059,7 +26058,7 @@ svg.feather.feather-share-2 {
     color: #22100d;
   }
   .settings-widget h5 a:hover {
-    color: #f66962;
+    color: #58BBDE;
   }
   .settings-widget .table-responsive a {
     color: #22100d;
@@ -26083,7 +26082,7 @@ svg.feather.feather-share-2 {
     text-decoration: underline !important;
   }
   .wish-header a:hover {
-    color: #f66962;
+    color: #58BBDE;
   }
   .btn.btn-reject {
     margin-left: 4px;
@@ -26093,7 +26092,7 @@ svg.feather.feather-share-2 {
     background-color: transparent !important;
   }
   .btn.btn-primary:hover {
-    background-color: #ff5364 ;
+    background-color: #000000 ;
     border-color: transparent;
   }
   .account-link .btn-primary:hover {
@@ -26108,7 +26107,7 @@ svg.feather.feather-share-2 {
     margin-right: 14px !important;
   }
   .student-content h5 a:hover {
-    color: #f66962;
+    color: #58BBDE;
   }
   .go-dashboard.text-center .btn.btn-primary:hover {
     background-color: #392c7d !important;
@@ -26119,7 +26118,7 @@ svg.feather.feather-share-2 {
   }
   .update-profile .btn.btn-primary:hover {
     background-color: transparent !important;
-    border: 1px solid #ff875a;
+    border: 1px solid #58BBDE;
   }
   .update-profile .btn.btn-primary:focus {
     box-shadow: none;
@@ -26133,12 +26132,12 @@ svg.feather.feather-share-2 {
       background-color: #392c7d !important;
     }
   .google-link .btn.btn-primary:active {
-      background-color: #fc7f50;
-      border-color: #fc7f50;
+      background-color: #58BBDE;
+      border-color: #58BBDE;
       color: #fff;
     }
     .refer-avatar-blk:hover{
-      color: #F66962 !important;
+      color: #58BBDE !important;
     }
     .hvr-sweep-to-right .btn-primary{
       background-color: unset;
@@ -26163,7 +26162,7 @@ svg.feather.feather-share-2 {
     .btn.btn-action-method {
       min-width: 35px;
       display: block;
-      background-color: #FF875A;
+      background-color: #58BBDE;
       color: #ffffff;
   }
   .btn.btn-action-delete {
@@ -26222,7 +26221,7 @@ svg.feather.feather-share-2 {
       color: white;
     }
     .linkColor{
-      color: #f66962 !important ;
+      color: #58BBDE !important ;
   
     }
     .nav-item.user-nav .form-check .form-check-input{
@@ -26251,25 +26250,25 @@ svg.feather.feather-share-2 {
     color: #22100D;
   }
   .edu-detail a:hover{
-    color: #F66962;
+    color: #58BBDE;
   }
   .instruct-orders-info p a:hover{
-    color: #F66962;
+    color: #58BBDE;
   }
   .red{
-    color: #F66962 !important;
+    color: #58BBDE !important;
   
   }
   .hoverRed:hover{
-    color: #F66962 !important;
+    color: #58BBDE !important;
   }
   .instruct-check-list .form-check-input:checked{
-    background-color: #F66962;
+    background-color: #58BBDE;
   }
   .instruct-check-list .form-check-input:focus{
-    color: #F66962;
+    color: #58BBDE;
     box-shadow: none;
-    border-color: #F66962;  
+    border-color: #58BBDE;  
   }
   .pl0{
     padding-left: 0 !important;
@@ -26290,7 +26289,7 @@ svg.feather.feather-share-2 {
   .searchFeather{
     position: absolute;
     left: 9px;
-    color: #F66962;
+    color: #58BBDE;
   }
   .hoverBlue .btn:hover{
     background: #3b2999 !important;
@@ -26306,8 +26305,8 @@ svg.feather.feather-share-2 {
     box-shadow: none;
   }
   .add-compose .btn.btn-primary:hover {
-    background-color: #FF875A !important;
-    border: 1px solid #FF875A;
+    background-color: #58BBDE !important;
+    border: 1px solid #58BBDE;
     color: #fff;
   }
   .home3Slide{
@@ -26317,11 +26316,11 @@ svg.feather.feather-share-2 {
   }
   svg.feather.feather-user.me-1 {
     width: 14px;
-    color: #FF875A;
+    color: #58BBDE;
 }
 svg.feather.feather-star.me-1 {
     width: 14px;
-    color: #FF875A;
+    color: #58BBDE;
 }
 svg.feather.feather-moon.me-1 {
     width: 14px;
@@ -26329,7 +26328,7 @@ svg.feather.feather-moon.me-1 {
 }
 svg.feather.feather-log-out.me-1 {
     width: 14px;
-    color: #FF875A;
+    color: #58BBDE;
 }
 .home-three .swiper-testimonial-three {
     height: auto !important;
@@ -26365,7 +26364,7 @@ svg.feather.feather-log-out.me-1 {
     margin-right: 25px;
 }
 .feather-icon svg{
-    color: #FF875A;
+    color: #58BBDE;
     margin-right: 10px;
     width: 20px;
 }
@@ -26374,8 +26373,8 @@ svg.feather.feather-log-out.me-1 {
 }
 
 /* .btn-primary {
-    background-color: #FF875A !important;
-    border: 1px solid #FF875A !important;
+    background-color: #58BBDE !important;
+    border: 1px solid #58BBDE !important;
 } */
 
 .alert{

@@ -993,14 +993,14 @@ export default function StudentHeader({ activeMenu }) {
                     className="dropdown-item text"
                     to="/setting-edit-profile"
                   >
-                    <User size={14} color={"#FF875A"} className="headerIcon" />{" "}
+                    <User size={14} color={"#58BBDE"} className="headerIcon" />{" "}
                     Profile
                   </Link>
                   <Link
                     className="dropdown-item text"
                     to="/setting-student-subscription"
                   >
-                    <Star size={14} color={"#FF875A"} className="headerIcon" />{" "}
+                    <Star size={14} color={"#58BBDE"} className="headerIcon" />{" "}
                     Subscription
                   </Link>
                   <div className="dropdown-item text night-mode">
@@ -1018,7 +1018,7 @@ export default function StudentHeader({ activeMenu }) {
                   <Link className="dropdown-item text" to="/">
                     <LogOut
                       size={14}
-                      color={"#FF875A"}
+                      color={"#58BBDE"}
                       className="headerIcon"
                     />{" "}
                     Logout

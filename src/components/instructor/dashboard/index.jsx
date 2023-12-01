@@ -34,7 +34,7 @@ export const Dashboard = () => {
         curve: "smooth",
         width: 3,
       },
-      colors: ["#FF875A"],
+      colors: ["#58BBDE"],
       fill: {
         gradient: {
           opacityFrom: 0.6,

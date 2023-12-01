@@ -17,16 +17,18 @@ import InstructorSidebar from "../sidebar";
 import { useDispatch, useSelector } from "react-redux";
 import Select from "react-select";
 import { profCours } from "../../../redux/slice/coursSlice";
+import { useStateContext } from "../../../context/ContextProvider";
 // import {useSelector} from "react-redux"
 
 export default function InstructorCourse() {
   const { cours, loading } = useSelector((state) => state.coursReducer);
-
+  const { user } = useStateContext();
+  // console.log(user)
   console.log(cours);
   const dispatch = useDispatch();
   useEffect(() => {
-    dispatch(profCours());
-  }, []);
+    user?.id && dispatch(profCours(user?.id));
+  }, [user]);
   // const prof=useSelector(state=>state)
   // console.log(prof)
   const [setValue] = useState(null);
@@ -113,7 +115,7 @@ export default function InstructorCourse() {
                                       style={{
                                         position: "absolute",
                                         left: "7px",
-                                        color: "#F66962",
+                                        color: "#58BBDE",
                                       }}
                                     />
                                     <input
@@ -154,45 +156,47 @@ export default function InstructorCourse() {
                               {loading == false &&
                                 cours.map((cours, index) => (
                                   <>
-                                  <tr>
-                                    <td>
-                                      <div className="sell-table-group d-flex align-items-center">
-                                        <div className="sell-group-img">
-                                          <Link to="/course-details">
-                                            <img
-                                              src={Course14}
-                                              className="img-fluid "
-                                              alt=""
-                                            />
-                                          </Link>
-                                        </div>
-                                        <div className="sell-tabel-info">
-                                          <p>
+                                    <tr>
+                                      <td>
+                                        <div className="sell-table-group d-flex align-items-center">
+                                          <div className="sell-group-img">
                                             <Link to="/course-details">
-                                              {cours.title}
+                                              <img
+                                                src={Course14}
+                                                className="img-fluid "
+                                                alt=""
+                                              />
                                             </Link>
-                                          </p>
-                                          <div className="course-info d-flex align-items-center border-bottom-0 pb-0">
-                                            <div className="rating-img d-flex align-items-center">
-                                              <img src={Icon1} alt="" />
-                                              <p>{cours.total_lessons} Leçons</p>
-                                            </div>
-                                            <div className="course-view d-flex align-items-center">
-                                              <img src={TimerStart} alt="" />
-                                              <p>7hr 20min</p>
+                                          </div>
+                                          <div className="sell-tabel-info">
+                                            <p>
+                                              <Link to="/course-details">
+                                                {cours.title}
+                                              </Link>
+                                            </p>
+                                            <div className="course-info d-flex align-items-center border-bottom-0 pb-0">
+                                              <div className="rating-img d-flex align-items-center">
+                                                <img src={Icon1} alt="" />
+                                                <p>
+                                                  {cours.total_lessons} Leçons
+                                                </p>
+                                              </div>
+                                              <div className="course-view d-flex align-items-center">
+                                                <img src={TimerStart} alt="" />
+                                                <p>7hr 20min</p>
+                                              </div>
                                             </div>
                                           </div>
                                         </div>
-                                      </div>
-                                    </td>
-                                    <td>{cours.total_etudiant}</td>
-                                    <td>
-                                      <span className="badge info-high">
-                                        Deleted
-                                      </span>
-                                    </td>
-                                  </tr>
-                                </>
+                                      </td>
+                                      <td>{cours.total_etudiant}</td>
+                                      <td>
+                                        <span className="badge info-high">
+                                          Deleted
+                                        </span>
+                                      </td>
+                                    </tr>
+                                  </>
                                 ))}
                             </tbody>
                           </table>

@@ -951,21 +951,21 @@ export function InstructorHeader({ activeMenu }) {
                     className="dropdown-item text"
                     to="/instructor-dashboard"
                   >
-                    <Home size={14} color={"#FF875A"} className="headerIcon" />{" "}
+                    <Home size={14} color={"#58BBDE"} className="headerIcon" />{" "}
                     Dashboard
                   </Link>
                   <Link
                     className="dropdown-item text"
                     to="/instructor-edit-profile"
                   >
-                    <Star size={14} color={"#FF875A"} className="headerIcon" />{" "}
+                    <Star size={14} color={"#58BBDE"} className="headerIcon" />{" "}
                     Edit Profile
                   </Link>
              
                   <Link className="dropdown-item text" to="/">
                     <LogOut
                       size={14}
-                      color={"#FF875A"}
+                      color={"#58BBDE"}
                       className="headerIcon"
                     />{" "}
                     Logout

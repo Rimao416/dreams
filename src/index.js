@@ -17,8 +17,10 @@ import "./assets/css/style.css";
 
 import Approuter from "./approuter";
 import { Provider } from "react-redux";
-import store from "./redux/store/ReduxStore";
+// import store from "./redux/store/ReduxStore";
+
 import { ContextProvider } from "./context/ContextProvider";
+import { store } from "./redux/slice";
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <>

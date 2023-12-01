@@ -1,5 +1,6 @@
 export { default as headlogo } from "../assets/img/logo.png";
 export { default as logo } from "../assets/img/logo.svg";
+export {default as notFound} from "../assets/img/not_found.png"
 export { default as logoPng } from "../assets/img/logo/logo.png";
 export { default as logoSvg } from "../assets/img/logo/logo.svg";
 export { default as logoFivePng } from "../assets/img/logo/logo-five.png";
@@ -9,6 +10,7 @@ export { default as PencilIcon } from "../assets/img/pencil-icon.svg";
 export { default as CourseIcon } from "../assets/img/cources-icon.svg";
 export { default as CertificateIcon } from "../assets/img/certificate-icon.svg";
 export { default as GratuateIcon } from "../assets/img/gratuate-icon.svg";
+export {default as Empty} from "../assets/img/empty.png"
 
 export { default as Lead1 } from "../assets/img/lead-01.png";
 export { default as Lead2 } from "../assets/img/lead-02.png";

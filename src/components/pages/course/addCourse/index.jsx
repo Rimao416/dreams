@@ -65,7 +65,7 @@ const AddCourse = () => {
             <div className="row align-items-center">
               <div className="col-md-12">
                 <div className="add-course-header">
-                  <h2>Add New Course</h2>
+                  <h2>Ajouter un nouveau cours</h2>
                   <div className="add-course-btns">
                     <ul className="nav">
                       <li>

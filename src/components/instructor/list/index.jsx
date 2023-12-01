@@ -78,7 +78,7 @@ export const InstructorList = () => {
                                 style={{
                                   position: "absolute",
                                   left: "7px",
-                                  color: "#F66962",
+                                  color: "#58BBDE",
                                 }}
                               />
                               <input

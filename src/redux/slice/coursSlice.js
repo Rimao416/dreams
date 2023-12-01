@@ -2,9 +2,12 @@ import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { API } from "../../config";
 export const profCours = createAsyncThunk(
   "profCours",
-  async (_, { rejectWithValue }) => {
+  async (id, { rejectWithValue }) => {
+    // const token = localStorage.getItem("ACCESS_TOKEN");
+    // API.defaults.headers.common["Authorization"] = `Bearer ${token}`;
+
     try {
-      const response = await API.get("/prof-courses/3");
+      const response = await API.get(`/prof-courses/${id}`);
       console.log(response);
       return response.data;
     } catch (error) {

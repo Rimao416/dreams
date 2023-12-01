@@ -112,11 +112,8 @@ export const App = () => {
       <Route path="" element={<InstructorCourse />} />
 
       {/* Blog */}
-      <Route path="/blog-list" element={<BlogList />} />
-      <Route path="/blog-grid" element={<BlogGrid />} />
-      <Route path="/blog-masonry" element={<BlogMasonry />} />
-      <Route path="/blog-modern" element={<BlogModern />} />
-      <Route path="/blog-details" element={<BlogDetails />} />
+      <Route path="/blog" element={<BlogMasonry />} />
+      <Route path="/blog/:slug" element={<BlogDetails />} />
 
       {/* Pages */}
       <Route path="/page-notification" element={<Notification />} />
@@ -265,6 +262,8 @@ export const App = () => {
       <Route path="/purchase-history" element={<PurchaseHistory />} />
       <Route path="/deposit-student" element={<DepositStudent />} />
       <Route path="/transactions-student" element={<TransactionStudent />} />
+      {/* IMPLEMENT 404 ROUTE */}
+      <Route path="*" element={<Error404 />} />
     </Routes>
   );
 };
