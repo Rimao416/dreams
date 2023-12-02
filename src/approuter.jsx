@@ -9,6 +9,7 @@ import Cart from "./components/pages/cart";
 import JobCategory from "./components/pages/category";
 import Checkout from "./components/pages/checkout";
 import AddCourse from "./components/pages/course/addCourse";
+import EditCourse from "./components/pages/course/editCourse";
 import CourseDetails from "./components/pages/course/courseDetails";
 import CourseDetails1 from "./components/pages/course/courseDetails1";
 import CourseDetails2 from "./components/pages/course/courseDetails2";
@@ -112,6 +113,7 @@ const Approuter = () => {
           <Route path="/instructor-grid" element={<InstructorGrid />} />
           <Route path="/prof-cours" element={<InstructorCourse />} />
           <Route path="/add-course" element={<AddCourse />} />
+          <Route path="/edit-course/:id" element={<EditCourse />} />
           <Route path="/course-list" element={<CourseList />} />
         </Route>
 

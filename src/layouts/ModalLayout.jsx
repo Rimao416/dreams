@@ -1,12 +1,14 @@
 import React from "react";
 import Modal from "react-modal";
+import PropTypes from "prop-types";
 
 Modal.setAppElement("#root"); // Assurez-vous d'ajuster '#root' à votre point de montage de l'application
 
-const ModalLayout = ({ children, title, onClose }) => {
+const ModalLayout = ({ isOpen, children, title, onClose }) => {
+    console.log("La valeur est "+isOpen)
   return (
     <Modal
-      isOpen={true} // Par défaut ouvrez le modal
+      isOpen={isOpen} // Par défaut ouvrez le modal
       onRequestClose={onClose}
       contentLabel={title || "Modal"}
       style={{
@@ -30,5 +32,11 @@ const ModalLayout = ({ children, title, onClose }) => {
     </Modal>
   );
 };
+ModalLayout.propTypes = {
+    children: PropTypes.node,
+    title: PropTypes.string,
+    onClose: PropTypes.func,
+    isOpen: PropTypes.bool,
+  };
 
 export default ModalLayout;
