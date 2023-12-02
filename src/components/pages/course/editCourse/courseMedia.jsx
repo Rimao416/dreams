@@ -84,9 +84,9 @@ const CourseMedia = ({ prevTab1, nextTab2, cours, setCours,lecon,setLecon }) => 
               <div className="form-group">
                 <div className="add-image-box">
                   <Link to="#">
-                    {image ? (
+                    {cours.image ? (
                       <img
-                        src={image}
+                        src={cours.image}
                         alt=""
                         style={{ width: "300px", height: "300px" }}
                       />
@@ -121,7 +121,7 @@ CourseMedia.propTypes = {
   prevTab1: PropTypes.func,
   nextTab2: PropTypes.func,
   cours: PropTypes.shape({
-    title: PropTypes.string,
+    title: PropTypes.null,
     description: PropTypes.string,
     price: PropTypes.number,
     old_price: PropTypes.number,

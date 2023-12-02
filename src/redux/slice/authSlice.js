@@ -59,7 +59,7 @@ const authSlice = createSlice({
             loading: false,
             user: action.payload,
             error: null,
-            // token: action.payload.access_token,
+            token: action.payload.access_token,
         }
         
 

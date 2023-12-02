@@ -18,34 +18,56 @@ const AddCourse = () => {
 
   const { id } = useParams();
   const [cours, setCours] = useState({
+    id: id,
     title: null,
     description: "",
     user_id: "1",
     tool_id: "1",
-    price: 0,
-    old_price: 0,
+    price: null,
+    old_price: null,
     categorie_id: "",
     image: "",
     video: null,
   });
+ 
+  const [input, setInput] = useState(null);
   useEffect(() => {
     id &&
-      dispatch(getCour(id)).then((result) => {
-        console.log(result);
-        if (result.type == "getCour/fulfilled") {
-          setCours({
-            ...cours,
-            title: result.payload.data.title,
-            description: result.payload.data.description,
-            user_id: result.payload.data.user_id,
-            tool_id: result.payload.data.tool_id,
-            price: 135,
-            old_price:120,
-            categorie_id: result.payload.data.categorie_id,
-            image: result.payload.data.image,
-            video: result.payload.data.video,
-          });
-        }
+      dispatch(getCourseCategories()).then((cat) => {
+        console.log(cat);
+        dispatch(getCour(id)).then((result) => {
+          console.log(result);
+
+          // const newPriceString = number.toString();
+          const newPrice = parseInt(
+            result.payload.data.price.replace(/\D/g, ""),
+            10
+          );
+          const newOldPrice = parseInt(
+            result.payload.data.old_price.replace(/\D/g, ""),
+            10
+          );
+
+          if (result.type == "getCour/fulfilled") {
+            const selectedOption = cat.payload.data.find(
+              (option) => option.name === result.payload.data.categorie
+            );
+            console.log(selectedOption);
+            setCours((prevCours) => ({
+              ...prevCours,
+              title: result.payload.data.title,
+              description: result.payload.data.description,
+              user_id: result.payload.data.user_id,
+              tool_id: result.payload.data.tool_id,
+              price: newPrice,
+              old_price: newOldPrice,
+              categorie_id: selectedOption.id,
+              image: result.payload.data.image,
+              video: result.payload.data.video,
+            }));
+            setInput(result.payload.data.categorie)
+          }
+        });
       });
   }, [id, dispatch]);
 
@@ -113,7 +135,7 @@ const AddCourse = () => {
             <div className="row align-items-center">
               <div className="col-md-12">
                 <div className="add-course-header">
-                  <h2>Ajouter un nouveau cours</h2>
+                  <h2>Editer un cours</h2>
                   <div className="add-course-btns">
                     <ul className="nav">
                       <li>

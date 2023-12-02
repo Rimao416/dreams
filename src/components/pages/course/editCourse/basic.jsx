@@ -1,28 +1,29 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import TextEditor from "./editor";
-import PropTypes from 'prop-types';
+import PropTypes from "prop-types";
+import { useParams } from "react-router-dom";
 import Select from "react-select";
 import { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useEffect } from "react";
 import { getCourseCategories } from "../../../../redux/slice/categorySlice";
 import { useStateContext } from "../../../../context/ContextProvider";
-import { addCours } from "../../../../redux/slice/coursSlice";
+import { addCours, getCour } from "../../../../redux/slice/coursSlice";
 // eslint-disable-next-line react/prop-types
-const Basic = ({ nextTab,cours,setCours,handleChange }) => {
+const Basic = ({ nextTab, cours, setCours, handleChange }) => {
  
-  const { user } = useStateContext();
-  const [input, setInput] = useState(null);
+  // console.log("L'id est "+id)
 
-  const dispatch = useDispatch();
-  useEffect(() => {
-    dispatch(getCourseCategories());
-    // setCours({
-    //   ...cours,
-    //   user_id: user?.id,
-    // });
-  }, [dispatch, user?.id]);
+  const { user } = useStateContext();
+
+  // useEffect(() => {
+  //   dispatch(getCourseCategories());
+  //   // setCours({
+  //   //   ...cours,
+  //   //   user_id: user?.id,
+  //   // });
+  // }, [dispatch, user?.id]);
 
   const { categoriesCourse, loading } = useSelector(
     (state) => state?.categoryReducer
@@ -33,7 +34,6 @@ const Basic = ({ nextTab,cours,setCours,handleChange }) => {
     value: category.id, // Assurez-vous de remplacer 'value' par la clé réelle de vos données
   }));
 
- 
   const handleSubmit = (e) => {
     e.preventDefault();
     const descriptionWithoutParagraphs = cours.description.replace(
@@ -90,7 +90,13 @@ const Basic = ({ nextTab,cours,setCours,handleChange }) => {
                 <label className="add-course-label">Catégorie</label>
                 <Select
                   options={option}
-                  defaultValue={input}
+                  value={option && option.find(
+                    (option) => option.label === input
+                  )}
+                  // value={input}
+
+                  
+
                   // CHANGE CATEGORIE INTO CATEGORIE_ID
                   onChange={(selectedOption) =>
                     setCours({ ...cours, categorie_id: selectedOption.value })
@@ -108,7 +114,6 @@ const Basic = ({ nextTab,cours,setCours,handleChange }) => {
                       setCours({ ...cours, description: data });
                     }}
                     data={cours?.description}
-                   
                   />
                 </div>
               </div>
@@ -139,7 +144,6 @@ const Basic = ({ nextTab,cours,setCours,handleChange }) => {
             </form>
           </div>
           <div className="widget-btn">
-           
             <Link
               to="#"
               className="btn btn-info-light next_btn"
@@ -154,17 +158,20 @@ const Basic = ({ nextTab,cours,setCours,handleChange }) => {
   );
 };
 
-Basic.propTypes ={
-  cours:PropTypes.shape({
+Basic.propTypes = {
+  cours: PropTypes.shape({
     title: PropTypes.string,
     description: PropTypes.string,
     price: PropTypes.String,
     old_price: PropTypes.number,
+    user_id: PropTypes.number,
+    categorie_id: PropTypes.number,
   }),
-  setCours:PropTypes.func,
-  nextTab:PropTypes.func,
-  prevTab:PropTypes.func,
-  handleChange:PropTypes.func
-}
+  setCours: PropTypes.func,
+  nextTab: PropTypes.func,
+  prevTab: PropTypes.func,
+  handleChange: PropTypes.func,
+
+};
 
 export default Basic;
