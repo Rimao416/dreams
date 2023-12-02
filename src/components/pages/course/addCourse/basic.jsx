@@ -10,7 +10,7 @@ import { getCourseCategories } from "../../../../redux/slice/categorySlice";
 import { useStateContext } from "../../../../context/ContextProvider";
 import { addCours } from "../../../../redux/slice/coursSlice";
 // eslint-disable-next-line react/prop-types
-const Basic = ({ nextTab,cours,setCours }) => {
+const Basic = ({ nextTab,cours,setCours,handleChange }) => {
  
   const { user } = useStateContext();
   const [input, setInput] = useState(null);
@@ -33,9 +33,7 @@ const Basic = ({ nextTab,cours,setCours }) => {
     value: category.id, // Assurez-vous de remplacer 'value' par la clé réelle de vos données
   }));
 
-  const handleChange = (e) => {
-    setCours({ ...cours, [e.target.name]: e.target.value });
-  };
+ 
   const handleSubmit = (e) => {
     e.preventDefault();
     const descriptionWithoutParagraphs = cours.description.replace(
@@ -109,6 +107,8 @@ const Basic = ({ nextTab,cours,setCours }) => {
                       const data = editor.getData();
                       setCours({ ...cours, description: data });
                     }}
+                    data={cours?.description}
+                   
                   />
                 </div>
               </div>
@@ -120,6 +120,7 @@ const Basic = ({ nextTab,cours,setCours }) => {
                   placeholder="Course Title"
                   name="price"
                   onChange={handleChange}
+                  value={cours?.price}
                 />
               </div>
               <div className="form-group">
@@ -132,14 +133,13 @@ const Basic = ({ nextTab,cours,setCours }) => {
                   placeholder="Course Title"
                   name="old_price"
                   onChange={handleChange}
+                  value={cours?.old_price}
                 />
               </div>
             </form>
           </div>
           <div className="widget-btn">
-            <Link to="#" className="btn btn-black">
-              Back
-            </Link>
+           
             <Link
               to="#"
               className="btn btn-info-light next_btn"
@@ -162,7 +162,9 @@ Basic.propTypes ={
     old_price: PropTypes.number,
   }),
   setCours:PropTypes.func,
-  nextTab:PropTypes.func
+  nextTab:PropTypes.func,
+  prevTab:PropTypes.func,
+  handleChange:PropTypes.func
 }
 
 export default Basic;

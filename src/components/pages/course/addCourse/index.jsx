@@ -21,8 +21,15 @@ const AddCourse = () => {
     categorie_id: "",
     image: "",
     video: null,
-    lessons: [],
   });
+  const [lecon, setLecon] = useState({
+    title: "",
+    course_id: null,
+    video: "",
+  });
+  const handleChange = (e) => {
+    setCours({ ...cours, [e.target.name]: e.target.value });
+  };
   // const {user}=useStateContext()
   // console.log(user)
   const [TabChange, setTabChange] = useState(false);
@@ -163,6 +170,7 @@ const AddCourse = () => {
                           nextTab={nextTab}
                           cours={cours}
                           setCours={setCours}
+                          handleChange={handleChange}
                         />
                       ) : (
                         ""
@@ -173,6 +181,9 @@ const AddCourse = () => {
                           prevTab1={prevTab1}
                           cours={cours}
                           setCours={setCours}
+                          handleChange={handleChange}
+                          lecon={lecon}
+                          setLecon={setLecon}
                         />
                       ) : (
                         ""
@@ -183,6 +194,9 @@ const AddCourse = () => {
                           prevTab2={prevTab2}
                           cours={cours}
                           setCours={setCours}
+                          handleChange={handleChange}
+                          lecon={lecon}
+                          setLecon={setLecon}
                         />
                       ) : (
                         ""
@@ -193,6 +207,7 @@ const AddCourse = () => {
                           prevTab3={prevTab3}
                           cours={cours}
                           setCours={setCours}
+                          handleChange={handleChange}
                         />
                       ) : (
                         ""

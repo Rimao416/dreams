@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import ReactTagsInput from "./tags";
 
 // eslint-disable-next-line react/prop-types
-const Settings = ({ nextTab4, prevTab3 }) => {
+const Settings = ({ nextTab4, prevTab3,cours,setCours }) => {
   return (
     <>
       <fieldset className="field-card" style={{ display: "block" }}>
