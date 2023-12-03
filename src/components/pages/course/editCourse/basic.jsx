@@ -11,19 +11,25 @@ import { getCourseCategories } from "../../../../redux/slice/categorySlice";
 import { useStateContext } from "../../../../context/ContextProvider";
 import { addCours, getCour } from "../../../../redux/slice/coursSlice";
 // eslint-disable-next-line react/prop-types
-const Basic = ({ nextTab, cours, setCours, handleChange }) => {
- 
+const Basic = ({ nextTab, cours, setCours, handleChange, input, setInput }) => {
+  const dispatch = useDispatch();
+  useEffect(()=>{
+    console.log(cours)
+  },[cours])
+  // const { id } = useParams();
   // console.log("L'id est "+id)
 
   const { user } = useStateContext();
 
-  // useEffect(() => {
-  //   dispatch(getCourseCategories());
-  //   // setCours({
-  //   //   ...cours,
-  //   //   user_id: user?.id,
-  //   // });
-  // }, [dispatch, user?.id]);
+  useEffect(() => {
+    dispatch(getCourseCategories()).then((result) => {
+      console.log(cours);
+    });
+    // setCours({
+    //   ...cours,
+    //   user_zid: user?.id,
+    // });
+  }, [dispatch, user?.id]);
 
   const { categoriesCourse, loading } = useSelector(
     (state) => state?.categoryReducer
@@ -90,12 +96,10 @@ const Basic = ({ nextTab, cours, setCours, handleChange }) => {
                 <label className="add-course-label">Catégorie</label>
                 <Select
                   options={option}
-                  value={option && option.find(
-                    (option) => option.label === input
-                  )}
+                  value={
+                    option && option.find((option) => option.label === input)
+                  }
                   // value={input}
-
-                  
 
                   // CHANGE CATEGORIE INTO CATEGORIE_ID
                   onChange={(selectedOption) =>
@@ -171,7 +175,6 @@ Basic.propTypes = {
   nextTab: PropTypes.func,
   prevTab: PropTypes.func,
   handleChange: PropTypes.func,
-
 };
 
 export default Basic;

@@ -15,10 +15,10 @@ import { getCour } from "../../../../redux/slice/coursSlice";
 
 const AddCourse = () => {
   const dispatch = useDispatch();
+  const [input, setInput] = useState(null);
 
   const { id } = useParams();
   const [cours, setCours] = useState({
-    id: id,
     title: null,
     description: "",
     user_id: "1",
@@ -29,16 +29,11 @@ const AddCourse = () => {
     image: "",
     video: null,
   });
- 
-  const [input, setInput] = useState(null);
   useEffect(() => {
     id &&
-      dispatch(getCourseCategories()).then((cat) => {
-        console.log(cat);
-        dispatch(getCour(id)).then((result) => {
-          console.log(result);
-
-          // const newPriceString = number.toString();
+      dispatch(getCour(id)).then((result) => {
+        console.log(result);
+        if (result.type == "getCour/fulfilled") {
           const newPrice = parseInt(
             result.payload.data.price.replace(/\D/g, ""),
             10
@@ -47,27 +42,19 @@ const AddCourse = () => {
             result.payload.data.old_price.replace(/\D/g, ""),
             10
           );
-
-          if (result.type == "getCour/fulfilled") {
-            const selectedOption = cat.payload.data.find(
-              (option) => option.name === result.payload.data.categorie
-            );
-            console.log(selectedOption);
-            setCours((prevCours) => ({
-              ...prevCours,
-              title: result.payload.data.title,
-              description: result.payload.data.description,
-              user_id: result.payload.data.user_id,
-              tool_id: result.payload.data.tool_id,
-              price: newPrice,
-              old_price: newOldPrice,
-              categorie_id: selectedOption.id,
-              image: result.payload.data.image,
-              video: result.payload.data.video,
-            }));
-            setInput(result.payload.data.categorie)
-          }
-        });
+          setCours({
+            ...cours,
+            title: result.payload.data.title,
+            description: result.payload.data.description,
+            user_id: result.payload.data.user_id,
+            tool_id: result.payload.data.tool_id,
+            price: newPrice,
+            old_price: newOldPrice,
+            categorie_id: result.payload.data.categorie_id,
+            image: result.payload.data.image,
+            video: result.payload.data.video,
+          });
+        }
       });
   }, [id, dispatch]);
 
@@ -135,7 +122,7 @@ const AddCourse = () => {
             <div className="row align-items-center">
               <div className="col-md-12">
                 <div className="add-course-header">
-                  <h2>Editer un cours</h2>
+                  <h2>Editer</h2>
                   <div className="add-course-btns">
                     <ul className="nav">
                       <li>
@@ -220,6 +207,8 @@ const AddCourse = () => {
                           cours={cours}
                           setCours={setCours}
                           handleChange={handleChange}
+                          input={input}
+                          setInput={setInput}
                         />
                       ) : (
                         ""
