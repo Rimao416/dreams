@@ -5,32 +5,24 @@ const StateContext = createContext({});
 
 export const CourseProvider = ({ children }) => {
    const [cours, setCours] = useState({
-    title: null,
+    title: "",
     description: "",
     user_id: "1",
     tool_id: "1",
-    price: null,
-    old_price: null,
+    price: 0,
+    old_price: 0,
     categorie_id: "",
     image: "",
-    video: null,
+    video: 0,
   });
-//    const [cours, setCours] = useState({
-//     title: null,
-//     description: "",
-//     user_id: "1",
-//     tool_id: "1",
-//     price: null,
-//     old_price: null,
-//     categorie_id: "",
-//     image: "",
-//     video: null,
-//   });
+
+//    const [cours, setCours] = useState(null);
   return (
     <StateContext.Provider
       value={{
         cours,
         setCours,
+        
       }}
     >
       {children}

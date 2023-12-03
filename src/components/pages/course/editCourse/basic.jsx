@@ -12,29 +12,27 @@ import { useStateContext } from "../../../../context/ContextProvider";
 import { addCours, getCour } from "../../../../redux/slice/coursSlice";
 import { useStateContext as useStateCourse } from "../../../../context/CourseProvider";
 // eslint-disable-next-line react/prop-types
-const Basic = ({ nextTab, handleChange, input, setInput }) => {
+const Basic = ({ nextTab, input, setInput, handleChange }) => {
+  const { user } = useStateContext();
+
   const { cours, setCours } = useStateCourse();
-  useEffect(()=>{
-    console.log(cours)
-  },[cours])
+  console.log(cours);
   const dispatch = useDispatch();
-  useEffect(() => {
-    console.log(cours);
-  }, [cours]);
+
   // const { id } = useParams();
   // console.log("L'id est "+id)
 
-  const { user } = useStateContext();
-
   useEffect(() => {
     dispatch(getCourseCategories()).then((result) => {
-      // console.log(result);
-      // const findCategory = input && result?.payload.data.find((category)=>category.name===input)
-      // console.log(findCategory)
-      // setCours({
-      //   ...cours,
-      //   categorie_id: findCategory?.id
-      // })
+      console.log(result);
+      const findCategory =
+        input &&
+        result?.payload.data.find((category) => category.name === input);
+      console.log(findCategory);
+      setCours({
+        ...cours,
+        categorie_id: findCategory?.id,
+      });
       // const findCategorie=categoriesCourse?.find((category)=>category.id===cours.category_id)
       // setCours({
       //   ...cours,
@@ -45,7 +43,7 @@ const Basic = ({ nextTab, handleChange, input, setInput }) => {
     //   ...cours,
     //   user_zid: user?.id,
     // });
-  }, [dispatch, user?.id,input]);
+  }, [dispatch, user?.id, input]);
 
   const { categoriesCourse, loading } = useSelector(
     (state) => state?.categoryReducer
@@ -87,6 +85,11 @@ const Basic = ({ nextTab, handleChange, input, setInput }) => {
       };
     },
   };
+  const handleOption = (e) => {
+    setInput(e.label);
+    (e) =>
+      setCours({ ...cours, categorie_id: e.value });
+  };
 
   return (
     <>
@@ -104,12 +107,13 @@ const Basic = ({ nextTab, handleChange, input, setInput }) => {
                   className="form-control"
                   placeholder="Course Title"
                   name="title"
+                  defaultValue={cours?.title}
                   onChange={handleChange}
-                  value={cours?.title}
                 />
               </div>
               <div className="form-group">
                 <label className="add-course-label">Catégorie</label>
+
                 <Select
                   options={option}
                   value={
@@ -118,23 +122,30 @@ const Basic = ({ nextTab, handleChange, input, setInput }) => {
                   // value={input}
 
                   // CHANGE CATEGORIE INTO CATEGORIE_ID
-                  onChange={(selectedOption) =>
-                    setCours({ ...cours, categorie_id: selectedOption.value })
-                  }
+                  onChange={handleOption}
                   placeholder="Votre categorie"
                   styles={customStyles}
                 ></Select>
               </div>
               <div className="form-group mb-0">
                 <label className="add-course-label">Course Description</label>
+                <textarea
+                  name="description"
+                  id=""
+                  cols="30"
+                  rows="10"
+                  className="form-control"
+                  defaultValue={cours?.description}
+                  onChange={handleChange}
+                ></textarea>
                 <div id="editor">
-                  <TextEditor
+                  {/* <TextEditor
                     onChange={(event, editor) => {
                       const data = editor.getData();
                       setCours({ ...cours, description: data });
                     }}
                     data={cours?.description}
-                  />
+                  /> */}
                 </div>
               </div>
               <div className="form-group">

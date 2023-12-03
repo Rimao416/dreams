@@ -50,9 +50,27 @@ export const updateLesson = createAsyncThunk(
     API.defaults.headers.common["Authorization"] = `Bearer ${token}`;
 
     try {
-      const response = await API.put(`/lessons/${data.id}`, data);
+      const response = await API.post(`/modifier-lessons/${data.id}`, data);
       console.log(response);
       return response.data;
+    } catch (error) {
+      if (!error.response) {
+        throw error;
+      }
+      return rejectWithValue(error.response.data);
+    }
+  }
+);
+export const deleteLesson = createAsyncThunk(
+  "deleteLesson",
+  async (id, { rejectWithValue }) => {
+    const token = localStorage.getItem("ACCESS_TOKEN");
+    API.defaults.headers.common["Authorization"] = `Bearer ${token}`;
+
+    try {
+      const response = await API.delete(`/lessons/${id}`);
+      console.log(response);
+      return id;
     } catch (error) {
       if (!error.response) {
         throw error;
@@ -146,6 +164,29 @@ const leconSlice = createSlice({
         };
       })
       .addCase(updateLesson.rejected, (state, action) => {
+        console.log(action);
+        state.loading = false;
+        state.error = true;
+      })
+      .addCase(deleteLesson.pending, (state) => {
+        state.loading = true;
+      })
+      .addCase(deleteLesson.fulfilled, (state, action) => {
+       
+
+        // Créer un nouveau tableau de leçons en supprimant la leçon supprimé
+        const updatedFinal = state.lecons.filter(
+          (lecon) => lecon.id !== action.payload
+        );
+        return {
+          ...state,
+          loading: false,
+          lecons: updatedFinal,
+          //   COMPLETE LE CODE
+          type: action.type,
+        };
+      })
+      .addCase(deleteLesson.rejected, (state, action) => {
         console.log(action);
         state.loading = false;
         state.error = true;

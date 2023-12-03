@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import PropTypes from "prop-types";
 import { useSelector, useDispatch } from "react-redux";
-import { addCours } from "../../../../redux/slice/coursSlice";
+import { addCours, updateCours } from "../../../../redux/slice/coursSlice";
 import { useStateContext as useStateCourse } from "../../../../context/CourseProvider";
 
 // eslint-disable-next-line react/prop-types
@@ -14,7 +14,6 @@ const CourseMedia = ({ prevTab1, nextTab2, lecon, setLecon }) => {
 
   const handleFileChange = (e) => {
     const { files } = e.target;
-    console.log(files);
     files[0] && setCours({ ...cours, image: files[0] });
     if (files) {
       setImage(URL.createObjectURL(files[0]));
@@ -38,6 +37,7 @@ const CourseMedia = ({ prevTab1, nextTab2, lecon, setLecon }) => {
     // nextTab2(); Ecran Suivant
     // new Form
     const form = new FormData();
+    form.append("id",cours.id)
     form.append("image", cours.image);
     form.append("title", cours.title);
     form.append("description", descriptionWithoutParagraphs);
@@ -46,16 +46,17 @@ const CourseMedia = ({ prevTab1, nextTab2, lecon, setLecon }) => {
     form.append("price", cours.price);
     form.append("old_price", cours.old_price);
     form.append("categorie_id", cours.categorie_id);
+    // console.log(cours)
     // SEND DATA INTO DATABASE
-    dispatch(addCours(form)).then((result) => {
+    dispatch(updateCours(form)).then((result) => {
       console.log(result);
-      if (result.type == "addCours/prof/fulfilled") {
-        setLecon({
-          ...lecon,
-          course_id: result.payload.data.id,
-        });
-        nextTab2();
-      }
+      // if (result.type == "addCours/prof/fulfilled") {
+      //   setLecon({
+      //     ...lecon,
+      //     course_id: result.payload.data.id,
+      //   });
+      //   nextTab2();
+      // }
     });
   };
 
@@ -71,7 +72,7 @@ const CourseMedia = ({ prevTab1, nextTab2, lecon, setLecon }) => {
               <div className="form-group">
                 <label className="add-course-label">Image mise en Avant</label>
                 <div className="relative-form">
-                  <span>No File Selected</span>
+                  <span>{cours?.image ? "Image Chargée" : "Aucune Image"}</span>
                   <label className="relative-file-upload">
                     Upload File{" "}
                     <input
@@ -84,7 +85,7 @@ const CourseMedia = ({ prevTab1, nextTab2, lecon, setLecon }) => {
               </div>
 
               <div className="form-group">
-                <div className="add-image-box">
+                {/* <div className="add-image-box">
                   <Link to="#">
                     {cours.image ? (
                       <img
@@ -96,7 +97,7 @@ const CourseMedia = ({ prevTab1, nextTab2, lecon, setLecon }) => {
                       <i className="far fa-image" />
                     )}
                   </Link>
-                </div>
+                </div> */}
               </div>
               <div className="widget-btn">
                 <Link className="btn btn-black prev_btn" onClick={prevTab1}>

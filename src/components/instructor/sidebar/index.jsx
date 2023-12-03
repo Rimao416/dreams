@@ -23,7 +23,9 @@ import { useStateContext } from "../../../context/ContextProvider";
 
 // eslint-disable-next-line react/prop-types
 export default function InstructorSidebar({ activeMenu }) {
+
   const {user}=useStateContext()
+  console.log(user)
   return (
     <div className="col-xl-3 col-lg-4 col-md-12 theiaStickySidebar">
       <StickyBox offsetTop={20} offsetBottom={20}>
@@ -32,7 +34,7 @@ export default function InstructorSidebar({ activeMenu }) {
           <div className="settings-menu p-0">
             <div className="profile-bg">
               <h5>Beginner</h5>
-              <img src={InstructorProfileBg} alt="" />
+              <img src={user?.banner} alt="" />
               <div className="profile-img">
                 <Link to="/instructor-profile">
                   <img src={user?.photo} alt="" />
@@ -65,7 +67,7 @@ export default function InstructorSidebar({ activeMenu }) {
                     activeMenu === "Dashboard" ? "nav-item active" : "nav-item"
                   }
                 >
-                  <Home size={20} /> My Dashboard
+                  <Home size={20} /> Tableau de bord
                 </Link>
               </li>
               <li
@@ -73,8 +75,8 @@ export default function InstructorSidebar({ activeMenu }) {
                   activeMenu === "Courses" ? "nav-item active" : "nav-item"
                 }
               >
-                <Link to="/instructor-course" className="nav-link">
-                  <Book size={20} /> My Courses
+                <Link to="/prof-cours" className="nav-link">
+                  <Book size={20} /> Mes cours
                 </Link>
               </li>
               <li className="nav-item">

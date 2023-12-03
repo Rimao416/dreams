@@ -6,6 +6,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { addLesson, getCourLesson } from "../../../../redux/slice/leconSlice";
 import { profCours } from "../../../../redux/slice/coursSlice";
 import { useStateContext } from "../../../../context/ContextProvider";
+import { useStateContext as useCourseContext } from "../../../../context/CourseProvider";
 import Modal from "react-modal";
 import EditCourse from "../../../modal/EditCourse";
 Modal.setAppElement("#root");
@@ -14,8 +15,7 @@ Modal.setAppElement("#root");
 const Curriculum = ({
   nextTab3,
   prevTab2,
-  cours,
-  setCours,
+
   lecon,
   setLecon,
 }) => {
@@ -41,6 +41,7 @@ const Curriculum = ({
   }, [user, dispatch]);
   // console.log(lecon);
   const [video, setVideo] = useState(null);
+  const { cours } = useCourseContext();
   // const [image, setImage] = useState(null);
 
   // const [lecon, setLecon] = useState({
@@ -64,30 +65,30 @@ const Curriculum = ({
     }
     // setCours({ ...cours, [e.target.name]: e.target.files[0] });
   };
-  const handleSubmit = (event) => {
-    setLoading(true);
-    event.preventDefault();
-    // loading=true
-    console.log(lecon);
-    // Create Form Data
-    const form = new FormData();
-    form.append("title", lecon.title);
-    form.append("course_id", 19);
-    form.append("video", lecon.video);
-    dispatch(addLesson(form)).then((result) => {
-      console.log(result);
-      if (result.type == "addLesson/prof/fulfilled") {
-        // nextTab3();
+  // const handleSubmit = (event) => {
+  //   setLoading(true);
+  //   event.preventDefault();
+  //   // loading=true
+  //   console.log(lecon);
+  //   // Create Form Data
+  //   const form = new FormData();
+  //   form.append("title", lecon.title);
+  //   form.append("course_id", cours?.id);
+  //   form.append("video", lecon.video);
+  //   dispatch(addLesson(form)).then((result) => {
+  //     console.log(result);
+  //     if (result.type == "addLesson/prof/fulfilled") {
+  //       // nextTab3();
 
-        console.log("BIEN BIEN BIEN");
-        // const [loading, setLoading] = useState(false);
-      }
-      setLoading(false);
-    });
+  //       console.log("BIEN BIEN BIEN");
+  //       // const [loading, setLoading] = useState(false);
+  //     }
+  //     setLoading(false);
+  //   });
 
-    // setLoading(false);
-    // loading=false
-  };
+  //   // setLoading(false);
+  //   // loading=false
+  // };
 
   return (
     <>
@@ -96,75 +97,9 @@ const Curriculum = ({
           <div className="add-course-inner-header">
             <h4>Leçons</h4>
           </div>
-          <div className="add-course-form">
-            <form onSubmit={handleSubmit}>
-              <div className="form-group">
-                <div className="form-group">
-                  <label className="add-course-label">Titre de la leçon</label>
-                  <input
-                    type="text"
-                    className="form-control"
-                    placeholder="Course Title"
-                    name="title"
-                    onChange={handleChange}
-                    value={lecon?.title}
-                  />
-                </div>
-                <div className="form-group">
-                  <label className="add-course-label">
-                    Contenu de la video
-                  </label>
-                  <div className="relative-form">
-                    <span>
-                      {video ? video.name : " Aucun element selectionné"}
-                    </span>
-                    <label className="relative-file-upload">
-                      Upload File{" "}
-                      <input
-                        type="file"
-                        name="video"
-                        onChange={handleFileChange}
-                      />
-                    </label>
-                  </div>
-                </div>
-              </div>
-
-              <div className="form-group"></div>
-              <div className="widget-btn">
-                {/* <Link className="btn btn-black prev_btn" onClick={prevTab2}>
-              Previous
-            </Link> */}
-                {loading == true ? (
-                  <Oval
-                    height={40}
-                    width={40}
-                    color="#58BBDE"
-                    wrapperStyle={{}}
-                    wrapperClass=""
-                    visible={true}
-                    ariaLabel="oval-loading"
-                    secondaryColor="#A2CDDC"
-                    strokeWidth={3}
-                    strokeWidthSecondary={3}
-                  />
-                ) : (
-                  <button className="btn btn-info-light next_btn" type="submit">
-                    Continuer
-                  </button>
-                )}
-              </div>
-            </form>
-          </div>
+       
         </div>
         <div className="curriculum-grid">
-          <div className="curriculum-head">
-            <p>Mes cours</p>
-            {/* <Link to="#" className="btn">
-              Add Lecture
-            </Link> */}
-          </div>
-
           {data?.lecons &&
             data?.lecons.map((lecon) => (
               <>
@@ -211,7 +146,11 @@ const Curriculum = ({
             ))}
         </div>
       </fieldset>
-      <EditCourse isOpen={modalIsOpen} selectedLecon={selectedLecon} onClose={closeModal}/>
+      <EditCourse
+        isOpen={modalIsOpen}
+        selectedLecon={selectedLecon}
+        onClose={closeModal}
+      />
     </>
   );
 };

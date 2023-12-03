@@ -11,7 +11,9 @@ import "bootstrap/dist/css/bootstrap.min.css";
 //Font Awesome
 import "./assets/plugins/fontawesome/css/fontawesome.min.css";
 import "./assets/plugins/fontawesome/css/all.min.css";
-
+import { ToastContainer, toast } from "react-toastify";
+import 'react-toastify/dist/ReactToastify.css';
+  
 //CSS
 import "./assets/css/style.css";
 
@@ -33,5 +35,6 @@ root.render(
         </Provider>
       </ContextProvider>
     </CourseProvider>
+        <ToastContainer position={toast.POSITION.TOP_RIGHT} />
   </>
 );

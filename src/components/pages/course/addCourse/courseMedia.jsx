@@ -1,11 +1,20 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import PropTypes from "prop-types";
+import { toast } from "react-toastify";
+
 import { useSelector, useDispatch } from "react-redux";
 import { addCours } from "../../../../redux/slice/coursSlice";
 
 // eslint-disable-next-line react/prop-types
-const CourseMedia = ({ prevTab1, nextTab2, cours, setCours,lecon,setLecon }) => {
+const CourseMedia = ({
+  prevTab1,
+  nextTab2,
+  cours,
+  setCours,
+  lecon,
+  setLecon,
+}) => {
   const [image, setImage] = useState(null);
   const dispatch = useDispatch();
   console.log(cours);
@@ -52,7 +61,26 @@ const CourseMedia = ({ prevTab1, nextTab2, cours, setCours,lecon,setLecon }) => 
           ...lecon,
           course_id: result.payload.data.id,
         });
+        toast.success("Cours ajouter avec succes");
+
         nextTab2();
+      } else {
+        // toast.error("Cours non ajouter");
+        // for (const key in result.payload.data) {
+        //   if (errorObject.hasOwnProperty(key)) {
+        //     const errorMessage = errorObject[key][0];
+        //     console.log(errorMessage);
+        //     // Vous pouvez utiliser la valeur de errorMessage comme vous le souhaitez
+        //   }
+        // }
+        // const errorMessages = Object.values(result.payload.data).map(
+        //   (errorArray) => errorArray[0]
+        // );
+
+        // console.log(errorMessages);
+        Object.values(result.payload.data).forEach((errorArray) => {
+          toast.error(errorArray[0]);
+        });
       }
     });
   };
@@ -103,12 +131,12 @@ const CourseMedia = ({ prevTab1, nextTab2, cours, setCours,lecon,setLecon }) => 
                 <button className="btn btn-info-light next_btn" type="submit">
                   Continue
                 </button>
-                <Link
+                {/* <Link
                   className="btn btn-info-light next_btn"
                   onClick={nextTab2}
                 >
                   Avancer
-                </Link>
+                </Link> */}
               </div>
             </form>
           </div>
@@ -131,6 +159,10 @@ CourseMedia.propTypes = {
     tool_id: PropTypes.number,
   }),
   setCours: PropTypes.func,
+  lecon: PropTypes.shape({
+    course_id: PropTypes.number,
+  }),
+  setLecon: PropTypes.func,
 };
 
 export default CourseMedia;

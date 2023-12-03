@@ -24,10 +24,7 @@ const ModalLayout = ({ isOpen, children, title, onClose }) => {
         },
       }}
     >
-      <div className="modal-header">
-        <h2>{title}</h2>
-        <button onClick={onClose}>Fermer</button>
-      </div>
+      
       <div className="modal-content">{children}</div>
     </Modal>
   );

@@ -19,6 +19,7 @@ const AddCourse = () => {
   const [input, setInput] = useState(null);
 
   const { id } = useParams();
+  console.log(id)
   // const [cours, setCours] = useState({
   //   title: null,
   //   description: "",
@@ -59,6 +60,7 @@ const AddCourse = () => {
             
 
           });
+          setInput(result.payload.data.categorie);
           // console.log(cours)
         }
       });
@@ -70,6 +72,7 @@ const AddCourse = () => {
     video: "",
   });
   const handleChange = (e) => {
+    console.log(cours)
     setCours({ ...cours, [e.target.name]: e.target.value });
   };
   // const {user}=useStateContext()

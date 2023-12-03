@@ -11,12 +11,13 @@ import {
   TimerStart,
 } from "../../imagepath";
 import { Search } from "react-feather";
+import { toast } from "react-toastify";
 import { useEffect } from "react";
 import { Link } from "react-router-dom";
 import InstructorSidebar from "../sidebar";
 import { useDispatch, useSelector } from "react-redux";
 import Select from "react-select";
-import { profCours } from "../../../redux/slice/coursSlice";
+import { deleteCours, profCours } from "../../../redux/slice/coursSlice";
 import { useStateContext } from "../../../context/ContextProvider";
 // import {useSelector} from "react-redux"
 
@@ -78,6 +79,23 @@ export default function InstructorCourse() {
       transform: state.selectProps.menuIsOpen ? "rotate(-180deg)" : "rotate(0)",
       transition: "250ms",
     }),
+  };
+  const handleDelete = (id) => {
+    const shouldDelete = window.confirm(
+      "Êtes-vous sûr de vouloir supprimer ce cours? Cette action sera irréversible!"
+    );
+    if (shouldDelete) {
+      // Effectuer l'action de suppression ici
+      dispatch(deleteCours(id)).then((result) => {
+        if (result.type == "deleteCours/fulfilled") {
+          toast.success("Cours supprimé avec succès");
+        }
+        console.log(result);
+      });
+    } else {
+      // L'utilisateur a cliqué sur "Annuler", aucune action nécessaire
+      console.log("Suppression annulée");
+    }
   };
   return (
     <div className="main-wrapper">
@@ -190,10 +208,24 @@ export default function InstructorCourse() {
                                         </div>
                                       </td>
                                       <td>{cours.total_etudiant}</td>
-                                      <td>
-                                        <span className="badge info-high">
-                                          Deleted
+                                      <td className="d-flex flex-column align-items-center gap-2">
+                                        <span className="badge info-low">
+                                          Voir plus
                                         </span>
+                                        <Link to={`/edit-course/${cours.slug}`}>
+                                          <span className="badge info-inter">
+                                            Modifier
+                                          </span>
+                                        </Link>
+                                        <Link to="#">
+                                        <span
+                                          
+                                          className="badge info-high cursor-pointer"
+                                          onClick={() => handleDelete(cours.id)}
+                                        >
+                                          Supprimer
+                                        </span>
+                                        </Link>
                                       </td>
                                     </tr>
                                   </>

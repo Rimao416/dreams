@@ -3,11 +3,13 @@ import { Link } from "react-router-dom";
 import { Oval } from "react-loader-spinner";
 import PropTypes from "prop-types";
 import { useSelector, useDispatch } from "react-redux";
-import { addLesson, getCourLesson } from "../../../../redux/slice/leconSlice";
+import { addLesson, deleteLesson, getCourLesson } from "../../../../redux/slice/leconSlice";
+import { toast } from "react-toastify";
 import { profCours } from "../../../../redux/slice/coursSlice";
 import { useStateContext } from "../../../../context/ContextProvider";
 import Modal from "react-modal";
 import EditCourse from "../../../modal/EditCourse";
+import SeeCourse from "../../../modal/SeeCourse";
 Modal.setAppElement("#root");
 
 // eslint-disable-next-line react/prop-types
@@ -23,21 +25,27 @@ const Curriculum = ({
   const dispatch = useDispatch();
   const [selectedLecon, setSelectedLecon] = useState(null);
   const [modalIsOpen, setModalIsOpen] = useState(false);
+  const [seeOpen,setSetOpen]=useState(false)
   const openModal = (lecon) => {
     setSelectedLecon(lecon);
     setModalIsOpen(true);
   };
-
+const seeModal=(lecon)=>{
+  setSelectedLecon(lecon);
+  setSetOpen(true)
+}
   const closeModal = () => {
     setModalIsOpen(false);
   };
+ 
 
   // let loading=false
   const data = useSelector((state) => state.leconReducer);
   console.log(data);
   const { user } = useStateContext();
   useEffect(() => {
-    user?.id && dispatch(getCourLesson(19));
+    console.log(cours?.course_id);
+    user?.id && dispatch(getCourLesson(lecon?.course_id));
   }, [user, dispatch]);
   // console.log(lecon);
   const [video, setVideo] = useState(null);
@@ -72,15 +80,33 @@ const Curriculum = ({
     // Create Form Data
     const form = new FormData();
     form.append("title", lecon.title);
-    form.append("course_id", 19);
+    form.append("course_id", lecon?.course_id);
     form.append("video", lecon.video);
     dispatch(addLesson(form)).then((result) => {
       console.log(result);
-      if (result.type == "addLesson/prof/fulfilled") {
+      if (result.type == "addlessons/fulfilled") {
         // nextTab3();
 
-        console.log("BIEN BIEN BIEN");
+        toast.success("Lecon ajouté avec succès");
         // const [loading, setLoading] = useState(false);
+      } else {
+      // console.log(result)
+        // toast.error("Cours non ajouter");
+        // for (const key in result.payload.data) {
+        //   if (errorObject.hasOwnProperty(key)) {
+        //     const errorMessage = errorObject[key][0];
+        //     console.log(errorMessage);
+        //     // Vous pouvez utiliser la valeur de errorMessage comme vous le souhaitez
+        //   }
+        // }
+        // const errorMessages = Object.values(result.payload.data).map(
+        //   (errorArray) => errorArray[0]
+        // );
+
+        // console.log(errorMessages);
+        Object.values(result?.payload.data).forEach((errorArray) => {
+          toast.error(errorArray[0]);
+        });
       }
       setLoading(false);
     });
@@ -88,6 +114,25 @@ const Curriculum = ({
     // setLoading(false);
     // loading=false
   };
+  const handleDelete = (id) => {
+    const shouldDelete = window.confirm(
+      "Êtes-vous sûr de vouloir supprimer cette leçon ? Cette action sera irréversible!"
+    );
+    if (shouldDelete) {
+      // // Effectuer l'action de suppression ici
+      dispatch(deleteLesson(id)).then((result) => {
+        if (result.type == "deleteLesson/fulfilled") {
+          toast.success("Leçon supprimé avec succès");
+        }
+        console.log(result);
+      });
+    } else {
+      // L'utilisateur a cliqué sur "Annuler", aucune action nécessaire
+      toast.error("Error lors de la suppression")
+      console.log("Suppression annulée");
+    }
+  };
+  
 
   return (
     <>
@@ -159,7 +204,7 @@ const Curriculum = ({
         </div>
         <div className="curriculum-grid">
           <div className="curriculum-head">
-            <p>Mes cours</p>
+            <p>Mes Leçons</p>
             {/* <Link to="#" className="btn">
               Add Lecture
             </Link> */}
@@ -177,18 +222,21 @@ const Curriculum = ({
                           data-bs-toggle="collapse"
                           to="#collapseOne"
                         >
-                          <i className="fas fa-align-justify" /> {lecon.title}
+                          <i className="fas fa-align-justify" onClick={() => openModal(lecon)}/> {lecon.title}
                         </Link>
                         <div className="faq-right">
                           <Link to="#" onClick={() => openModal(lecon)}>
                             <i className="far fa-pen-to-square me-1" />
                           </Link>
-                          <Link to="#" className="me-0">
+                          <Link to="#" onClick={() => seeModal(lecon)}>
+                            <i className="far fa-eye me-1" />
+                          </Link>
+                          <Link to="#" className="me-0" onClick={() => handleDelete(lecon.id)}>
                             <i className="far fa-trash-can" />
                           </Link>
                         </div>
                       </div>
-                      <div
+                      {/* <div
                         id="collapseOne"
                         className="collapse"
                         data-bs-parent="#accordion"
@@ -203,7 +251,7 @@ const Curriculum = ({
                             </Link>
                           </div>
                         </div>
-                      </div>
+                      </div> */}
                     </div>
                   </div>
                 </div>
@@ -211,7 +259,12 @@ const Curriculum = ({
             ))}
         </div>
       </fieldset>
-      <EditCourse isOpen={modalIsOpen} selectedLecon={selectedLecon} onClose={closeModal}/>
+      <EditCourse
+        isOpen={modalIsOpen}
+        selectedLecon={selectedLecon}
+        onClose={closeModal}
+      />
+      <SeeCourse isOpen={seeOpen} selectedLecon={selectedLecon} onClose={()=>setSetOpen(false)} />
     </>
   );
 };
@@ -220,6 +273,7 @@ Curriculum.propTypes = {
     title: PropTypes.string,
     course_id: PropTypes.number,
     video: PropTypes.string,
+    id: PropTypes.number
   }),
   setLecon: PropTypes.func,
   nextTab3: PropTypes.func,
@@ -228,6 +282,9 @@ Curriculum.propTypes = {
     title: PropTypes.string,
     description: PropTypes.string,
     price: PropTypes.number,
+    old_price: PropTypes.number,
+    course_id: PropTypes.number,
+  
   }),
   setCours: PropTypes.func,
 };

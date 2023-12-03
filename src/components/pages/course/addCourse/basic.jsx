@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import TextEditor from "./editor";
-import PropTypes from 'prop-types';
+import PropTypes from "prop-types";
 import Select from "react-select";
 import { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
@@ -10,8 +10,8 @@ import { getCourseCategories } from "../../../../redux/slice/categorySlice";
 import { useStateContext } from "../../../../context/ContextProvider";
 import { addCours } from "../../../../redux/slice/coursSlice";
 // eslint-disable-next-line react/prop-types
-const Basic = ({ nextTab,cours,setCours,handleChange }) => {
- 
+const Basic = ({ nextTab, cours, setCours, handleChange }) => {
+  // toast.success("BONJOUR")
   const { user } = useStateContext();
   const [input, setInput] = useState(null);
 
@@ -32,8 +32,11 @@ const Basic = ({ nextTab,cours,setCours,handleChange }) => {
     label: category.name, // Assurez-vous de remplacer 'label' par la clé réelle de vos données
     value: category.id, // Assurez-vous de remplacer 'value' par la clé réelle de vos données
   }));
+  const isDisabled = () => {
+    return cours?.title || cours?.description || cours?.price
+  };
+  // console.log(cours?.old_price)
 
- 
   const handleSubmit = (e) => {
     e.preventDefault();
     const descriptionWithoutParagraphs = cours.description.replace(
@@ -108,7 +111,6 @@ const Basic = ({ nextTab,cours,setCours,handleChange }) => {
                       setCours({ ...cours, description: data });
                     }}
                     data={cours?.description}
-                   
                   />
                 </div>
               </div>
@@ -139,14 +141,14 @@ const Basic = ({ nextTab,cours,setCours,handleChange }) => {
             </form>
           </div>
           <div className="widget-btn">
-           
-            <Link
-              to="#"
+            <button
+            // disabled={!isDisabled()}
+              // type="submit"
               className="btn btn-info-light next_btn"
               onClick={nextTab}
             >
               Continue
-            </Link>
+            </button>
           </div>
         </div>
       </fieldset>
@@ -154,17 +156,21 @@ const Basic = ({ nextTab,cours,setCours,handleChange }) => {
   );
 };
 
-Basic.propTypes ={
-  cours:PropTypes.shape({
+Basic.propTypes = {
+  cours: PropTypes.shape({
     title: PropTypes.string,
     description: PropTypes.string,
     price: PropTypes.number,
     old_price: PropTypes.number,
+    category_id: PropTypes.number,
+    user_id: PropTypes.number,
+
+
   }),
-  setCours:PropTypes.func,
-  nextTab:PropTypes.func,
-  prevTab:PropTypes.func,
-  handleChange:PropTypes.func
-}
+  setCours: PropTypes.func,
+  nextTab: PropTypes.func,
+  prevTab: PropTypes.func,
+  handleChange: PropTypes.func,
+};
 
 export default Basic;

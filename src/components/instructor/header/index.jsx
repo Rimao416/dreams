@@ -24,7 +24,7 @@ import { useStateContext } from "../../../context/ContextProvider";
 export function InstructorHeader({ activeMenu }) {
   const [navbar, setNavbar] = useState(false);
   const {user}=useStateContext()
-  console.log(user)
+  // console.log(user)
 
   const [showCart, setShowCart] = useState(false);
   const [showWish, setShowWish] = useState(false);

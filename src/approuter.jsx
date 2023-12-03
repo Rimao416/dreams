@@ -115,6 +115,10 @@ const Approuter = () => {
           <Route path="/add-course" element={<AddCourse />} />
           <Route path="/edit-course/:id" element={<EditCourse />} />
           <Route path="/course-list" element={<CourseList />} />
+          <Route
+          path="/instructor-edit-profile"
+          element={<InstructorEditProfile />}
+        />
         </Route>
 
         {/* Blog */}
@@ -161,17 +165,14 @@ const Approuter = () => {
         <Route path="/instructor-dashboard" element={<Dashboard />} />
         <Route path="/instructor-list" element={<InstructorList />} />
         <Route path="/instructor-grid" element={<InstructorGrid />} />
-        <Route path="/instructor-course" element={<InstructorCourse />} />
+        {/* <Route path="/instructor-course" element={<InstructorCourse />} /> */}
         <Route path="/instructor-reviews" element={<InstructorReviews />} />
         <Route path="/instructor-earnings" element={<InstructorEarnings />} />
         <Route path="/instructor-orders" element={<InstructorOrders />} />
         <Route path="/instructor-payouts" element={<InstructorPayouts />} />
         <Route path="/instructor-tickets" element={<InstructorTickets />} />
         <Route path="/instructor-profile" element={<InstructorProfile />} />
-        <Route
-          path="/instructor-edit-profile"
-          element={<InstructorEditProfile />}
-        />
+        
         <Route path="/instructor-security" element={<InstructorSecurity />} />
         <Route
           path="/instructor-social-profile"
