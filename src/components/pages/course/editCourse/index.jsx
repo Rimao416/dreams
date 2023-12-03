@@ -11,6 +11,7 @@ import Success from "./success";
 import { useSelector, useDispatch } from "react-redux";
 import { useEffect } from "react";
 import { getCour } from "../../../../redux/slice/coursSlice";
+import { useStateContext } from "../../../../context/CourseProvider";
 // import { useStateContext } from "../../../../context/ContextProvider";
 
 const AddCourse = () => {
@@ -18,17 +19,18 @@ const AddCourse = () => {
   const [input, setInput] = useState(null);
 
   const { id } = useParams();
-  const [cours, setCours] = useState({
-    title: null,
-    description: "",
-    user_id: "1",
-    tool_id: "1",
-    price: null,
-    old_price: null,
-    categorie_id: "",
-    image: "",
-    video: null,
-  });
+  // const [cours, setCours] = useState({
+  //   title: null,
+  //   description: "",
+  //   user_id: "1",
+  //   tool_id: "1",
+  //   price: null,
+  //   old_price: null,
+  //   categorie_id: "",
+  //   image: "",
+  //   video: null,
+  // });
+  const { cours, setCours } = useStateContext();
   useEffect(() => {
     id &&
       dispatch(getCour(id)).then((result) => {
@@ -44,16 +46,20 @@ const AddCourse = () => {
           );
           setCours({
             ...cours,
+            id: result.payload.data.id,
             title: result.payload.data.title,
             description: result.payload.data.description,
-            user_id: result.payload.data.user_id,
-            tool_id: result.payload.data.tool_id,
+            user_id: result.payload.data.prof.id,
+            tool_id: "1",
             price: newPrice,
             old_price: newOldPrice,
-            categorie_id: result.payload.data.categorie_id,
+            // categorie_id: result.payload.data.categorie_id,
             image: result.payload.data.image,
             video: result.payload.data.video,
+            
+
           });
+          // console.log(cours)
         }
       });
   }, [id, dispatch]);
@@ -204,8 +210,6 @@ const AddCourse = () => {
                       {PageChange === "basic" ? (
                         <Basic
                           nextTab={nextTab}
-                          cours={cours}
-                          setCours={setCours}
                           handleChange={handleChange}
                           input={input}
                           setInput={setInput}
@@ -217,8 +221,6 @@ const AddCourse = () => {
                         <CourseMedia
                           nextTab2={nextTab2}
                           prevTab1={prevTab1}
-                          cours={cours}
-                          setCours={setCours}
                           handleChange={handleChange}
                           lecon={lecon}
                           setLecon={setLecon}

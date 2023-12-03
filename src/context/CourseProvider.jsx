@@ -4,7 +4,28 @@ import PropTypes from "prop-types";
 const StateContext = createContext({});
 
 export const CourseProvider = ({ children }) => {
-  const [cours, setCours] = useState({});
+   const [cours, setCours] = useState({
+    title: null,
+    description: "",
+    user_id: "1",
+    tool_id: "1",
+    price: null,
+    old_price: null,
+    categorie_id: "",
+    image: "",
+    video: null,
+  });
+//    const [cours, setCours] = useState({
+//     title: null,
+//     description: "",
+//     user_id: "1",
+//     tool_id: "1",
+//     price: null,
+//     old_price: null,
+//     categorie_id: "",
+//     image: "",
+//     video: null,
+//   });
   return (
     <StateContext.Provider
       value={{

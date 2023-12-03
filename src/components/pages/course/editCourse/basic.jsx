@@ -10,12 +10,17 @@ import { useEffect } from "react";
 import { getCourseCategories } from "../../../../redux/slice/categorySlice";
 import { useStateContext } from "../../../../context/ContextProvider";
 import { addCours, getCour } from "../../../../redux/slice/coursSlice";
+import { useStateContext as useStateCourse } from "../../../../context/CourseProvider";
 // eslint-disable-next-line react/prop-types
-const Basic = ({ nextTab, cours, setCours, handleChange, input, setInput }) => {
-  const dispatch = useDispatch();
+const Basic = ({ nextTab, handleChange, input, setInput }) => {
+  const { cours, setCours } = useStateCourse();
   useEffect(()=>{
     console.log(cours)
   },[cours])
+  const dispatch = useDispatch();
+  useEffect(() => {
+    console.log(cours);
+  }, [cours]);
   // const { id } = useParams();
   // console.log("L'id est "+id)
 
@@ -23,13 +28,24 @@ const Basic = ({ nextTab, cours, setCours, handleChange, input, setInput }) => {
 
   useEffect(() => {
     dispatch(getCourseCategories()).then((result) => {
-      console.log(cours);
+      // console.log(result);
+      // const findCategory = input && result?.payload.data.find((category)=>category.name===input)
+      // console.log(findCategory)
+      // setCours({
+      //   ...cours,
+      //   categorie_id: findCategory?.id
+      // })
+      // const findCategorie=categoriesCourse?.find((category)=>category.id===cours.category_id)
+      // setCours({
+      //   ...cours,
+      //   category_id: findCategorie?.id
+      // })
     });
     // setCours({
     //   ...cours,
     //   user_zid: user?.id,
     // });
-  }, [dispatch, user?.id]);
+  }, [dispatch, user?.id,input]);
 
   const { categoriesCourse, loading } = useSelector(
     (state) => state?.categoryReducer

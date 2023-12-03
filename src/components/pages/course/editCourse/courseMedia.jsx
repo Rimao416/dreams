@@ -3,11 +3,13 @@ import { Link } from "react-router-dom";
 import PropTypes from "prop-types";
 import { useSelector, useDispatch } from "react-redux";
 import { addCours } from "../../../../redux/slice/coursSlice";
+import { useStateContext as useStateCourse } from "../../../../context/CourseProvider";
 
 // eslint-disable-next-line react/prop-types
-const CourseMedia = ({ prevTab1, nextTab2, cours, setCours,lecon,setLecon }) => {
+const CourseMedia = ({ prevTab1, nextTab2, lecon, setLecon }) => {
   const [image, setImage] = useState(null);
   const dispatch = useDispatch();
+  const { cours, setCours } = useStateCourse();
   console.log(cours);
 
   const handleFileChange = (e) => {

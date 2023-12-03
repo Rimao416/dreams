@@ -37,6 +37,25 @@ export const addCours = createAsyncThunk(
   }
 );
 
+export const updateCours = createAsyncThunk(
+  "updateCours",
+  async (data, { rejectWithValue }) => {
+    const token = localStorage.getItem("ACCESS_TOKEN");
+    API.defaults.headers.common["Authorization"] = `Bearer ${token}`;
+
+    try {
+      const response = await API.put(`/courses/${data.id}`, data);
+      console.log(response);
+      return response.data;
+    } catch (error) {
+      if (!error.response) {
+        throw error;
+      }
+      return rejectWithValue(error.response.data);
+    }
+  }
+);
+
 export const getCours = createAsyncThunk(
   "getCours",
   async (_, { rejectWithValue }) => {
