@@ -15,34 +15,99 @@ export const profCours = createAsyncThunk(
     }
   }
 );
+export const getProfs = createAsyncThunk(
+  "getProfs",
+  async (_, { rejectWithValue }) => {
+    try {
+      const response = await API.get("/profs");
+      console.log(response);
+      return response.data;
+    } catch (error) {
+      console.log(error);
+      if (!error.response) {
+        throw error;
+      }
+      return rejectWithValue(error.response.data);
+    }
+  }
+);
+export const getSingleProf = createAsyncThunk(
+  "getSingleProf",
+  async (pseudo, { rejectWithValue }) => {
+    try {
+      const response = await API.get(`/profs/${pseudo}`);
+      console.log(response);
+      return response.data;
+    } catch (error) {
+      if (!error.response) {
+        throw error;
+      }
+      return rejectWithValue(error.response.data);
+    }
+  }
+);
 
 const profSlice = createSlice({
   name: "prof",
   initialState: {
-    profile: {},
     cours: [],
+    profile: {},
+    profs: [],
     loading: false,
     error: false,
     status: "idle",
   },
   reducers: {},
   extraReducers: (builder) => {
-    builder.addCase(profCours.pending, (state) => {
-      state.loading = true;
-    });
-    builder.addCase(profCours.fulfilled, (state, action) => {
-      console.log(action);
-      return {
-        ...state,
-        loading: false,
-        cours: action.payload,
-      };
-    });
-    builder.addCase(profCours.rejected, (state, action) => {
-      console.log(action);
-      state.loading = false;
-      state.error = true;
-    });
+    builder
+      .addCase(profCours.pending, (state) => {
+        state.loading = true;
+      })
+      .addCase(profCours.fulfilled, (state, action) => {
+        console.log(action);
+        return {
+          ...state,
+          loading: false,
+          cours: action.payload,
+        };
+      })
+      .addCase(profCours.rejected, (state, action) => {
+        console.log(action);
+        state.loading = false;
+        state.error = true;
+      })
+      .addCase(getProfs.pending, (state) => {
+        state.loading = true;
+      })
+      .addCase(getProfs.fulfilled, (state, action) => {
+        console.log(action);
+        return {
+          ...state,
+          loading: false,
+          profs: action.payload.data,
+        };
+      })
+      .addCase(getProfs.rejected, (state, action) => {
+        console.log(action);
+        state.loading = false;
+        state.error = true;
+      })
+      .addCase(getSingleProf.pending, (state) => {
+        state.loading = true;
+      })
+      .addCase(getSingleProf.fulfilled, (state, action) => {
+        console.log(action);
+        return {
+          ...state,
+          loading: false,
+          profs: [action.payload.data],
+        };
+      })
+      .addCase(getSingleProf.rejected, (state, action) => {
+        console.log(action);
+        state.loading = false;
+        state.error = true;
+      });
   },
 });
 

@@ -59,54 +59,7 @@ export default function StudentPayment() {
                           <p>Expires in 10/2021</p>
                         </div>
                         <div>
-                          <ul className="grp-action-style inline-inline">
-                            <li className="list-inline-item">
-                              <Link
-                                to="#;"
-                                className="btn btn-action-style btn-action-primary"
-                              >
-                                primary
-                              </Link>
-                            </li>
-                            <li className="list-inline-item ">
-                              <Link
-                                to="#;"
-                                data-bs-toggle="tooltip"
-                                data-bs-placement="top"
-                                title="Edit"
-                                className="btn btn-action-style btn-action-dark "
-                              >
-                                <i className="fa-regular fa-pen-to-square"></i>
-                                {/* <span className="tooltipEdit">Edit</span> */}
-                              </Link>
-                            </li>
-                            <li className="list-inline-item ">
-                              <Link
-                                to="#;"
-                                data-bs-toggle="tooltip"
-                                data-bs-placement="top"
-                                title="Make it Primary"
-                                className="btn btn-action-style btn-action-method "
-                              >
-                                <i className="fa-regular fa-credit-card"></i>
-                                {/* <span className="tooltipMake">
-                                  Make it Primary
-                                </span> */}
-                              </Link>
-                            </li>
-                            <li className="list-inline-item ">
-                              <Link
-                                to="#;"
-                                data-bs-toggle="tooltip"
-                                data-bs-placement="top"
-                                title="Remove"
-                                className="btn btn-action-style btn-action-delete"
-                              >
-                                <i className="fa-regular fa-trash-can"></i>
-                                {/* <span className="tooltipRemove">Remove</span> */}
-                              </Link>
-                            </li>
-                          </ul>
+                        
                         </div>
                       </div>
                       {/* Payment Method */}

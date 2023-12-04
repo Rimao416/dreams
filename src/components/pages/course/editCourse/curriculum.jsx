@@ -3,12 +3,14 @@ import { Link } from "react-router-dom";
 import { Oval } from "react-loader-spinner";
 import PropTypes from "prop-types";
 import { useSelector, useDispatch } from "react-redux";
-import { addLesson, getCourLesson } from "../../../../redux/slice/leconSlice";
+import { addLesson, deleteLesson, getCourLesson } from "../../../../redux/slice/leconSlice";
 import { profCours } from "../../../../redux/slice/coursSlice";
 import { useStateContext } from "../../../../context/ContextProvider";
 import { useStateContext as useCourseContext } from "../../../../context/CourseProvider";
 import Modal from "react-modal";
+import {toast} from "react-toastify"
 import EditCourse from "../../../modal/EditCourse";
+import SeeCourse from "../../../modal/SeeCourse";
 Modal.setAppElement("#root");
 
 // eslint-disable-next-line react/prop-types
@@ -21,6 +23,12 @@ const Curriculum = ({
 }) => {
   // lecon 20
   const dispatch = useDispatch();
+  const [seeOpen,setSetOpen]=useState(false)
+  const seeModal=(lecon)=>{
+    setSelectedLecon(lecon);
+    setSetOpen(true)
+  }
+  console.log(lecon)
   const [selectedLecon, setSelectedLecon] = useState(null);
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const openModal = (lecon) => {
@@ -37,7 +45,7 @@ const Curriculum = ({
   console.log(data);
   const { user } = useStateContext();
   useEffect(() => {
-    user?.id && dispatch(getCourLesson(19));
+    user?.id && dispatch(getCourLesson(lecon?.course_id));
   }, [user, dispatch]);
   // console.log(lecon);
   const [video, setVideo] = useState(null);
@@ -65,37 +73,115 @@ const Curriculum = ({
     }
     // setCours({ ...cours, [e.target.name]: e.target.files[0] });
   };
-  // const handleSubmit = (event) => {
-  //   setLoading(true);
-  //   event.preventDefault();
-  //   // loading=true
-  //   console.log(lecon);
-  //   // Create Form Data
-  //   const form = new FormData();
-  //   form.append("title", lecon.title);
-  //   form.append("course_id", cours?.id);
-  //   form.append("video", lecon.video);
-  //   dispatch(addLesson(form)).then((result) => {
-  //     console.log(result);
-  //     if (result.type == "addLesson/prof/fulfilled") {
-  //       // nextTab3();
+  const handleSubmit = (event) => {
+    setLoading(true);
+    event.preventDefault();
+    // loading=true
+    console.log(lecon);
+    // Create Form Data
+    const form = new FormData();
+    form.append("title", lecon.title);
+    form.append("course_id", cours?.id);
+    form.append("video", lecon.video);
+    dispatch(addLesson(form)).then((result) => {
+      console.log(result);
+      if (result.type == "addLesson/prof/fulfilled") {
+        // nextTab3();
+        // setLecon()
 
-  //       console.log("BIEN BIEN BIEN");
-  //       // const [loading, setLoading] = useState(false);
-  //     }
-  //     setLoading(false);
-  //   });
+        console.log("BIEN BIEN BIEN");
+        // const [loading, setLoading] = useState(false);
+      }
+      setLoading(false);
+    });
 
-  //   // setLoading(false);
-  //   // loading=false
-  // };
-
+    // setLoading(false);
+    // loading=false
+  };
+  const handleDelete = (id) => {
+    const shouldDelete = window.confirm(
+      "Êtes-vous sûr de vouloir supprimer cette leçon ? Cette action sera irréversible!"
+    );
+    if (shouldDelete) {
+      // // Effectuer l'action de suppression ici
+      dispatch(deleteLesson(id)).then((result) => {
+        if (result.type == "deleteLesson/fulfilled") {
+          toast.success("Leçon supprimé avec succès");
+        }
+        console.log(result);
+      });
+    } else {
+      // L'utilisateur a cliqué sur "Annuler", aucune action nécessaire
+      toast.error("Error lors de la suppression")
+      console.log("Suppression annulée");
+    }
+  };
   return (
     <>
       <fieldset className="field-card" style={{ display: "block" }}>
         <div className="add-course-info">
           <div className="add-course-inner-header">
             <h4>Leçons</h4>
+          </div>
+          <div className="add-course-form">
+            <form onSubmit={handleSubmit}>
+              <div className="form-group">
+                <div className="form-group">
+                  <label className="add-course-label">Titre de la leçon</label>
+                  <input
+                    type="text"
+                    className="form-control"
+                    placeholder="Course Title"
+                    name="title"
+                    onChange={handleChange}
+                    value={lecon?.title}
+                  />
+                </div>
+                <div className="form-group">
+                  <label className="add-course-label">
+                    Contenu de la video
+                  </label>
+                  <div className="relative-form">
+                    <span>
+                      {video ? video.name : " Aucun element selectionné"}
+                    </span>
+                    <label className="relative-file-upload">
+                      Upload File{" "}
+                      <input
+                        type="file"
+                        name="video"
+                        onChange={handleFileChange}
+                      />
+                    </label>
+                  </div>
+                </div>
+              </div>
+
+              <div className="form-group"></div>
+              <div className="widget-btn">
+                {/* <Link className="btn btn-black prev_btn" onClick={prevTab2}>
+              Previous
+            </Link> */}
+                {loading == true ? (
+                  <Oval
+                    height={40}
+                    width={40}
+                    color="#58BBDE"
+                    wrapperStyle={{}}
+                    wrapperClass=""
+                    visible={true}
+                    ariaLabel="oval-loading"
+                    secondaryColor="#A2CDDC"
+                    strokeWidth={3}
+                    strokeWidthSecondary={3}
+                  />
+                ) : (
+                  <button className="btn btn-info-light next_btn" type="submit">
+                    Continuer
+                  </button>
+                )}
+              </div>
+            </form>
           </div>
        
         </div>
@@ -118,7 +204,10 @@ const Curriculum = ({
                           <Link to="#" onClick={() => openModal(lecon)}>
                             <i className="far fa-pen-to-square me-1" />
                           </Link>
-                          <Link to="#" className="me-0">
+                          <Link to="#" onClick={() => seeModal(lecon)}>
+                            <i className="far fa-eye me-1" />
+                          </Link>
+                          <Link to="#" className="me-0" onClick={() => handleDelete(lecon.id)}>
                             <i className="far fa-trash-can" />
                           </Link>
                         </div>
@@ -151,6 +240,7 @@ const Curriculum = ({
         selectedLecon={selectedLecon}
         onClose={closeModal}
       />
+       <SeeCourse isOpen={seeOpen} selectedLecon={selectedLecon} onClose={()=>setSetOpen(false)} />
     </>
   );
 };
@@ -159,6 +249,7 @@ Curriculum.propTypes = {
     title: PropTypes.string,
     course_id: PropTypes.number,
     video: PropTypes.string,
+    id: PropTypes.number
   }),
   setLecon: PropTypes.func,
   nextTab3: PropTypes.func,

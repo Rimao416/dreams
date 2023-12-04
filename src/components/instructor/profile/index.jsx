@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { InstructorHeader } from "../../instructor/header";
 import Footer from "../../footer";
 import {
@@ -19,7 +19,31 @@ import {
 } from "../../imagepath";
 import { Link } from "react-router-dom";
 
+import { useParams } from "react-router-dom";
+import { useSelector, useDispatch } from "react-redux";
+import { getSingleProf } from "../../../redux/slice/profSlice";
+import { profCours } from "../../../redux/slice/coursSlice";
+import { toast } from "react-toastify";
 export default function InstructorProfile() {
+  const { pseudo } = useParams();
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(getSingleProf(pseudo)).then((result) => {
+      console.log(result)
+      if (result.type == "getSingleProf/fulfilled") {
+        dispatch(profCours(result.payload.data.id)).then((result) => {
+          console.log(result);
+        });
+      } else {
+        toast.error("Erreur lors du chargement");
+      }
+    });
+  }, []);
+  const { profs, loading } = useSelector((state) => state.profReducer);
+  const { cours, loading: coursloading } = useSelector(
+    (state) => state.coursReducer
+  );
+  console.log(cours);
   return (
     <div className="main-wrapper">
       <InstructorHeader activeMenu={"Profile"} />
@@ -61,13 +85,24 @@ export default function InstructorProfile() {
             <div className="col-md-12 col-12">
               <div className="profile-info-blk">
                 <Link to="#;" className="profile-info-img">
-                  <img src={ProfileAvatar} alt="" className="img-fluid" />
+                  <img
+                    src={profs?.photo}
+                    alt=""
+                    className="img-fluid"
+                    style={{
+                      width: "90px",
+                      height: "90px",
+                      objectFit: "cover",
+                      overflow: "hidden",
+                    }}
+                  />
                 </Link>
                 <h4>
-                  <Link to="#;">Jenny Wilson</Link>
-                  <span>Beginner</span>
+                  <Link to="#;">
+                    {profs?.first_name + " " + profs?.last_name}
+                  </Link>
                 </h4>
-                <p>Instructor</p>
+                <p>{profs?.role}</p>
                 <ul className="list-unstyled inline-inline profile-info-social">
                   <li className="list-inline-item">
                     <Link to="#;">
@@ -104,290 +139,91 @@ export default function InstructorProfile() {
               {/* Overview */}
               <div className="card overview-sec">
                 <div className="card-body">
-                  <h5 className="subs-title">About Me</h5>
-                  <p>
-                    Very well thought out and articulate communication. Clear
-                    milestones, deadlines and fast work. Patience. Infinite
-                    patience. No shortcuts. Even if the client is being
-                    careless. Some quick example text to build on the card title
-                    and bulk the card&apos;s content Moltin gives you platform.
-                  </p>
-                  <p className="mb-0">
-                    As a highly skilled and successfull product development and
-                    design specialist with more than 4 Years of My experience
-                    lies in successfully conceptualizing, designing, and
-                    modifying consumer products specific to interior design and
-                    home furnishings.
-                  </p>
+                  <h5 className="subs-title">A Propos</h5>
+                  <p>{profs?.description}</p>
                 </div>
               </div>
               {/* Overview */}
 
-              {/* Education Content */}
-              <div className="card education-sec">
-                <div className="card-body">
-                  <h5 className="subs-title">Education</h5>
-                  <div className="edu-wrap">
-                    <div className="edu-name">
-                      <span>B</span>
-                    </div>
-                    <div className="edu-detail">
-                      <h6>BCA - Bachelor of Computer Applications</h6>
-                      <p className="edu-duration">
-                        International University - (2004 - 2010)
-                      </p>
-                      <p>
-                        There are many variations of passages of available, but
-                        the majority alteration in some form. As a highly
-                        skilled and successfull product development and design
-                        specialist with more than 4 Years of My experience.
-                      </p>
-                    </div>
-                  </div>
-                  <div className="edu-wrap">
-                    <div className="edu-name">
-                      <span>M</span>
-                    </div>
-                    <div className="edu-detail">
-                      <h6>MCA - Master of Computer Application</h6>
-                      <p className="edu-duration">
-                        International University - (2010 - 2012)
-                      </p>
-                      <p>
-                        There are many variations of passages of available, but
-                        the majority alteration in some form. As a highly
-                        skilled and successfull product development and design
-                        specialist with more than 4 Years of My experience.
-                      </p>
-                    </div>
-                  </div>
-                  <div className="edu-wrap">
-                    <div className="edu-name">
-                      <span>D</span>
-                    </div>
-                    <div className="edu-detail">
-                      <h6>Design Communication Visual</h6>
-                      <p className="edu-duration">
-                        International University - (2012-2015)
-                      </p>
-                      <p>
-                        There are many variations of passages of available, but
-                        the majority alteration in some form. As a highly
-                        skilled and successfull product development and design
-                        specialist with more than 4 Years of My experience.
-                      </p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              {/* Education Content */}
-
-              {/* Experience Content */}
-              <div className="card education-sec">
-                <div className="card-body">
-                  <h5 className="subs-title">Experience</h5>
-                  <div className="edu-wrap">
-                    <div className="edu-name">
-                      <span>B</span>
-                    </div>
-                    <div className="edu-detail">
-                      <h6>Web Design & Development Team Leader</h6>
-                      <p className="edu-duration">
-                        Creative Agency - (2013 - 2016)
-                      </p>
-                      <p>
-                        There are many variations of passages of available, but
-                        the majority alteration in some form. As a highly
-                        skilled and successfull product development and design
-                        specialist with more than 4 Years of My experience.
-                      </p>
-                    </div>
-                  </div>
-                  <div className="edu-wrap">
-                    <div className="edu-name">
-                      <span>M</span>
-                    </div>
-                    <div className="edu-detail">
-                      <h6>Project Manager</h6>
-                      <p className="edu-duration">
-                        Jobcy Technology Pvt.Ltd - (Pressent)
-                      </p>
-                      <p>
-                        There are many variations of passages of available, but
-                        the majority alteration in some form. As a highly
-                        skilled and successfull product development and design
-                        specialist with more than 4 Years of My experience.
-                      </p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              {/* Experience Content */}
-
               {/* Courses Content */}
               <div className="card education-sec">
                 <div className="card-body pb-0">
-                  <h5 className="subs-title">Courses</h5>
+                  <h5 className="subs-title">Cours</h5>
                   <div className="row">
-                    <div className="col-lg-6 col-md-6 d-flex">
-                      <div className="course-box course-design d-flex ">
-                        <div className="product">
-                          <div className="product-img">
-                            <Link to="course-details">
-                              <img
-                                className="img-fluid"
-                                alt=""
-                                src={Course10}
-                              />
-                            </Link>
-                            <div className="price">
-                              <h3>
-                                $300 <span>$99.00</span>
-                              </h3>
-                            </div>
-                          </div>
-                          <div className="product-content">
-                            <div className="course-group d-flex">
-                              <div className="course-group-img d-flex">
-                                <Link to="instructor-profile">
-                                  <img
-                                    src={User1}
-                                    alt=""
-                                    className="img-fluid"
-                                  />
-                                </Link>
-                                <div className="course-name">
-                                  <h4>
-                                    <Link to="instructor-profile">
-                                      Rolands R
+                    {cours &&
+                      cours?.map((cour) => (
+                        <>
+                          <div className="col-lg-6 col-md-6 d-flex">
+                            <div className="course-box course-design d-flex ">
+                              <div className="product">
+                                <div className="product-img">
+                                  <Link to="course-details">
+                                    <img
+                                      // className=""
+                                      alt=""
+                                      src={cour.image}
+                                      width="379px"
+                                      height="284px"
+                                    />
+                                  </Link>
+                                  <div className="price">
+                                    <h3>
+                                      {cour.price}{" "}
+                                      <span>
+                                        {cour.old_price ? cour.old_price : ""}
+                                      </span>
+                                    </h3>
+                                  </div>
+                                </div>
+                                <div className="product-content">
+                                  <h3 className="title instructor-text">
+                                    <Link to="course-details">
+                                      {cour.title}
                                     </Link>
-                                  </h4>
-                                  <p>Instructor</p>
+                                  </h3>
+                                  <div className="course-info d-flex align-items-center border-0 m-0">
+                                    <div className="rating-img d-flex align-items-center">
+                                      <img src={Icon1} alt="" />
+                                      <p>
+                                        {cour.total_lessons}{" "}
+                                        {cour.total_lessons > 1
+                                          ? "Leçons"
+                                          : "Leçon"}
+                                      </p>
+                                    </div>
+                                    <div className="course-view d-flex align-items-center">
+                                      <img src={Icon2} alt="" />
+                                      <p>9hr 30min</p>
+                                    </div>
+                                  </div>
+                                  <div className="rating">
+                                    {[...Array(5)].map((_, index) => (
+                                      <i
+                                        key={index}
+                                        className={`fas fa-star ${
+                                          index < cour.note ? "filled" : ""
+                                        }`}
+                                      ></i>
+                                    ))}
+                                    <span className="d-inline-block average-rating">
+                                      <span>{cour.note}</span> (
+                                      {cour.total_note})
+                                    </span>
+                                  </div>
+                                  <div className="all-btn all-category d-flex align-items-center">
+                                    <Link
+                                      to="/checkout"
+                                      className="btn btn-primary"
+                                    >
+                                      ACHETER
+                                    </Link>
+                                  </div>
                                 </div>
                               </div>
-                              <div className="course-share d-flex align-items-center justify-content-center">
-                                <Link to="#rate">
-                                  <i className="fa-regular fa-heart"></i>
-                                </Link>
-                              </div>
-                            </div>
-                            <h3 className="title instructor-text">
-                              <Link to="course-details">
-                                Information About UI/UX Design Degree
-                              </Link>
-                            </h3>
-                            <div className="course-info d-flex align-items-center border-0 m-0">
-                              <div className="rating-img d-flex align-items-center">
-                                <img src={Icon1} alt="" />
-                                <p>12+ Lesson</p>
-                              </div>
-                              <div className="course-view d-flex align-items-center">
-                                <img src={Icon2} alt="" />
-                                <p>9hr 30min</p>
-                              </div>
-                            </div>
-                            <div className="rating">
-                              <i className="fas fa-star filled"></i>
-                              <i className="fas fa-star filled"></i>
-                              <i className="fas fa-star filled"></i>
-                              <i className="fas fa-star filled"></i>
-                              <i className="fas fa-star"></i>
-                              <span className="d-inline-block average-rating">
-                                <span>4.0</span> (15)
-                              </span>
-                            </div>
-                            <div className="all-btn all-category d-flex align-items-center">
-                              <Link
-                                to="/checkout"
-                                className="btn btn-primary"
-                              >
-                                BUY NOW
-                              </Link>
                             </div>
                           </div>
-                        </div>
-                      </div>
-                    </div>
-                    <div className="col-lg-6 col-md-6 d-flex">
-                      <div className="course-box course-design d-flex ">
-                        <div className="product">
-                          <div className="product-img">
-                            <Link to="course-details">
-                              <img
-                                className="img-fluid"
-                                alt=""
-                                src={Course11}
-                              />
-                            </Link>
-                            <div className="price">
-                              <h3>
-                                $200 <span>$99.00</span>
-                              </h3>
-                            </div>
-                          </div>
-                          <div className="product-content">
-                            <div className="course-group d-flex">
-                              <div className="course-group-img d-flex">
-                                <Link to="instructor-profile">
-                                  <img
-                                    src={User2}
-                                    alt=""
-                                    className="img-fluid"
-                                  />
-                                </Link>
-                                <div className="course-name">
-                                  <h4>
-                                    <Link to="instructor-profile">
-                                      Jenis R.
-                                    </Link>
-                                  </h4>
-                                  <p>Instructor</p>
-                                </div>
-                              </div>
-                              <div className="course-share d-flex align-items-center justify-content-center">
-                                <Link to="#rate">
-                                  <i className="fa-regular fa-heart"></i>
-                                </Link>
-                              </div>
-                            </div>
-                            <h3 className="title instructor-text">
-                              <Link to="course-details">
-                                Wordpress for Beginners - Master Wordpress
-                                Quickly
-                              </Link>
-                            </h3>
-                            <div className="course-info d-flex align-items-center border-0 m-0">
-                              <div className="rating-img d-flex align-items-center">
-                                <img src="assets/img/icon/icon-01.svg" alt="" />
-                                <p>12+ Lesson</p>
-                              </div>
-                              <div className="course-view d-flex align-items-center">
-                                <img src={Icon2} alt="" />
-                                <p>9hr 30min</p>
-                              </div>
-                            </div>
-                            <div className="rating">
-                              <i className="fas fa-star filled"></i>
-                              <i className="fas fa-star filled"></i>
-                              <i className="fas fa-star filled"></i>
-                              <i className="fas fa-star filled"></i>
-                              <i className="fas fa-star"></i>
-                              <span className="d-inline-block average-rating">
-                                <span>4.0</span> (15)
-                              </span>
-                            </div>
-                            <div className="all-btn all-category d-flex align-items-center">
-                              <Link
-                                to="/checkout"
-                                className="btn btn-primary"
-                              >
-                                BUY NOW
-                              </Link>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
+                        </>
+                      ))}
                   </div>
                 </div>
               </div>
@@ -407,9 +243,7 @@ export default function InstructorProfile() {
                         </div>
                         <div className="instructor-detail">
                           <h5>
-                            <Link to="instructor-profile">
-                              Nicole Brown
-                            </Link>
+                            <Link to="instructor-profile">Nicole Brown</Link>
                           </h5>
                           <p>UX/UI Designer</p>
                         </div>
@@ -443,9 +277,7 @@ export default function InstructorProfile() {
                         </div>
                         <div className="instructor-detail">
                           <h5>
-                            <Link to="instructor-profile">
-                              Nicole Brown
-                            </Link>
+                            <Link to="instructor-profile">Nicole Brown</Link>
                           </h5>
                           <p>UX/UI Designer</p>
                         </div>
@@ -479,9 +311,7 @@ export default function InstructorProfile() {
                         </div>
                         <div className="instructor-detail">
                           <h5>
-                            <Link to="instructor-profile">
-                              Nicole Brown
-                            </Link>
+                            <Link to="instructor-profile">Nicole Brown</Link>
                           </h5>
                           <p>UX/UI Designer</p>
                         </div>

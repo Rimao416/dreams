@@ -1,22 +1,34 @@
-import React from "react";
+import React, { useReducer, useState } from "react";
 import { InstructorHeader } from "../../instructor/header";
 import Footer from "../../footer";
-import {
-  Icon1,
-  Icon2,
-  User,
-  User11,
-  User12,
-  User2,
-  User3,
-  User4,
-  User5,
-  UserIconSvg,
-} from "../../imagepath";
+import { useEffect } from "react";
+import { Icon1, Icon2, User11, UserIconSvg } from "../../imagepath";
 import { Filter, Grid, List, Search } from "react-feather";
 import { Link } from "react-router-dom";
+import { useSelector, useDispatch } from "react-redux";
+import { getProfs } from "../../../redux/slice/profSlice";
+import { API } from "../../../config";
 
 export const InstructorList = () => {
+  const dispatch = useDispatch();
+  // useEffect(() => {
+  // dispatch(getProfs());
+  // }, [dispatch]);
+  // const { profs, loading } = useSelector((state) => state.profReducer);
+  // console.log(profs);
+  // API
+  const [profs, setProf] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const getProfs = async () => {
+    setLoading(true);
+    const response = await API.get("/profs");
+    console.log(response.data.data);
+    setProf(response.data.data);
+    setLoading(false);
+  };
+  useEffect(() => {
+    getProfs();
+  }, []);
   return (
     <div className="main-wrapper">
       <InstructorHeader activeMenu={"List"} />
@@ -111,354 +123,77 @@ export const InstructorList = () => {
 
               <div className="row">
                 {/* Instructor List */}
-                <div className="col-lg-12 d-flex">
-                  <div className="instructor-list flex-fill">
-                    <div className="instructor-img">
-                      <Link to="/instructor-profile">
-                        <img className="img-fluid" alt="" src={User11} />
-                      </Link>
-                    </div>
-                    <div className="instructor-content">
-                      <h5>
-                        <Link to="/instructor-profile">Rolands R</Link>
-                      </h5>
-                      <h6>Instructor</h6>
-                      <div className="instructor-info">
-                        <div className="rating-img d-flex align-items-center">
-                          <img src={Icon1} className="me-1" alt="" />
-                          <p>12+ Lesson</p>
+                {profs &&
+                  profs?.map((prof, index) => (
+                    <React.Fragment key={index}>
+                      <div className="col-lg-12 d-flex">
+                        <div className="instructor-list flex-fill">
+                          <div className="instructor-img">
+                            <Link to="/instructor-profile">
+                              <img
+                                className="img-fluid"
+                                alt=""
+                                src={prof.photo}
+                                style={{
+                                  width: "150px",
+                                  height: "150px",
+                                  objectFit: "cover",
+                                  backgroundPosition: "center",
+                                }}
+                              />
+                            </Link>
+                          </div>
+                          <div className="instructor-content">
+                            <h5>
+                              <Link to={`/instructor-profile/${prof.pseudo}`}>
+                                {prof.first_name + " " + prof.last_name}
+                              </Link>
+                            </h5>
+                            <h6>Professeur</h6>
+                            <div className="instructor-info">
+                              <div className="rating-img d-flex align-items-center">
+                                <img src={Icon1} className="me-1" alt="" />
+                                <p>{prof.total_courses}</p>
+                              </div>
+                              <div className="course-view d-flex align-items-center ms-0">
+                                <img src={Icon2} className="me-1" alt="" />
+                                <p>9hr 30min</p>
+                              </div>
+                              <div className="rating-img d-flex align-items-center">
+                                <img
+                                  src={UserIconSvg}
+                                  className="me-1"
+                                  alt=""
+                                />
+                                <p>
+                                  {prof.total_etudiant}{" "}
+                                  {+" " + prof.total_etudiant > 1
+                                    ? "Etudiants"
+                                    : "Etudiant"}
+                                </p>
+                              </div>
+                              <div className="rating">
+                                {[...Array(5)].map((_, index) => (
+                                  <i
+                                    key={index}
+                                    className={`fas fa-star ${
+                                      index < prof.notes ? "filled" : ""
+                                    }`}
+                                  ></i>
+                                ))}
+                                <span className="d-inline-block average-rating">
+                                  <span>{prof.notes}</span>
+                                </span>
+                              </div>
+                            </div>
+                            <div className="instructor-badge">
+                              <span className="web-badge">Web Design</span>
+                            </div>
+                          </div>
                         </div>
-                        <div className="course-view d-flex align-items-center ms-0">
-                          <img src={Icon2} className="me-1" alt="" />
-                          <p>9hr 30min</p>
-                        </div>
-                        <div className="rating-img d-flex align-items-center">
-                          <img src={UserIconSvg} className="me-1" alt="" />
-                          <p>50 Students</p>
-                        </div>
-                        <div className="rating">
-                          <i className="fas fa-star filled"></i>
-                          <i className="fas fa-star filled"></i>
-                          <i className="fas fa-star filled"></i>
-                          <i className="fas fa-star filled"></i>
-                          <i className="fas fa-star"></i>
-                          <span className="d-inline-block average-rating">
-                            <span>4.0</span> (15)
-                          </span>
-                        </div>
-                        <Link to="#rate" className="rating-count">
-                          <i className="fa-regular fa-heart"></i>
-                        </Link>
                       </div>
-                      <div className="instructor-badge">
-                        <span className="web-badge">Web Design</span>&nbsp;
-                        <span className="web-badge">web development</span>&nbsp;
-                        <span className="web-badge">UI Design</span>&nbsp;
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                {/* Instructor List */}
-
-                {/* Instructor List */}
-                <div className="col-lg-12 d-flex">
-                  <div className="instructor-list flex-fill">
-                    <div className="instructor-img">
-                      <Link to="/instructor-profile">
-                        <img className="img-fluid" alt="" src={User} />
-                      </Link>
-                    </div>
-                    <div className="instructor-content">
-                      <h5>
-                        <Link to="/instructor-profile">Jenis R.</Link>
-                      </h5>
-                      <h6>Instructor</h6>
-                      <div className="instructor-info">
-                        <div className="rating-img d-flex align-items-center justify-content-center">
-                          <img src={Icon1} className="me-1" alt="" />
-                          <p>12+ Lesson</p>
-                        </div>
-                        <div className="course-view d-flex align-items-center justify-content-center">
-                          <img src={Icon2} className="me-1" alt="" />
-                          <p>9hr 30min</p>
-                        </div>
-                        <div className="rating-img d-flex align-items-center">
-                          <img src={UserIconSvg} className="me-1" alt="" />
-                          <p>50 Students</p>
-                        </div>
-                        <div className="rating">
-                          <i className="fas fa-star filled"></i>
-                          <i className="fas fa-star filled"></i>
-                          <i className="fas fa-star filled"></i>
-                          <i className="fas fa-star filled"></i>
-                          <i className="fas fa-star"></i>
-                          <span className="d-inline-block average-rating">
-                            <span>4.0</span> (15)
-                          </span>
-                        </div>
-                        <Link to="#rate" className="rating-count">
-                          <i className="fa-regular fa-heart"></i>
-                        </Link>
-                      </div>
-                      <div className="instructor-badge">
-                        <span className="web-badge">Web Design</span>&nbsp;
-                        <span className="web-badge">web development</span>&nbsp;
-                        <span className="web-badge">UI Design</span>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                {/* Instructor List */}
-
-                {/* Instructor List */}
-                <div className="col-lg-12 d-flex">
-                  <div className="instructor-list flex-fill">
-                    <div className="instructor-img">
-                      <Link to="/instructor-profile">
-                        <img className="img-fluid" alt="" src={User4} />
-                      </Link>
-                    </div>
-                    <div className="instructor-content">
-                      <h5>
-                        <Link to="/instructor-profile">Jesse Stevens</Link>
-                      </h5>
-                      <h6>Instructor</h6>
-                      <div className="instructor-info">
-                        <div className="rating-img d-flex align-items-center justify-content-center">
-                          <img src={Icon1} className="me-1" alt="" />
-                          <p>12+ Lesson</p>
-                        </div>
-                        <div className="course-view d-flex align-items-center justify-content-center">
-                          <img src={Icon2} className="me-1" alt="" />
-                          <p>9hr 30min</p>
-                        </div>
-                        <div className="rating-img d-flex align-items-center">
-                          <img src={UserIconSvg} className="me-1" alt="" />
-                          <p>50 Students</p>
-                        </div>
-                        <div className="rating">
-                          <i className="fas fa-star filled"></i>
-                          <i className="fas fa-star filled"></i>
-                          <i className="fas fa-star filled"></i>
-                          <i className="fas fa-star filled"></i>
-                          <i className="fas fa-star"></i>
-                          <span className="d-inline-block average-rating">
-                            <span>4.0</span> (15)
-                          </span>
-                        </div>
-                        <Link to="#rate" className="rating-count">
-                          <i className="fa-regular fa-heart"></i>
-                        </Link>
-                      </div>
-                      <div className="instructor-badge">
-                        <span className="web-badge">Web Design</span>&nbsp;
-                        <span className="web-badge">web development</span>&nbsp;
-                        <span className="web-badge">UI Design</span>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                {/* Instructor List */}
-
-                {/* Instructor List */}
-                <div className="col-lg-12 d-flex">
-                  <div className="instructor-list flex-fill">
-                    <div className="instructor-img">
-                      <Link to="/instructor-profile">
-                        <img className="img-fluid" alt="" src={User2} />
-                      </Link>
-                    </div>
-                    <div className="instructor-content">
-                      <h5>
-                        <Link to="/instructor-profile">Stevens Jes</Link>
-                      </h5>
-                      <h6>Instructor</h6>
-                      <div className="instructor-info">
-                        <div className="rating-img d-flex align-items-center justify-content-center">
-                          <img src={Icon1} className="me-1" alt="" />
-                          <p>12+ Lesson</p>
-                        </div>
-                        <div className="course-view d-flex align-items-center justify-content-center">
-                          <img src={Icon2} className="me-1" alt="" />
-                          <p>9hr 30min</p>
-                        </div>
-                        <div className="rating-img d-flex align-items-center">
-                          <img src={UserIconSvg} className="me-1" alt="" />
-                          <p>50 Students</p>
-                        </div>
-                        <div className="rating">
-                          <i className="fas fa-star filled"></i>
-                          <i className="fas fa-star filled"></i>
-                          <i className="fas fa-star filled"></i>
-                          <i className="fas fa-star filled"></i>
-                          <i className="fas fa-star"></i>
-                          <span className="d-inline-block average-rating">
-                            <span>4.0</span> (15)
-                          </span>
-                        </div>
-                        <Link to="#rate" className="rating-count">
-                          <i className="fa-regular fa-heart"></i>
-                        </Link>
-                      </div>
-                      <div className="instructor-badge">
-                        <span className="web-badge">Web Design</span>&nbsp;
-                        <span className="web-badge">web development</span>&nbsp;
-                        <span className="web-badge">UI Design</span>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                {/* Instructor List */}
-
-                {/* Instructor List */}
-                <div className="col-lg-12 d-flex">
-                  <div className="instructor-list flex-fill">
-                    <div className="instructor-img">
-                      <Link to="/instructor-profile">
-                        <img className="img-fluid" alt="" src={User3} />
-                      </Link>
-                    </div>
-                    <div className="instructor-content">
-                      <h5>
-                        <Link to="/instructor-profile">John Smith</Link>
-                      </h5>
-                      <h6>Instructor</h6>
-                      <div className="instructor-info">
-                        <div className="rating-img d-flex align-items-center justify-content-center">
-                          <img src={Icon1} className="me-1" alt="" />
-                          <p>12+ Lesson</p>
-                        </div>
-                        <div className="course-view d-flex align-items-center justify-content-center">
-                          <img src={Icon2} className="me-1" alt="" />
-                          <p>9hr 30min</p>
-                        </div>
-                        <div className="rating-img d-flex align-items-center">
-                          <img src={UserIconSvg} className="me-1" alt="" />
-                          <p>50 Students</p>
-                        </div>
-                        <div className="rating">
-                          <i className="fas fa-star filled"></i>
-                          <i className="fas fa-star filled"></i>
-                          <i className="fas fa-star filled"></i>
-                          <i className="fas fa-star filled"></i>
-                          <i className="fas fa-star"></i>
-                          <span className="d-inline-block average-rating">
-                            <span>4.0</span> (15)
-                          </span>
-                        </div>
-                        <Link to="#rate" className="rating-count">
-                          <i className="fa-regular fa-heart"></i>
-                        </Link>
-                      </div>
-                      <div className="instructor-badge">
-                        <span className="web-badge">Web Design</span>&nbsp;
-                        <span className="web-badge">web development</span>&nbsp;
-                        <span className="web-badge">UI Design</span>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                {/* Instructor List */}
-
-                {/* Instructor List */}
-                <div className="col-lg-12 d-flex">
-                  <div className="instructor-list flex-fill">
-                    <div className="instructor-img">
-                      <Link to="/instructor-profile">
-                        <img className="img-fluid" alt="" src={User5} />
-                      </Link>
-                    </div>
-                    <div className="instructor-content">
-                      <h5>
-                        <Link to="/instructor-profile">Stella Johnson</Link>
-                      </h5>
-                      <h6>Instructor</h6>
-                      <div className="instructor-info">
-                        <div className="rating-img d-flex align-items-center justify-content-center">
-                          <img src={Icon1} className="me-1" alt="" />
-                          <p>12+ Lesson</p>
-                        </div>
-                        <div className="course-view d-flex align-items-center justify-content-center">
-                          <img src={Icon2} className="me-1" alt="" />
-                          <p>9hr 30min</p>
-                        </div>
-                        <div className="rating-img d-flex align-items-center">
-                          <img src={UserIconSvg} className="me-1" alt="" />
-                          <p>50 Students</p>
-                        </div>
-                        <div className="rating">
-                          <i className="fas fa-star filled"></i>
-                          <i className="fas fa-star filled"></i>
-                          <i className="fas fa-star filled"></i>
-                          <i className="fas fa-star filled"></i>
-                          <i className="fas fa-star"></i>
-                          <span className="d-inline-block average-rating">
-                            <span>4.0</span> (15)
-                          </span>
-                        </div>
-                        <Link to="#rate" className="rating-count">
-                          <i className="fa-regular fa-heart"></i>
-                        </Link>
-                      </div>
-                      <div className="instructor-badge">
-                        <span className="web-badge">Web Design</span>&nbsp;
-                        <span className="web-badge">web development</span>&nbsp;
-                        <span className="web-badge">UI Design</span>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                {/* Instructor List */}
-
-                {/* Instructor List */}
-                <div className="col-lg-12 d-flex">
-                  <div className="instructor-list flex-fill">
-                    <div className="instructor-img">
-                      <Link to="/instructor-profile">
-                        <img className="img-fluid" alt="" src={User12} />
-                      </Link>
-                    </div>
-                    <div className="instructor-content">
-                      <h5>
-                        <Link to="/instructor-profile">John Michael</Link>
-                      </h5>
-                      <h6>Instructor</h6>
-                      <div className="instructor-info">
-                        <div className="rating-img d-flex align-items-center justify-content-center">
-                          <img src={Icon1} className="me-1" alt="" />
-                          <p>12+ Lesson</p>
-                        </div>
-                        <div className="course-view d-flex align-items-center justify-content-center">
-                          <img src={Icon2} className="me-1" alt="" />
-                          <p>9hr 30min</p>
-                        </div>
-                        <div className="rating-img d-flex align-items-center">
-                          <img src={UserIconSvg} className="me-1" alt="" />
-                          <p>50 Students</p>
-                        </div>
-                        <div className="rating">
-                          <i className="fas fa-star filled"></i>
-                          <i className="fas fa-star filled"></i>
-                          <i className="fas fa-star filled"></i>
-                          <i className="fas fa-star filled"></i>
-                          <i className="fas fa-star"></i>
-                          <span className="d-inline-block average-rating">
-                            <span>4.0</span> (15)
-                          </span>
-                        </div>
-                        <Link to="#rate" className="rating-count">
-                          <i className="fa-regular fa-heart"></i>
-                        </Link>
-                      </div>
-                      <div className="instructor-badge">
-                        <span className="web-badge">Web Design</span>&nbsp;
-                        <span className="web-badge">web development</span>&nbsp;
-                        <span className="web-badge">UI Design</span>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                {/* Instructor List */}
+                    </React.Fragment>
+                  ))}
               </div>
 
               {/* Pagination */}
@@ -466,11 +201,7 @@ export const InstructorList = () => {
                 <div className="col-md-12">
                   <ul className="pagination lms-page lms-pagination">
                     <li className="page-item prev">
-                      <Link
-                        className="page-link"
-                        to="#;"
-                       
-                      >
+                      <Link className="page-link" to="#;">
                         <i className="fas fa-angle-left"></i>
                       </Link>
                     </li>
@@ -550,21 +281,13 @@ export const InstructorList = () => {
                       </div>
                       <div>
                         <label className="custom_check">
-                          <input
-                            type="checkbox"
-                            name="select_specialist"
-                          
-                          />
+                          <input type="checkbox" name="select_specialist" />
                           <span className="checkmark"></span> General (2)
                         </label>
                       </div>
                       <div>
                         <label className="custom_check">
-                          <input
-                            type="checkbox"
-                            name="select_specialist"
-                            
-                          />
+                          <input type="checkbox" name="select_specialist" />
                           <span className="checkmark"></span> IT & Software (2)
                         </label>
                       </div>
@@ -620,11 +343,7 @@ export const InstructorList = () => {
                       </div>
                       <div>
                         <label className="custom_check mb-0">
-                          <input
-                            type="checkbox"
-                            name="select_specialist"
-                           
-                          />
+                          <input type="checkbox" name="select_specialist" />
                           <span className="checkmark"></span> Nicole Brown
                         </label>
                       </div>
@@ -655,11 +374,7 @@ export const InstructorList = () => {
                       </div>
                       <div>
                         <label className="custom_check custom_one mb-0">
-                          <input
-                            type="radio"
-                            name="select_specialist"
-                           
-                          />
+                          <input type="radio" name="select_specialist" />
                           <span className="checkmark"></span> Paid (15)
                         </label>
                       </div>

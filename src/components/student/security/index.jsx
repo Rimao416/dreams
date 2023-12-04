@@ -20,69 +20,36 @@ export default function StudentSecurity() {
               <div className="settings-widget profile-details">
                 <div className="settings-menu p-0">
                   <div className="profile-heading">
-                    <h3>Security</h3>
+                    <h3>Securité</h3>
                     <p>
-                      Edit your account settings and change your password here.
+                      Modifiez les paramètres de votre compte et changez votre
+                      mot de passe ici
                     </p>
                   </div>
-                  <div className="checkout-form personal-address border-line">
-                    <div className="personal-info-head">
-                      <h4>Email Address</h4>
-                      <p>
-                        Your current email address is{" "}
-                        <span>maxwell@example.com</span>
-                      </p>
-                    </div>
-                    <form action="#">
-                      <div className="new-address">
-                        <div className="row">
-                          <div className="col-lg-6">
-                            <div className="form-group">
-                              <label className="form-control-label">
-                                New email address
-                              </label>
-                              <input
-                                type="text"
-                                className="form-control"
-                                placeholder="Enter your New email address"
-                              />
-                            </div>
-                          </div>
-                          <div className="profile-share d-flex ">
-                            <button type="button" className="btn btn-success">
-                              Update
-                            </button>
-                          </div>
-                        </div>
-                      </div>
-                    </form>
-                  </div>
+                
                   <div className="checkout-form personal-address">
                     <div className="personal-info-head">
-                      <h4>Change Password</h4>
-                      <p>
-                        We will email you a confirmation when changing your
-                        password, so please expect that email after submitting.
-                      </p>
+                      <h4>Modifier le mot de passe</h4>
+                    
                     </div>
                     <div className="row">
                       <div className="col-lg-6">
                         <form action="#">
                           <div className="form-group">
                             <label className="form-control-label">
-                              Current password
+                            Mot de passe actuel
                             </label>
                             <input type="password" className="form-control" />
                           </div>
                           <div className="form-group">
                             <label className="form-control-label">
-                              Password
+                              Nouveau mot de passe
                             </label>
                             <div className="pass-group" id="passwordInput">
                               <input
                                 type="password"
                                 className="form-control pass-input"
-                                placeholder="Enter your password"
+                                placeholder="Entrer un mot de passe fort"
                               />
                             </div>
                             <div
@@ -98,13 +65,13 @@ export default function StudentSecurity() {
                           </div>
                           <div className="form-group">
                             <label className="form-control-label">
-                              Confirm New Password
+                             Re-tapez le mot de passe
                             </label>
                             <input type="password" className="form-control" />
                           </div>
                           <div className="update-profile save-password">
                             <button type="button" className="btn btn-primary">
-                              Save Password
+                              Sauvegarder
                             </button>
                           </div>
                         </form>

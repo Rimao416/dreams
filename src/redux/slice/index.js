@@ -1,5 +1,6 @@
 import { combineReducers } from "redux";
 import profReducer from "./profSlice";
+import profsReducer from "./profsSlice";
 import coursReducer from "./coursSlice";
 import authReducer from "./authSlice";
 import blogReducer from "./blogSlice";
@@ -12,6 +13,7 @@ import { configureStore } from "@reduxjs/toolkit";
 export const store = configureStore({
   reducer: {
     profReducer,
+    profsReducer,
     coursReducer,
     authReducer,
     blogReducer,

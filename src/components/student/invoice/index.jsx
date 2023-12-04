@@ -53,7 +53,13 @@ export default function StudentInvoice() {
                             <td>
                               <span className="badge status-due">Due</span>
                             </td>
-                            <td>
+                            <td className="d-flex ">
+                              <Link to="#;" className="btn-style">
+                                <Download />
+                              </Link>
+                              <Link to="#;" className="btn-style">
+                                <Download />
+                              </Link>
                               <Link to="#;" className="btn-style">
                                 <Download />
                               </Link>

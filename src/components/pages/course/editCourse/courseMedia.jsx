@@ -59,7 +59,13 @@ const CourseMedia = ({ prevTab1, nextTab2, lecon, setLecon }) => {
       // }
     });
   };
-
+  const handleId=()=>{
+    setLecon({
+      ...lecon,
+      course_id: cours.id
+    })
+    nextTab2()
+  }
   return (
     <>
       <fieldset className="field-card" style={{ display: "block" }}>
@@ -108,7 +114,7 @@ const CourseMedia = ({ prevTab1, nextTab2, lecon, setLecon }) => {
                 </button>
                 <Link
                   className="btn btn-info-light next_btn"
-                  onClick={nextTab2}
+                  onClick={handleId}
                 >
                   Avancer
                 </Link>

@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import { Oval } from "react-loader-spinner";
 import Select from "react-select";
 import Footer from "../../footer";
 import { User11 } from "../../imagepath";
@@ -7,9 +8,11 @@ import { InstructorHeader } from "../header";
 import InstructorSidebar from "../sidebar";
 import { useStateContext } from "../../../context/ContextProvider";
 import { API } from "../../../config";
+import { toast } from "react-toastify";
 
 export default function InstructorEditProfile() {
-  const { user } = useStateContext();
+  const [loading, setLoading] = useState(false);
+  const { user, setUser } = useStateContext();
   const [profile, setProfile] = useState({});
   useEffect(() => {
     setProfile(user);
@@ -104,35 +107,73 @@ export default function InstructorEditProfile() {
   const profilePic = async (event) => {
     event.preventDefault();
     console.log(profile);
+    console.log(user);
     // create form
     const formData = new FormData();
     // // update formData
     formData.append("photo", profile?.photo);
-
+    // formData.append("photo_floue")
     try {
-      const response = await API.put(`/users/${user?.id}`, formData);
+      const response = await API.post(`/updatePhoto`, formData);
+      if (response.status == 200) {
+        toast.success("Modification effectuée avec succès");
+        setUser({ ...user, photo: profile?.photo.name });
+        window.location.reload();
+      }
+      // console.log("s");
       console.log(response);
     } catch (error) {
       console.log(error);
     }
   };
-  const bannerPic = (event) => {
-    event.preventDefault();
-
-    // try {
-    //   const response=API.post(`/users/${user?.id}`,profile)
-    //   console.log(response)
-    // } catch (error) {
-    //   console.log(error)
-    // }
+  const handleBanner = async (e) => {
+    const { files } = e.target;
+    if (files.length > 0) {
+      setProfile({ ...profile, banner: files[0] });
+      setPicture({ ...picture, banner: URL.createObjectURL(files[0]) });
+    }
   };
-  const handleSubmit =async (event) => {
+  const bannerPic = async (event) => {
+    setLoading(true);
+    event.preventDefault();
+    console.log(profile);
+    event.preventDefault();
+    console.log(profile);
+    console.log(user);
+    // create form
+    const formData = new FormData();
+    // // update formData
+    formData.append("banner", profile?.banner);
+    try {
+      const response = await API.post(`/updateBanner`, formData);
+      if (response.status == 200) {
+        toast.success("Modification effectuée avec succès");
+        setUser({ ...user, banner: profile?.banner.name });
+        window.location.reload();
+      }
+      // console.log("s");
+      console.log(response);
+    } catch (error) {
+      // console.log(error);
+      toast.error(error.response.data.message);
+    }
+    setLoading(false);
+  };
+  const handleSubmit = async (event) => {
     event.preventDefault();
     try {
       const response = await API.put(`/users/${user?.id}`, profile);
       console.log(response);
+      if (response.status === 200) {
+        setUser(response.data.data);
+        toast.success("Modification effectuée avec succès");
+        // window.location.reload()
+      }
     } catch (error) {
       console.log(error);
+      Object.values(error.response.data.data).forEach((errorArray) => {
+        toast.error(errorArray[0]);
+      });
     }
   };
   return (
@@ -150,16 +191,16 @@ export default function InstructorEditProfile() {
               <div className="settings-widget profile-details">
                 <div className="settings-menu p-0">
                   <div className="profile-heading">
-                    <h3>Profile Details</h3>
-                    <p>
+                    <h3>Informations Profil</h3>
+                    {/* <p>
                       You have full control to manage your own account setting.
-                    </p>
+                    </p> */}
                   </div>
 
                   <div className="checkout-form personal-address add-course-info">
                     <div className="personal-info-head">
                       <h4>Photo de Profil</h4>
-                      <p>Edit your personal information and address.</p>
+                      {/* <p>Edit your personal information and address.</p> */}
                     </div>
                     <form onSubmit={profilePic}>
                       <div className="course-group mb-0 d-flex">
@@ -191,7 +232,7 @@ export default function InstructorEditProfile() {
                   <div className="checkout-form personal-address add-course-info">
                     <div className="personal-info-head">
                       <h4>Photo de Couverture</h4>
-                      <p>Edit your personal information and address.</p>
+                      {/* <p>Edit your personal information and address.</p> */}
                     </div>
                     <form onSubmit={bannerPic}>
                       <div className="course-group mb-0 d-flex">
@@ -212,9 +253,29 @@ export default function InstructorEditProfile() {
                         </div>
                         <div className="profile-share d-flex align-items-center justify-content-center">
                           {picture?.banner && (
-                            <button type="submit" className="btn btn-success">
-                              Mettre à jour
-                            </button>
+                            <>
+                              {loading == true ? (
+                                <Oval
+                                  height={40}
+                                  width={40}
+                                  color="#58BBDE"
+                                  wrapperStyle={{}}
+                                  wrapperClass=""
+                                  visible={true}
+                                  ariaLabel="oval-loading"
+                                  secondaryColor="#A2CDDC"
+                                  strokeWidth={3}
+                                  strokeWidthSecondary={3}
+                                />
+                              ) : (
+                                <button
+                                  type="submit"
+                                  className="btn btn-success"
+                                >
+                                  Mettre à jour
+                                </button>
+                              )}
+                            </>
                           )}
                         </div>
                       </div>
@@ -222,8 +283,8 @@ export default function InstructorEditProfile() {
                   </div>
                   <div className="checkout-form personal-address add-course-info">
                     <div className="personal-info-head">
-                      <h4>Personal Details</h4>
-                      <p>Edit your personal information and address.</p>
+                      <h4>Détails personnels</h4>
+                      {/* <p>Edit your personal information and address.</p> */}
                     </div>
                     <form onSubmit={handleSubmit}>
                       <div className="row">
@@ -255,7 +316,7 @@ export default function InstructorEditProfile() {
                         </div>
                         <div className="col-lg-6">
                           <div className="form-group">
-                            <label className="form-control-label">Phone</label>
+                            <label className="form-control-label">Pseudo</label>
                             <input
                               type="text"
                               className="form-control"
@@ -274,8 +335,9 @@ export default function InstructorEditProfile() {
                               className="form-control"
                               placeholder="Enter your Email"
                               name="email"
+                              disabled={true}
                               value={profile?.email}
-                              onChange={handleChange}
+                              // onChange={handleChange}
                             />
                           </div>
                         </div>

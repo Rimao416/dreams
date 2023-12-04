@@ -107,7 +107,7 @@ const Approuter = () => {
       <Routes>
         <Route element={<ProtectedRoutes />}>
           <Route path="/" element={<Home />} />
-   
+
           <Route path="/instructor-dashboard" element={<Dashboard />} />
           <Route path="/instructor-list" element={<InstructorList />} />
           <Route path="/instructor-grid" element={<InstructorGrid />} />
@@ -115,10 +115,17 @@ const Approuter = () => {
           <Route path="/add-course" element={<AddCourse />} />
           <Route path="/edit-course/:id" element={<EditCourse />} />
           <Route path="/course-list" element={<CourseList />} />
-          <Route
-          path="/instructor-edit-profile"
-          element={<InstructorEditProfile />}
-        />
+          <Route path="/instructor-reviews" element={<InstructorReviews />} />
+          <Route path="/profile" element={<InstructorEditProfile />} />
+          <Route path="/instructor-list" element={<InstructorList />} />
+
+
+          {/* STUDENT */}
+          <Route path="/setting-edit-profile" element={<StudentEditProfile />} />
+        <Route path="/setting-student-security" element={<StudentSecurity />} />
+
+        <Route path="/instructor-profile/:pseudo" element={<InstructorProfile />} />
+          
         </Route>
 
         {/* Blog */}
@@ -130,7 +137,6 @@ const Approuter = () => {
         <Route path="/pricing-plan" element={<PricingPlan />} />
         <Route path="/pricing-plan2" element={<PricingPlan2 />} />
         <Route path="/wishlist" element={<Wishlist />} />
-
 
         <Route path="/course-grid" element={<CourseGrid />} />
         <Route path="/course-details" element={<CourseDetails />} />
@@ -151,7 +157,7 @@ const Approuter = () => {
           <Route path="/register" element={<Register />} />
         </Route>
         <Route path="/new-password" element={<NewPassword />} />
-       
+
         <Route path="/register1" element={<RegisterOne />} />
         <Route path="/register2" element={<RegisterTwo />} />
         <Route path="/register3" element={<RegisterThree />} />
@@ -162,17 +168,16 @@ const Approuter = () => {
         <Route path="/privacy-policy" element={<PrivacyPolicy />} />
 
         {/* Instructor Routes */}
-        <Route path="/instructor-dashboard" element={<Dashboard />} />
-        <Route path="/instructor-list" element={<InstructorList />} />
+        {/* <Route path="/instructor-dashboard" element={<Dashboard />} /> */}
         <Route path="/instructor-grid" element={<InstructorGrid />} />
         {/* <Route path="/instructor-course" element={<InstructorCourse />} /> */}
-        <Route path="/instructor-reviews" element={<InstructorReviews />} />
+
         <Route path="/instructor-earnings" element={<InstructorEarnings />} />
         <Route path="/instructor-orders" element={<InstructorOrders />} />
         <Route path="/instructor-payouts" element={<InstructorPayouts />} />
         <Route path="/instructor-tickets" element={<InstructorTickets />} />
-        <Route path="/instructor-profile" element={<InstructorProfile />} />
-        
+        {/* <Route path="/instructor-profile" element={<InstructorProfile />} /> */}
+
         <Route path="/instructor-security" element={<InstructorSecurity />} />
         <Route
           path="/instructor-social-profile"
@@ -225,7 +230,7 @@ const Approuter = () => {
         />
 
         {/*Student Routes  */}
-        <Route path="/setting-edit-profile" element={<StudentEditProfile />} />
+
         <Route path="/setting-student-accounts" element={<StudentAccounts />} />
         <Route path="/setting-student-billing" element={<StudentBilling />} />
         <Route
@@ -241,7 +246,6 @@ const Approuter = () => {
         <Route path="/setting-student-payment" element={<StudentPayment />} />
         <Route path="/setting-student-privacy" element={<StudentPrivacy />} />
         <Route path="/setting-student-referral" element={<StudentReferral />} />
-        <Route path="/setting-student-security" element={<StudentSecurity />} />
         <Route
           path="/setting-student-social-profile"
           element={<StudentSocialProfile />}

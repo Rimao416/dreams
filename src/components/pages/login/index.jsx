@@ -13,6 +13,7 @@ import { useStateContext } from "../../../context/ContextProvider";
 import Message from "../../Message";
 
 const Login = () => {
+  const [loading, setLoading] = useState(false);
   const dispatch = useDispatch();
   const [credentials, setCredentials] = useState({
     email: "",
@@ -26,12 +27,14 @@ const Login = () => {
 
   const [passwordType, setPasswordType] = useState("password");
   const handleSubmit = (event) => {
+    setLoading(true);
     event.preventDefault();
     API.post("/login", credentials)
       .then(({ data }) => {
         console.log(data);
         // setUser(data.user)
         setToken(data.access_token);
+        setLoading(false);
       })
       .catch((err) => {
         const response = err.response;
@@ -39,6 +42,7 @@ const Login = () => {
           console.log(response.data.message);
           setErrors(response.data.message);
         }
+        setLoading(false);
       });
   };
 
@@ -111,7 +115,7 @@ const Login = () => {
                 </div>
                 <div className="mentor-course text-center">
                   <h2>
-                    Welcome to <br />
+                    Bienvenue<br />
                     DreamsLMS Courses.
                   </h2>
                   <p>
@@ -164,7 +168,6 @@ const Login = () => {
                         name="email"
                         value={credentials.email}
                       />
-
                     </div>
 
                     <div className="form-group">

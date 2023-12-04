@@ -90,16 +90,8 @@ const AddCourse = () => {
                   <div className="add-course-btns">
                     <ul className="nav">
                       <li>
-                        <Link
-                          to="/dashboard-instructor"
-                          className="btn btn-black"
-                        >
-                          Back to Course
-                        </Link>
-                      </li>
-                      <li>
-                        <Link to="#" className="btn btn-success-dark">
-                          Save
+                        <Link to="/prof-cours" className="btn btn-black">
+                          Retour
                         </Link>
                       </li>
                     </ul>

@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { InstructorHeader } from "../../instructor/header";
 import Footer from "../../footer";
+import { Edit, Eye, Trash } from "react-feather";
 import {
   // Course10,
   // Course11,
@@ -34,10 +35,10 @@ export default function InstructorCourse() {
   // console.log(prof)
   const [setValue] = useState(null);
   const options = [
-    { label: "Choose", value: "choose" },
-    { label: "Angular", value: "Angular" },
-    { label: "React", value: "React" },
-    { label: "Node", value: "Node" },
+    { label: "Tout", value: "" },
+    { label: "Publié", value: "Publié" },
+    { label: "Brouillon", value: "Brouillon" },
+    // { label: "Node", value: "Node" },
   ];
   const style = {
     control: (baseStyles, state) => ({
@@ -97,6 +98,25 @@ export default function InstructorCourse() {
       console.log("Suppression annulée");
     }
   };
+  const [searchQuery, setSearchQuery] = useState({
+    nom: "",
+    statut: "",
+  });
+  const handleFilter = (event) => {
+    setSearchQuery({
+      ...searchQuery,
+      [event.target.name]: event.target.value,
+    });
+  };
+  const filteredCours = cours?.filter((row) => {
+    const nameMatch = row.title
+      .toLowerCase()
+      .includes(searchQuery.nom.toLowerCase());
+    const statutMatch = row.status
+      .toLowerCase()
+      .includes(searchQuery.statut.toLowerCase());
+    return nameMatch && statutMatch;
+  });
   return (
     <div className="main-wrapper">
       <InstructorHeader activeMenu={"Courses"} />
@@ -115,11 +135,7 @@ export default function InstructorCourse() {
                   <div className="settings-widget">
                     <div className="settings-inner-blk p-0">
                       <div className="sell-course-head comman-space">
-                        <h3>Courses</h3>
-                        <p>
-                          Manage your courses and its update like live, draft
-                          and insight.
-                        </p>
+                        <h3>Cours</h3>
                       </div>
                       <div className="comman-space pb-0">
                         <div className="instruct-search-blk">
@@ -139,7 +155,9 @@ export default function InstructorCourse() {
                                     <input
                                       type="text"
                                       className="form-control"
-                                      placeholder="Search our courses"
+                                      placeholder="Entrez un cours"
+                                      onChange={handleFilter}
+                                      name="nom"
                                     />
                                   </div>
                                 </div>
@@ -147,11 +165,16 @@ export default function InstructorCourse() {
                                   <div className="form-group select-form mb-0">
                                     <Select
                                       className=" select"
-                                      name="sellist1"
+                                      name="statut"
                                       options={options}
                                       defaultValue={options[0]}
-                                      placeholder="Choose"
-                                      onChange={setValue}
+                                      placeholder="Statut"
+                                      onChange={(selectedOption) =>
+                                        setSearchQuery({
+                                          ...searchQuery,
+                                          statut: selectedOption.value,
+                                        })
+                                      }
                                       styles={style}
                                     ></Select>
                                   </div>
@@ -168,11 +191,12 @@ export default function InstructorCourse() {
                                 <th>COURS</th>
                                 <th>ÉTUDIANTS</th>
                                 <th>STATUTS</th>
+                                <th>ACTION</th>
                               </tr>
                             </thead>
                             <tbody>
                               {loading == false &&
-                                cours.map((cours, index) => (
+                                filteredCours.map((cours, index) => (
                                   <>
                                     <tr>
                                       <td>
@@ -180,7 +204,18 @@ export default function InstructorCourse() {
                                           <div className="sell-group-img">
                                             <Link to="/course-details">
                                               <img
-                                                src={Course14}
+                                                // src={Course14}
+                                                src={cours.image}
+                                                // width={"150px"}
+                                                // height={"112px"}
+
+                                                style={{
+                                                  width: "150px",
+                                                  height: "112px",
+                                                  objectFit: "cover",
+                                                  overflow: "hidden",
+                                                  backgroundPosition: "center",
+                                                }}
                                                 className="img-fluid "
                                                 alt=""
                                               />
@@ -202,13 +237,14 @@ export default function InstructorCourse() {
                                               <div className="course-view d-flex align-items-center">
                                                 <img src={TimerStart} alt="" />
                                                 <p>7hr 20min</p>
+                                                {/* <p>{cours.status}</p> */}
                                               </div>
                                             </div>
                                           </div>
                                         </div>
                                       </td>
                                       <td>{cours.total_etudiant}</td>
-                                      <td className="d-flex flex-column align-items-center gap-2">
+                                      {/* <td className="d-flex flex-column align-items-center gap-2">
                                         <span className="badge info-low">
                                           Voir plus
                                         </span>
@@ -218,14 +254,50 @@ export default function InstructorCourse() {
                                           </span>
                                         </Link>
                                         <Link to="#">
-                                        <span
-                                          
-                                          className="badge info-high cursor-pointer"
-                                          onClick={() => handleDelete(cours.id)}
-                                        >
-                                          Supprimer
-                                        </span>
+                                          <span
+                                            className="badge info-high cursor-pointer"
+                                            onClick={() =>
+                                              handleDelete(cours.id)
+                                            }
+                                          >
+                                            Supprimer
+                                          </span>
                                         </Link>
+                                      </td> */}
+
+                                      <td>
+                                        {" "}
+                                        <span
+                                          className={
+                                            cours.status === "Brouillon"
+                                              ? "badge info-inter"
+                                              : "badge info-low"
+                                          }
+                                        >
+                                          {cours.status}
+                                        </span>
+                                      </td>
+                                      <td>
+                                        <div className="d-flex ">
+                                          <Link to="#;" className="btn-style">
+                                            <Eye />
+                                          </Link>
+                                          <Link
+                                            to={`/edit-course/${cours.slug}`}
+                                            className="btn-style"
+                                          >
+                                            <Edit />
+                                          </Link>
+                                          <Link
+                                            to="#;"
+                                            className="btn-style"
+                                            onClick={() =>
+                                              handleDelete(cours.id)
+                                            }
+                                          >
+                                            <Trash />
+                                          </Link>
+                                        </div>
                                       </td>
                                     </tr>
                                   </>
