@@ -15,10 +15,22 @@ import {
 import StudentHeader from "../header";
 import CourseMenu from "../courseMenu";
 import { Search } from "react-feather";
-import Select from "react-select";
+import { useSelector, useDispatch } from "react-redux";
+import { useEffect } from "react";
+import { useStateContext } from "../../../context/ContextProvider";
+import { getPaidCourses } from "../../../redux/slice/studentSlice";
 
 export default function CourseStudent() {
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(getPaidCourses()).then((result) => {
+      console.log(result);
+    });
+  }, []);
+  const { user } = useStateContext();
   const [setValue] = useState(null);
+  const { cours } = useSelector((state) => state.studentReducer);
+  console.log(cours);
   const options = [
     { label: "Newly Published", value: "new" },
     { label: "Angular", value: "1" },
@@ -76,21 +88,29 @@ export default function CourseStudent() {
             <div className="course-group ">
               <div className="course-group-img d-flex">
                 <Link to="/students-profile">
-                  <img src={User11} alt="" className="img-fluid" />
+                  <img
+                    src={user?.photo}
+                    alt=""
+                    className="img-fluid"
+                    width={"300px"}
+                    height={"300px"}
+                  />
+                  {/* <img src={User11} alt="" className="img-fluid" /> */}
                 </Link>
                 <div className="d-flex align-items-center">
                   <div className="course-name">
                     <h4>
-                      <Link to="/students-profile">Rolands R</Link>
-                      <span>Beginner</span>
+                      <Link to="/students-profile">
+                        {user?.first_name + " " + user?.last_name}
+                      </Link>
                     </h4>
-                    <p>Student</p>
+                    <p>{user?.role}</p>
                   </div>
                 </div>
               </div>
               <div className="course-share ">
-                <Link to="#;" className="btn btn-primary">
-                  Account Settings
+                <Link to="/setting-edit-profile" className="btn btn-primary">
+                  Paramètres du compte
                 </Link>
               </div>
             </div>
@@ -117,21 +137,8 @@ export default function CourseStudent() {
                                   <input
                                     type="text"
                                     className="form-control"
-                                    placeholder="Search our courses"
+                                    placeholder="Rechercher un cours"
                                   />
-                                </div>
-                              </div>
-                              <div className="student-filter">
-                                <div className="form-group select-form mb-0">
-                                  <Select
-                                    className=" select country-select"
-                                    name="sellist1"
-                                    options={options}
-                                    defaultValue={options[0]}
-                                    placeholder="Choose"
-                                    onChange={setValue}
-                                    styles={style}
-                                  ></Select>
                                 </div>
                               </div>
                             </div>
@@ -142,449 +149,74 @@ export default function CourseStudent() {
                   </div>
 
                   <div className="row">
-                    <div className="col-xl-3 col-lg-4 col-md-6 d-flex">
-                      <div className="course-box course-design d-flex ">
-                        <div className="product">
-                          <div className="product-img">
-                            <Link to="/course-details">
-                              <img
-                                className="img-fluid"
-                                alt=""
-                                src={Course10}
-                              />
-                            </Link>
-                          </div>
-                          <div className="product-content">
-                            <h3 className="title">
-                              <Link to="/course-details">
-                                Information About UI/UX Design Degree
-                              </Link>
-                            </h3>
-                            <div className="rating-student">
-                              <div className="rating">
-                                <i className="fas fa-star filled"></i>
-                                <i className="fas fa-star filled"></i>
-                                <i className="fas fa-star filled"></i>
-                                <i className="fas fa-star filled"></i>
-                                <i className="fas fa-star"></i>
-                                <span className="d-inline-block average-rating">
-                                  <span>4.0</span>
-                                </span>
-                              </div>
-                              <div className="edit-rate">
-                                <Link to="#;">Edit rating</Link>
-                              </div>
-                            </div>
-                            <div className="progress-stip">
-                              <div className="progress-bar bg-success progress-bar-striped active-stip"></div>
-                            </div>
-                            <div className="student-percent">
-                              <p>35% Completed</p>
-                            </div>
-                            <div className="start-leason hoverBlue d-flex align-items-center">
-                              <Link
-                                to="/course-lesson"
-                                className="btn btn-primary"
-                              >
-                                Start Lesson
-                              </Link>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                    <div className="col-xl-3 col-lg-4 col-md-6 d-flex">
-                      <div className="course-box course-design d-flex ">
-                        <div className="product">
-                          <div className="product-img">
-                            <Link to="/course-details">
-                              <img
-                                className="img-fluid"
-                                alt=""
-                                src={Course11}
-                              />
-                            </Link>
-                          </div>
-                          <div className="product-content">
-                            <h3 className="title">
-                              <Link to="/course-details">
-                                Wordpress for Beginners - Master Wordpress
-                                Quickly
-                              </Link>
-                            </h3>
-                            <div className="rating-student">
-                              <div className="rating">
-                                <i className="fas fa-star filled"></i>
-                                <i className="fas fa-star filled"></i>
-                                <i className="fas fa-star filled"></i>
-                                <i className="fas fa-star filled"></i>
-                                <i className="fas fa-star"></i>
-                                <span className="d-inline-block average-rating">
-                                  <span>4.0</span>{" "}
-                                </span>
-                              </div>
-                              <div className="edit-rate">
-                                <Link to="#;">Edit rating</Link>
-                              </div>
-                            </div>
-                            <div className="progress-stip">
-                              <div className="progress-bar bg-success progress-bar-striped "></div>
-                            </div>
-                            <div className="student-percent">
-                              <p>0% Completed</p>
-                            </div>
-                            <div className="start-leason hoverBlue d-flex align-items-center">
-                              <Link
-                                to="/course-lesson"
-                                className="btn btn-primary"
-                              >
-                                Start Lesson
-                              </Link>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                    <div className="col-xl-3 col-lg-4 col-md-6 d-flex">
-                      <div className="course-box course-design d-flex ">
-                        <div className="product">
-                          <div className="product-img">
-                            <Link to="/course-details">
-                              <img
-                                className="img-fluid"
-                                alt=""
-                                src={Course12}
-                              />
-                            </Link>
-                          </div>
-                          <div className="product-content">
-                            <h3 className="title">
-                              <Link to="/course-details">
-                                Sketch from A to Z (2022): Become an app
-                                designer
-                              </Link>
-                            </h3>
-                            <div className="rating-student">
-                              <div className="rating">
-                                <i className="fas fa-star filled"></i>
-                                <i className="fas fa-star filled"></i>
-                                <i className="fas fa-star filled"></i>
-                                <i className="fas fa-star filled"></i>
-                                <i className="fas fa-star"></i>
-                                <span className="d-inline-block average-rating">
-                                  <span>4.0</span>
-                                </span>
-                              </div>
-                              <div className="edit-rate">
-                                <Link to="#;">Edit rating</Link>
-                              </div>
-                            </div>
-                            <div className="progress-stip">
-                              <div className="progress-bar bg-success progress-bar-striped"></div>
-                            </div>
-                            <div className="student-percent">
-                              <p>0% Completed</p>
-                            </div>
-                            <div className="start-leason hoverBlue d-flex align-items-center">
-                              <Link
-                                to="/course-lesson"
-                                className="btn btn-primary"
-                              >
-                                Start Lesson
-                              </Link>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                    <div className="col-xl-3 col-lg-4 col-md-6 d-flex">
-                      <div className="course-box course-design d-flex ">
-                        <div className="product">
-                          <div className="product-img">
-                            <Link to="/course-details">
-                              <img
-                                className="img-fluid"
-                                alt=""
-                                src={Course13}
-                              />
-                            </Link>
-                          </div>
-                          <div className="product-content">
-                            <h3 className="title">
-                              <Link to="/course-details">
-                                Learn Angular Fundamentals From ...
-                              </Link>
-                            </h3>
-                            <div className="rating-student">
-                              <div className="rating">
-                                <i className="fas fa-star filled"></i>
-                                <i className="fas fa-star filled"></i>
-                                <i className="fas fa-star filled"></i>
-                                <i className="fas fa-star filled"></i>
-                                <i className="fas fa-star"></i>
-                                <span className="d-inline-block average-rating">
-                                  <span>4.0</span>
-                                </span>
-                              </div>
-                              <div className="edit-rate">
-                                <Link to="#;">Edit rating</Link>
-                              </div>
-                            </div>
-                            <div className="progress-stip">
-                              <div className="progress-bar bg-success progress-bar-striped "></div>
-                            </div>
-                            <div className="student-percent">
-                              <p>0% Completed</p>
-                            </div>
-                            <div className="start-leason hoverBlue d-flex align-items-center">
-                              <Link
-                                to="/course-lesson"
-                                className="btn btn-primary"
-                              >
-                                Start Lesson
-                              </Link>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                    <div className="col-xl-3 col-lg-4 col-md-6 d-flex">
-                      <div className="course-box course-design d-flex ">
-                        <div className="product">
-                          <div className="product-img">
-                            <Link to="/course-details">
-                              <img
-                                className="img-fluid"
-                                alt=""
-                                src={Course14}
-                              />
-                            </Link>
-                          </div>
-                          <div className="product-content">
-                            <h3 className="title">
-                              <Link to="/course-details">
-                                Build Responsive Real World Websites with...
-                              </Link>
-                            </h3>
-                            <div className="rating-student">
-                              <div className="rating">
-                                <i className="fas fa-star filled"></i>
-                                <i className="fas fa-star filled"></i>
-                                <i className="fas fa-star filled"></i>
-                                <i className="fas fa-star filled"></i>
-                                <i className="fas fa-star"></i>
-                                <span className="d-inline-block average-rating">
-                                  <span>4.0</span>
-                                </span>
-                              </div>
-                              <div className="edit-rate">
-                                <Link to="#;">Edit rating</Link>
-                              </div>
-                            </div>
-                            <div className="progress-stip">
-                              <div className="progress-bar bg-success progress-bar-striped "></div>
-                            </div>
-                            <div className="student-percent">
-                              <p>0% Completed</p>
-                            </div>
-                            <div className="start-leason hoverBlue d-flex align-items-center">
-                              <Link
-                                to="/course-lesson"
-                                className="btn btn-primary"
-                              >
-                                Start Lesson
-                              </Link>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                    <div className="col-xl-3 col-lg-4 col-md-6 d-flex">
-                      <div className="course-box course-design d-flex ">
-                        <div className="product">
-                          <div className="product-img">
-                            <Link to="/course-details">
-                              <img
-                                className="img-fluid"
-                                alt=""
-                                src={Course15}
-                              />
-                            </Link>
-                          </div>
-                          <div className="product-content">
-                            <h3 className="title">
-                              <Link to="/course-details">
-                                C# Developers Double Your Coding Speed with ...
-                              </Link>
-                            </h3>
-                            <div className="rating-student">
-                              <div className="rating">
-                                <i className="fas fa-star filled"></i>
-                                <i className="fas fa-star filled"></i>
-                                <i className="fas fa-star filled"></i>
-                                <i className="fas fa-star filled"></i>
-                                <i className="fas fa-star"></i>
-                                <span className="d-inline-block average-rating">
-                                  <span>4.0</span>
-                                </span>
-                              </div>
-                              <div className="edit-rate">
-                                <Link to="#;">Edit rating</Link>
-                              </div>
-                            </div>
-                            <div className="progress-stip">
-                              <div className="progress-bar bg-success progress-bar-striped "></div>
-                            </div>
-                            <div className="student-percent">
-                              <p>0% Completed</p>
-                            </div>
-                            <div className="start-leason hoverBlue d-flex align-items-center">
-                              <Link
-                                to="/course-lesson"
-                                className="btn btn-primary"
-                              >
-                                Start Lesson
-                              </Link>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                    <div className="col-xl-3 col-lg-4 col-md-6 d-flex">
-                      <div className="course-box course-design d-flex ">
-                        <div className="product">
-                          <div className="product-img">
-                            <Link to="/course-details">
-                              <img
-                                className="img-fluid"
-                                alt=""
-                                src={Course16}
-                              />
-                            </Link>
-                          </div>
-                          <div className="product-content">
-                            <h3 className="title">
-                              <Link to="/course-details">
-                                Learn JavaScript and Express to become a ...
-                              </Link>
-                            </h3>
-                            <div className="rating-student">
-                              <div className="rating">
-                                <i className="fas fa-star filled"></i>
-                                <i className="fas fa-star filled"></i>
-                                <i className="fas fa-star filled"></i>
-                                <i className="fas fa-star filled"></i>
-                                <i className="fas fa-star"></i>
-                                <span className="d-inline-block average-rating">
-                                  <span>4.0</span>
-                                </span>
-                              </div>
-                              <div className="edit-rate">
-                                <Link to="#;">Edit rating</Link>
-                              </div>
-                            </div>
-                            <div className="progress-stip">
-                              <div className="progress-bar bg-success progress-bar-striped "></div>
-                            </div>
-                            <div className="student-percent">
-                              <p>0% Completed</p>
-                            </div>
-                            <div className="start-leason hoverBlue d-flex align-items-center">
-                              <Link
-                                to="/course-lesson"
-                                className="btn btn-primary"
-                              >
-                                Start Lesson
-                              </Link>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                    <div className="col-xl-3 col-lg-4 col-md-6 d-flex">
-                      <div className="course-box course-design d-flex ">
-                        <div className="product">
-                          <div className="product-img">
-                            <Link to="/course-details">
-                              <img
-                                className="img-fluid"
-                                alt=""
-                                src={Course17}
-                              />
-                            </Link>
-                          </div>
-                          <div className="product-content">
-                            <h3 className="title">
-                              <Link to="/course-details">
-                                Responsive Web Design Essentials HTML5 CSS3 ...
-                              </Link>
-                            </h3>
-                            <div className="rating-student">
-                              <div className="rating">
-                                <i className="fas fa-star filled"></i>
-                                <i className="fas fa-star filled"></i>
-                                <i className="fas fa-star filled"></i>
-                                <i className="fas fa-star filled"></i>
-                                <i className="fas fa-star"></i>
-                                <span className="d-inline-block average-rating">
-                                  <span>4.0</span>
-                                </span>
-                              </div>
-                              <div className="edit-rate">
-                                <Link id="edit-rating">Edit rating</Link>
-                              </div>
-                            </div>
-                            <div className="publish-rate">
-                              <form action="#">
-                                <select className="form-select" name="sellist1">
-                                  <option>4 Out of 5</option>
-                                  <option>3 Out of 5</option>
-                                  <option>2 Out of 5</option>
-                                  <option>1 Out of 5</option>
-                                </select>
-                                <div className="form-group mt-3">
-                                  <textarea
-                                    className="form-control"
-                                    rows="4"
-                                    name="text"
-                                  ></textarea>
+                    {cours &&
+                      cours?.map((cour) => (
+                        <React.Fragment key={cour.id}>
+                          <div className="col-xl-3 col-lg-4 col-md-6 d-flex">
+                            <div className="course-box course-design d-flex ">
+                              <div className="product">
+                                <div className="product-img">
+                                  <Link to={`/course-details/${cour.slug}`}>
+                                    <img
+                                      className="img-fluid"
+                                      alt=""
+                                      src={cour.image}
+                                      width={"271px"}
+                                      height={"203px"}
+                                      // 271 X 203
+                                    />
+                                  </Link>
                                 </div>
-                                <div className="group-btn mb-3">
-                                  <button
-                                    type="submit"
-                                    className="btn btn-primary publish-btn mb-3"
-                                  >
-                                    Publish Rating
-                                  </button>
-                                  <button
-                                    type="submit"
-                                    className="btn btn-primary cancel-btn"
-                                  >
-                                    Cancel
-                                  </button>
+                                <div className="product-content">
+                                  <h3 className="title">
+                                    <Link to={`/course-details/${cour.slug}`}>
+                                      {cour.title}
+                                    </Link>
+                                  </h3>
+                                  <div className="rating-student">
+                                    <div className="rating">
+                                      {[...Array(5)].map((_, index) => (
+                                        <i
+                                          key={index}
+                                          className={`fas fa-star ${
+                                            index < cour.note ? "filled" : ""
+                                          }`}
+                                        ></i>
+                                      ))}
+                                      <span className="d-inline-block average-rating">
+                                        <span>{cour.note}</span>
+                                      </span>
+                                    </div>
+                                    {/* <div className="edit-rate">
+                                      <Link to="#;">Edit rating</Link>
+                                    </div> */}
+                                  </div>
+                                  <div className="progress-stip">
+                                    <div className="progress-bar bg-success progress-bar-striped active-stip"></div>
+                                  </div>
+                                  <div className="student-percent">
+                                    <p>35% Completed</p>
+                                  </div>
+                                  <div className="start-leason hoverBlue d-flex align-items-center">
+                                    <Link
+                                      to={`/course-lesson/${cour.slug}`}
+                                      className={
+                                        cours?.user_start
+                                          ? "btn btn-primary"
+                                          : "btn btn-dark"
+                                      }
+                                    >
+                                      {cours?.user_start
+                                        ? "Démarrer le cours"
+                                        : "Continuer le cours"}
+                                    </Link>
+                                  </div>
                                 </div>
-                              </form>
-                            </div>
-                            <div className="stip-grp">
-                              <div className="progress-stip">
-                                <div className="progress-bar bg-success progress-bar-striped "></div>
-                              </div>
-                              <div className="student-percent">
-                                <p>0% Completed</p>
-                              </div>
-                              <div className="start-leason hoverBlue d-flex align-items-center">
-                                <Link
-                                  to="/course-lesson"
-                                  className="btn btn-primary"
-                                >
-                                  Start Lesson
-                                </Link>
                               </div>
                             </div>
                           </div>
-                        </div>
-                      </div>
-                    </div>
+                        </React.Fragment>
+                      ))}
                   </div>
                 </div>
               </div>

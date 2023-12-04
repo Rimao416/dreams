@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { InstructorHeader } from "../../instructor/header";
 import Footer from "../../footer";
 import {
@@ -17,29 +17,35 @@ import {
   User1,
   User2,
 } from "../../imagepath";
+
 import { Link } from "react-router-dom";
 
 import { useParams } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
-import { getSingleProf } from "../../../redux/slice/profSlice";
+import { getProfReviews, getSingleProf } from "../../../redux/slice/profSlice";
 import { profCours } from "../../../redux/slice/coursSlice";
 import { toast } from "react-toastify";
 export default function InstructorProfile() {
+  const [prof, setProf] = useState(null);
+  function contientNombre(chaine) {
+    const regex = /\d/;
+    return regex.test(chaine);
+  }
   const { pseudo } = useParams();
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(getSingleProf(pseudo)).then((result) => {
-      console.log(result)
+      console.log(result);
       if (result.type == "getSingleProf/fulfilled") {
-        dispatch(profCours(result.payload.data.id)).then((result) => {
-          console.log(result);
-        });
+        setProf(result.payload.data);
+        dispatch(profCours(result.payload.data.id));
+        dispatch(getProfReviews());
       } else {
         toast.error("Erreur lors du chargement");
       }
     });
   }, []);
-  const { profs, loading } = useSelector((state) => state.profReducer);
+  const { reviews, loading } = useSelector((state) => state.profReducer);
   const { cours, loading: coursloading } = useSelector(
     (state) => state.coursReducer
   );
@@ -86,7 +92,7 @@ export default function InstructorProfile() {
               <div className="profile-info-blk">
                 <Link to="#;" className="profile-info-img">
                   <img
-                    src={profs?.photo}
+                    src={prof?.photo}
                     alt=""
                     className="img-fluid"
                     style={{
@@ -99,10 +105,10 @@ export default function InstructorProfile() {
                 </Link>
                 <h4>
                   <Link to="#;">
-                    {profs?.first_name + " " + profs?.last_name}
+                    {prof?.first_name + " " + prof?.last_name}
                   </Link>
                 </h4>
-                <p>{profs?.role}</p>
+                <p>{prof?.role}</p>
                 <ul className="list-unstyled inline-inline profile-info-social">
                   <li className="list-inline-item">
                     <Link to="#;">
@@ -140,7 +146,7 @@ export default function InstructorProfile() {
               <div className="card overview-sec">
                 <div className="card-body">
                   <h5 className="subs-title">A Propos</h5>
-                  <p>{profs?.description}</p>
+                  <p>{prof?.description}</p>
                 </div>
               </div>
               {/* Overview */}
@@ -152,7 +158,7 @@ export default function InstructorProfile() {
                   <div className="row">
                     {cours &&
                       cours?.map((cour) => (
-                        <>
+                        <React.Fragment key={cour.id}>
                           <div className="col-lg-6 col-md-6 d-flex">
                             <div className="course-box course-design d-flex ">
                               <div className="product">
@@ -170,14 +176,14 @@ export default function InstructorProfile() {
                                     <h3>
                                       {cour.price}{" "}
                                       <span>
-                                        {cour.old_price ? cour.old_price : ""}
+                                        {cour.old_price ?  contientNombre(cour.old_price) ? cour.old_price : "" : ""}
                                       </span>
                                     </h3>
                                   </div>
                                 </div>
                                 <div className="product-content">
                                   <h3 className="title instructor-text">
-                                    <Link to="course-details">
+                                    <Link to={`/course-details/${cour.slug}`}>
                                       {cour.title}
                                     </Link>
                                   </h3>
@@ -222,7 +228,7 @@ export default function InstructorProfile() {
                               </div>
                             </div>
                           </div>
-                        </>
+                        </React.Fragment>
                       ))}
                   </div>
                 </div>
@@ -232,7 +238,7 @@ export default function InstructorProfile() {
               {/* Reviews */}
               <div className="card review-sec">
                 <div className="card-body">
-                  <h5 className="subs-title">Reviews</h5>
+                  <h5 className="subs-title">Avis</h5>
                   <div className="review-item">
                     <div className="instructor-wrap border-0 m-0">
                       <div className="about-instructor">
@@ -263,9 +269,6 @@ export default function InstructorProfile() {
                       the Beginner to Advanced course first. The sound and video
                       quality is of a good standard. Thank you Cristian. “
                     </p>
-                    <Link to="#;" className="btn btn-reply">
-                      <i className="feather-corner-up-left"></i> Reply
-                    </Link>
                   </div>
                   <div className="review-item">
                     <div className="instructor-wrap border-0 m-0">
@@ -340,52 +343,7 @@ export default function InstructorProfile() {
               {/* Reviews */}
 
               {/* Comment */}
-              <div className="card comment-sec">
-                <div className="card-body">
-                  <h5 className="subs-title">Add a review</h5>
-                  <form>
-                    <div className="row">
-                      <div className="col-md-6">
-                        <div className="form-group">
-                          <input
-                            type="text"
-                            className="form-control"
-                            placeholder="Full Name"
-                          />
-                        </div>
-                      </div>
-                      <div className="col-md-6">
-                        <div className="form-group">
-                          <input
-                            type="email"
-                            className="form-control"
-                            placeholder="Email"
-                          />
-                        </div>
-                      </div>
-                    </div>
-                    <div className="form-group">
-                      <input
-                        type="email"
-                        className="form-control"
-                        placeholder="Subject"
-                      />
-                    </div>
-                    <div className="form-group">
-                      <textarea
-                        rows="4"
-                        className="form-control"
-                        placeholder="Your Comments"
-                      ></textarea>
-                    </div>
-                    <div className="submit-section">
-                      <button className="btn submit-btn" type="submit">
-                        Submit
-                      </button>
-                    </div>
-                  </form>
-                </div>
-              </div>
+
               {/* comment */}
             </div>
 

@@ -4,13 +4,15 @@ import PropTypes from "prop-types";
 import { useSelector, useDispatch } from "react-redux";
 import { addCours, updateCours } from "../../../../redux/slice/coursSlice";
 import { useStateContext as useStateCourse } from "../../../../context/CourseProvider";
-
+import { toast } from "react-toastify";
+import Button from "../../../Button";
 // eslint-disable-next-line react/prop-types
 const CourseMedia = ({ prevTab1, nextTab2, lecon, setLecon }) => {
   const [image, setImage] = useState(null);
   const dispatch = useDispatch();
   const { cours, setCours } = useStateCourse();
   console.log(cours);
+  const [loading, setLoading] = useState(false);
 
   const handleFileChange = (e) => {
     const { files } = e.target;
@@ -21,6 +23,7 @@ const CourseMedia = ({ prevTab1, nextTab2, lecon, setLecon }) => {
     // setCours({ ...cours, [e.target.name]: e.target.files[0] });
   };
   const handleSubmit = (event) => {
+    setLoading(true);
     event.preventDefault();
     console.log(cours);
     const descriptionWithoutParagraphs = cours.description.replace(
@@ -37,19 +40,34 @@ const CourseMedia = ({ prevTab1, nextTab2, lecon, setLecon }) => {
     // nextTab2(); Ecran Suivant
     // new Form
     const form = new FormData();
-    form.append("id",cours.id)
+    form.append("id", cours.id);
     form.append("image", cours.image);
     form.append("title", cours.title);
-    form.append("description", descriptionWithoutParagraphs);
-    form.append("user_id", cours.user_id);
-    form.append("tool_id", cours.tool_id);
-    form.append("price", cours.price);
-    form.append("old_price", cours.old_price);
-    form.append("categorie_id", cours.categorie_id);
+    form.append("description", "lorem ipsum");
+    // form.append("description", descriptionWithoutParagraphs);
+    // form.append("user_id", cours.user_id);
+    // form.append("tool_id", cours.tool_id);
+    // form.append("price", cours.price);
+    // form.append("old_price", cours.old_price);
+    // form.append("categorie_id", cours.categorie_id);
     // console.log(cours)
     // SEND DATA INTO DATABASE
     dispatch(updateCours(form)).then((result) => {
       console.log(result);
+      if (result.type == "updateCours/fulfilled") {
+        setLecon({
+          ...lecon,
+          course_id: result.payload.data.id,
+        });
+        setLoading(false);
+        nextTab2();
+      } else {
+        Object.values(result.payload.data).forEach((errorArray) => {
+          toast.error(errorArray[0]);
+        });
+
+        setLoading(false);
+      }
       // if (result.type == "addCours/prof/fulfilled") {
       //   setLecon({
       //     ...lecon,
@@ -59,13 +77,13 @@ const CourseMedia = ({ prevTab1, nextTab2, lecon, setLecon }) => {
       // }
     });
   };
-  const handleId=()=>{
+  const handleId = () => {
     setLecon({
       ...lecon,
-      course_id: cours.id
-    })
-    nextTab2()
-  }
+      course_id: cours.id,
+    });
+    nextTab2();
+  };
   return (
     <>
       <fieldset className="field-card" style={{ display: "block" }}>
@@ -109,9 +127,11 @@ const CourseMedia = ({ prevTab1, nextTab2, lecon, setLecon }) => {
                 <Link className="btn btn-black prev_btn" onClick={prevTab1}>
                   Previous
                 </Link>
-                <button className="btn btn-info-light next_btn" type="submit">
-                  Continue
-                </button>
+                <Button loading={loading}>
+                  <button className="btn btn-info-light next_btn" type="submit">
+                    Modifier
+                  </button>
+                </Button>
                 <Link
                   className="btn btn-info-light next_btn"
                   onClick={handleId}

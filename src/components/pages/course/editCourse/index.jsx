@@ -164,7 +164,7 @@ const AddCourse = () => {
                           }
                         >
                           <p>
-                            <span></span> Basic Information
+                            <span></span> Informations Générales
                           </p>
                         </li>
                         <li
@@ -177,7 +177,7 @@ const AddCourse = () => {
                           }
                         >
                           <p>
-                            <span></span> Courses Media
+                            <span></span> Cours Médias
                           </p>
                         </li>
                         <li
@@ -190,7 +190,7 @@ const AddCourse = () => {
                           }
                         >
                           <p>
-                            <span></span> Curriculum
+                            <span></span> Leçons
                           </p>
                         </li>
                         <li
@@ -202,9 +202,7 @@ const AddCourse = () => {
                               : ""
                           }
                         >
-                          <p>
-                            <span /> Settings
-                          </p>
+                         
                         </li>
                       </ul>
                     </div>

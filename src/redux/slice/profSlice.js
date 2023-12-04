@@ -46,14 +46,31 @@ export const getSingleProf = createAsyncThunk(
     }
   }
 );
+export const getProfReviews = createAsyncThunk(
+  "getProfReviews",
+  async (_, { rejectWithValue }) => {
+    try {
+      const response = await API.get(`/prof-notes`);
+      console.log(response);
+      return response.data;
+    } catch (error) {
+      if (!error.response) {
+        throw error;
+      }
+      return rejectWithValue(error.response.data);
+    }
+  }
+);
 
 const profSlice = createSlice({
   name: "prof",
   initialState: {
     cours: [],
     profile: {},
-    profs: [],
+    profs: {},
     loading: false,
+    reviews: [],
+    avis: [],
     error: false,
     status: "idle",
   },
@@ -97,13 +114,35 @@ const profSlice = createSlice({
       })
       .addCase(getSingleProf.fulfilled, (state, action) => {
         console.log(action);
+        console.log("BONJOUR");
+        const updatedProf = action.payload.data;
+        console.log(updatedProf);
         return {
           ...state,
           loading: false,
-          profs: [action.payload.data],
+          profs: {
+            ...state.profs,
+            [updatedProf.id]: updatedProf,
+          },
         };
       })
       .addCase(getSingleProf.rejected, (state, action) => {
+        console.log(action);
+        state.loading = false;
+        state.error = true;
+      })
+      .addCase(getProfReviews.pending, (state) => {
+        state.loading = true;
+      })
+      .addCase(getProfReviews.fulfilled, (state, action) => {
+        console.log(action);
+        return {
+          ...state,
+          loading: false,
+          reviews: action.payload.data,
+        };
+      })
+      .addCase(getProfReviews.rejected, (state, action) => {
         console.log(action);
         state.loading = false;
         state.error = true;

@@ -12730,7 +12730,7 @@ input[type=password]::-ms-clear
 	font-size: 14px;
 	padding-right: 60px;
 }
-.cou-title a:hover{
+/* .cou-title a:hover{
     color:#0B0B0B;
 }
 .cou-title > a:after {
@@ -12745,7 +12745,7 @@ input[type=password]::-ms-clear
 }
 .cou-title > a:not(.collapsed):after {
     content: "\f077" !important;
-}
+} */
 .course-card ul {
 	margin: 0;
 	padding: 0;
@@ -15848,7 +15848,7 @@ input[type=password]::-ms-clear
 	justify-content: center;
 }
 .course-student-header {
-	background: #645b73;
+	background: #58BBDE;
 	padding: 25px 0px;
 }
 .student-group .course-group-img img {
@@ -15960,6 +15960,15 @@ input[type=password]::-ms-clear
 }
 .start-leason .btn-primary {
 	background: #58BBDE;
+	border: 1px solid #C4C4C4;
+	border-radius: 5px;
+	width: 100%;
+	font-size: 14px;
+	font-weight: 600;
+	padding: 13px 15px;
+}
+.start-leason .btn-dark {
+	background: #000;
 	border: 1px solid #C4C4C4;
 	border-radius: 5px;
 	width: 100%;

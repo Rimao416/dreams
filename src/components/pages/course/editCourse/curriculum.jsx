@@ -3,14 +3,20 @@ import { Link } from "react-router-dom";
 import { Oval } from "react-loader-spinner";
 import PropTypes from "prop-types";
 import { useSelector, useDispatch } from "react-redux";
-import { addLesson, deleteLesson, getCourLesson } from "../../../../redux/slice/leconSlice";
-import { profCours } from "../../../../redux/slice/coursSlice";
+import {
+  addLesson,
+  deleteLesson,
+  getCourLesson,
+} from "../../../../redux/slice/leconSlice";
+import { profCours, updateCours } from "../../../../redux/slice/coursSlice";
 import { useStateContext } from "../../../../context/ContextProvider";
 import { useStateContext as useCourseContext } from "../../../../context/CourseProvider";
 import Modal from "react-modal";
-import {toast} from "react-toastify"
+import { toast } from "react-toastify";
 import EditCourse from "../../../modal/EditCourse";
 import SeeCourse from "../../../modal/SeeCourse";
+import Button from "../../../Button";
+import { useNavigate } from "react-router-dom";
 Modal.setAppElement("#root");
 
 // eslint-disable-next-line react/prop-types
@@ -21,14 +27,15 @@ const Curriculum = ({
   lecon,
   setLecon,
 }) => {
+  const navigate = useNavigate();
   // lecon 20
   const dispatch = useDispatch();
-  const [seeOpen,setSetOpen]=useState(false)
-  const seeModal=(lecon)=>{
+  const [seeOpen, setSetOpen] = useState(false);
+  const seeModal = (lecon) => {
     setSelectedLecon(lecon);
-    setSetOpen(true)
-  }
-  console.log(lecon)
+    setSetOpen(true);
+  };
+  console.log(lecon);
   const [selectedLecon, setSelectedLecon] = useState(null);
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const openModal = (lecon) => {
@@ -112,9 +119,25 @@ const Curriculum = ({
       });
     } else {
       // L'utilisateur a cliqué sur "Annuler", aucune action nécessaire
-      toast.error("Error lors de la suppression")
+      toast.error("Error lors de la suppression");
       console.log("Suppression annulée");
     }
+  };
+  const updateCour = () => {
+    // console.log(cours);
+    const update_cours = { status: 1, id: cours?.id };
+
+    dispatch(updateCours(update_cours)).then((result) => {
+      if (result.type == "updateCours/fulfilled") {
+        toast.success("Cours Publié à jour avec succès");
+        navigate("/prof-cours");
+      } else {
+        Object.values(result?.payload.data).forEach((errorArray) => {
+          toast.error(errorArray[0]);
+        });
+      }
+      console.log(result);
+    });
   };
   return (
     <>
@@ -143,10 +166,10 @@ const Curriculum = ({
                   </label>
                   <div className="relative-form">
                     <span>
-                      {video ? video.name : " Aucun element selectionné"}
+                      {video ? "Vidéo chargée" : " Aucun element selectionné"}
                     </span>
                     <label className="relative-file-upload">
-                      Upload File{" "}
+                      Charger une video{" "}
                       <input
                         type="file"
                         name="video"
@@ -162,28 +185,24 @@ const Curriculum = ({
                 {/* <Link className="btn btn-black prev_btn" onClick={prevTab2}>
               Previous
             </Link> */}
-                {loading == true ? (
-                  <Oval
-                    height={40}
-                    width={40}
-                    color="#58BBDE"
-                    wrapperStyle={{}}
-                    wrapperClass=""
-                    visible={true}
-                    ariaLabel="oval-loading"
-                    secondaryColor="#A2CDDC"
-                    strokeWidth={3}
-                    strokeWidthSecondary={3}
-                  />
-                ) : (
+                <Link className="btn btn-black prev_btn" onClick={prevTab2}>
+                  Précédent
+                </Link>
+                <Button loading={loading}>
                   <button className="btn btn-info-light next_btn" type="submit">
-                    Continuer
+                    Modifier
                   </button>
-                )}
+                </Button>
+
+                <Link
+                  className="btn btn-info-light next_btn"
+                  onClick={updateCour}
+                >
+                  Continuer
+                </Link>
               </div>
             </form>
           </div>
-       
         </div>
         <div className="curriculum-grid">
           {data?.lecons &&
@@ -207,7 +226,11 @@ const Curriculum = ({
                           <Link to="#" onClick={() => seeModal(lecon)}>
                             <i className="far fa-eye me-1" />
                           </Link>
-                          <Link to="#" className="me-0" onClick={() => handleDelete(lecon.id)}>
+                          <Link
+                            to="#"
+                            className="me-0"
+                            onClick={() => handleDelete(lecon.id)}
+                          >
                             <i className="far fa-trash-can" />
                           </Link>
                         </div>
@@ -240,7 +263,11 @@ const Curriculum = ({
         selectedLecon={selectedLecon}
         onClose={closeModal}
       />
-       <SeeCourse isOpen={seeOpen} selectedLecon={selectedLecon} onClose={()=>setSetOpen(false)} />
+      <SeeCourse
+        isOpen={seeOpen}
+        selectedLecon={selectedLecon}
+        onClose={() => setSetOpen(false)}
+      />
     </>
   );
 };
@@ -249,7 +276,7 @@ Curriculum.propTypes = {
     title: PropTypes.string,
     course_id: PropTypes.number,
     video: PropTypes.string,
-    id: PropTypes.number
+    id: PropTypes.number,
   }),
   setLecon: PropTypes.func,
   nextTab3: PropTypes.func,

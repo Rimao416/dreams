@@ -1,16 +1,33 @@
 // import Collapse from 'react-bootstrap/Collapse';
 import React from "react";
 import { useState } from "react";
-import { Chapter, Chart, Cloud, Icon1, Icon2, Import, Key, Mobile, People, Play, Teacher, Timer2, User1, Users, Video, Video2 } from "../../../imagepath";
-import { Link } from 'react-router-dom';
+import {
+  Chapter,
+  Chart,
+  Cloud,
+  Icon1,
+  Icon2,
+  Import,
+  Key,
+  Mobile,
+  People,
+  Play,
+  Teacher,
+  Timer2,
+  User1,
+  Users,
+  Video,
+  Video2,
+} from "../../../imagepath";
+import { Link } from "react-router-dom";
+import PropTypes from "prop-types";
 import FeatherIcon from "feather-icons-react";
 
-const DetailsContent = () => {
-
-    const [open, setOpen] = useState(false);
-    const [open2, setOpen2] = useState(false);
-    const [open3] = useState(false);
-    const [open4] = useState(false);
+const DetailsContent = ({ cours }) => {
+  const [open, setOpen] = useState(false);
+  const [open2, setOpen2] = useState(false);
+  const [open3] = useState(false);
+  const [open4] = useState(false);
 
   return (
     <>
@@ -21,57 +38,9 @@ const DetailsContent = () => {
               {/* Overview */}
               <div className="card overview-sec">
                 <div className="card-body">
-                  <h5 className="subs-title">Overview</h5>
-                  <h6>Course Description</h6>
-                  <p>
-                    Lorem Ipsum is simply dummy text of the printing and
-                    typesetting industry. Lorem Ipsum has been the industry&apos;s
-                    standard dummy text ever since the 1500s, when an unknown
-                    printer took a galley of type and scrambled it to make a
-                    type specimen book. It has survived not only five centuries,
-                    but also the leap into electronic typesetting, remaining
-                    essentially unchanged.
-                  </p>
-                  <p>
-                    It was popularised in the 1960s with the release of Letraset
-                    sheets containing Lorem Ipsum passages, and more recently
-                    with desktop publishing software like Aldus PageMaker
-                    including versions of Lorem Ipsum.
-                  </p>
-                  <h6>What you&apos;ll learn</h6>
-                  <div className="row">
-                    <div className="col-md-6">
-                      <ul>
-                        <li>Become a UX designer.</li>
-                        <li>You will be able to add UX designer to your CV</li>
-                        <li>Become a UI designer.</li>
-                        <li>Build &amp; test a full website design.</li>
-                        <li>Build &amp; test a full mobile app.</li>
-                      </ul>
-                    </div>
-                    <div className="col-md-6">
-                      <ul>
-                        <li>
-                          Learn to design websites &amp; mobile phone apps.
-                        </li>
-                        <li>You&apos;ll learn how to choose colors.</li>
-                        <li>Prototype your designs with interactions.</li>
-                        <li>Export production ready assets.</li>
-                        <li>All the techniques used by UX professionals</li>
-                      </ul>
-                    </div>
-                  </div>
-                  <h6>Requirements</h6>
-                  <ul className="mb-0">
-                    <li>
-                      You will need a copy of Adobe XD 2019 or above. A free
-                      trial can be downloaded from Adobe.
-                    </li>
-                    <li>No previous design experience is needed.</li>
-                    <li className="mb-0">
-                      No previous Adobe XD skills are needed.
-                    </li>
-                  </ul>
+                  <h5 className="subs-title">Aperçu</h5>
+                  <h6>Description</h6>
+                  <p>{cours?.description}</p>
                 </div>
               </div>
               {/* /Overview */}
@@ -80,336 +49,89 @@ const DetailsContent = () => {
                 <div className="card-body">
                   <div className="row">
                     <div className="col-sm-6">
-                      <h5 className="subs-title">Course Content</h5>
+                      <h5 className="subs-title">Contenu du cours</h5>
                     </div>
                     <div className="col-sm-6 text-sm-end">
                       <h6>92 Lectures 10:56:11</h6>
                     </div>
                   </div>
-                  <div className="course-card">
-                    <h6 className="cou-title">
-                      <Link className="collapsed" data-bs-toggle="collapse" to="#collapseOne" aria-expanded={open} onClick={()=> setOpen(!open)} aria-controls="example-collapse-text">
-                        In which areas do you operate?
-                      </Link>
-                    </h6>
-                    
-                    <div id="collapseOne" className="card-collapse collapse"  >
-                      <ul>
-                        <li>
-                          <p>
-                            <img src={Play} alt="" className="me-2"/>
-                            Lecture1.1 Introduction to the User ExperienceCourse
-                          </p>
-                          <div>
-                            <Link to="#">Preview</Link>
-                            <span>02:53</span>
-                          </div>
-                        </li>
-                        <li>
-                          <p>
-                            <img src={Play} alt="" className="me-2"/>
-                            Lecture1.2 Exercise: Your first design challenge
-                          </p>
-                          <div>
-                            <Link to="#">Preview</Link>
-                            <span>02:53</span>
-                          </div>
-                        </li>
-                        <li>
-                          <p>
-                            <img src={Play} alt="" className="me-2"/>
-                            Lecture1.3 How to solve the previous exercise
-                          </p>
-                          <div>
-                            <Link to="#">Preview</Link>
-                            <span>02:53</span>
-                          </div>
-                        </li>
-                        <li>
-                          <p>
-                            <img src={Play} alt="" className="me-2"/>
-                            Lecture1.3 How to solve the previous exercise
-                          </p>
-                          <div>
-                            <Link to="#">Preview</Link>
-                            <span>02:53</span>
-                          </div>
-                        </li>
-                        <li>
-                          <p>
-                            <img src={Play} alt="" className="me-2"/>
-                            Lecture1.5 How to use text layers effectively
-                          </p>
-                          <div>
-                            <Link to="#">Preview</Link>
-                            <span>02:53</span>
-                          </div>
-                        </li>
-                       </ul>
-                    </div>
-                    
-                  </div>
-                  <div className="course-card">
-                    <h6 className="cou-title">
-                      <Link className="collapsed" data-bs-toggle="collapse" to="#course2" aria-expanded={open2} onClick={()=> setOpen2(!open2)} aria-controls="example-collapse-text">
-                        The Brief
-                      </Link>
-                    </h6>
-                    
-                    <div id="course2" className="card-collapse collapse">
-                      <ul>
-                        <li>
-                          <p>
-                            <img src={Play} alt="" className="me-2"/>
-                            Lecture1.1 Introduction to the User Experience Course
-                          </p>
-                          <div>
-                            <Link to="#">Preview</Link>
-                            <span>02:53</span>
-                          </div>
-                        </li>
-                        <li>
-                          <p>
-                            <img src={Play} alt="" className="me-2"/>
-                            Lecture1.2 Exercise: Your first design challenge
-                          </p>
-                          <div>
-                            <Link to="#">Preview</Link>
-                            <span>02:53</span>
-                          </div>
-                        </li>
-                        <li>
-                          <p>
-                            <img
-                              src={Play}
-                              alt=""
-                              className="me-2"
-                            />
-                            Lecture1.3 How to solve the previous exercise
-                          </p>
-                          <div>
-                            <Link to="#">Preview</Link>
-                            <span>02:53</span>
-                          </div>
-                        </li>
-                        <li>
-                          <p>
-                            <img
-                              src={Play}
-                              alt=""
-                              className="me-2"
-                            />
-                            Lecture1.3 How to solve the previous exercise
-                          </p>
-                          <div>
-                            <Link to="#">Preview</Link>
-                            <span>02:53</span>
-                          </div>
-                        </li>
-                        <li>
-                          <p>
-                            <img
-                              src={Play}
-                              alt=""
-                              className="me-2"
-                            />
-                            Lecture1.5 How to use text layers effectively
-                          </p>
-                          <div>
-                            <Link to="#">Preview</Link>
-                            <span>02:53</span>
-                          </div>
-                        </li>
-                      </ul>
-                    </div>
-                    
-                  </div>
-                  <div className="course-card">
-                    <h6 className="cou-title">
-                      <Link
-                        className="collapsed"
-                        data-bs-toggle="collapse"
-                        to="#course3"
-                        aria-expanded={open3} aria-controls="example-collapse-text"
-                      >
-                        Wireframing Low Fidelity
-                      </Link>
-                    </h6>
-                    
-                    <div
-                      id="course3"
-                      className="card-collapse collapse"
-                      
-                    >
-                      <ul>
-                        <li>
-                          <p>
-                            <img
-                              src={Play}
-                              alt=""
-                              className="me-2"
-                            />
-                            Lecture1.1 Introduction to the User Experience
-                            Course
-                          </p>
-                          <div>
-                            <Link to="#">Preview</Link>
-                            <span>02:53</span>
-                          </div>
-                        </li>
-                        <li>
-                          <p>
-                            <img
-                              src={Play}
-                              alt=""
-                              className="me-2"
-                            />
-                            Lecture1.2 Exercise: Your first design challenge
-                          </p>
-                          <div>
-                            <Link to="#">Preview</Link>
-                            <span>02:53</span>
-                          </div>
-                        </li>
-                        <li>
-                          <p>
-                            <img
-                              src={Play}
-                              alt=""
-                              className="me-2"
-                            />
-                            Lecture1.3 How to solve the previous exercise
-                          </p>
-                          <div>
-                            <Link to="#">Preview</Link>
-                            <span>02:53</span>
-                          </div>
-                        </li>
-                        <li>
-                          <p>
-                            <img
-                              src={Play}
-                              alt=""
-                              className="me-2"
-                            />
-                            Lecture1.3 How to solve the previous exercise
-                          </p>
-                          <div>
-                            <Link to="#">Preview</Link>
-                            <span>02:53</span>
-                          </div>
-                        </li>
-                        <li>
-                          <p>
-                            <img
-                              src={Play}
-                              alt=""
-                              className="me-2"
-                            />
-                            Lecture1.5 How to use text layers effectively
-                          </p>
-                          <div>
-                            <Link to="#">Preview</Link>
-                            <span>02:53</span>
-                          </div>
-                        </li>
-                      </ul>
-                    </div>
-                    
-                  </div>
-                  <div className="course-card">
-                    <h6 className="cou-title mb-0">
-                      <Link
-                        className="collapsed"
-                        data-bs-toggle="collapse"
-                        to="#coursefour"
-                        aria-expanded={open4}  aria-controls="example-collapse-text"
-                      >
-                        Type, Color &amp; Icon Introduction
-                      </Link>
-                    </h6>
-                    
-                    <div
-                      id="coursefour"
-                      className="card-collapse collapse"
-                      style={{}}
-                    >
-                      <ul>
-                        <li>
-                          <p>
-                            <img
-                              src={Play}
-                              alt=""
-                              className="me-2"
-                            />
-                            Lecture4.1 Introduction to the User Experience
-                            Course
-                          </p>
-                          <div>
-                            <Link to="#">Preview</Link>
-                            <span>02:53</span>
-                          </div>
-                        </li>
-                        <li>
-                          <p>
-                            <img
-                              src={Play}
-                              alt=""
-                              className="me-2"
-                            />
-                            Lecture4.2 Exercise: Your first design challenge
-                          </p>
-                          <div>
-                            <Link to="#">Preview</Link>
-                            <span>02:53</span>
-                          </div>
-                        </li>
-                        <li>
-                          <p>
-                            <img
-                              src={Play}
-                              alt=""
-                              className="me-2"
-                            />
-                            Lecture4.3 How to solve the previous exercise
-                          </p>
-                          <div>
-                            <Link to="#">Preview</Link>
-                            <span>02:53</span>
-                          </div>
-                        </li>
-                        <li>
-                          <p>
-                            <img
-                              src={Play}
-                              alt=""
-                              className="me-2"
-                            />
-                            Lecture4.4 How to solve the previous exercise
-                          </p>
-                          <div>
-                            <Link to="#">Preview</Link>
-                            <span>02:53</span>
-                          </div>
-                        </li>
-                        <li>
-                          <p>
-                            <img
-                              src={Play}
-                              alt=""
-                              className="me-2"
-                            />
-                            Lecture4.5 How to use text layers effectively
-                          </p>
-                          <div>
-                            <Link to="#">Preview</Link>
-                            <span>02:53</span>
-                          </div>
-                        </li>
-                      </ul>
-                    </div>
-                    
-                  </div>
+                  {cours.lessons?.map((lesson) => (
+                    <React.Fragment key={lesson.id}>
+                      <div className="course-card">
+                        <h6 className="cou-title">
+                          <Link
+                            className="collapsed"
+                            data-bs-toggle="collapse"
+                            to="#collapseOne"
+                            aria-expanded={open}
+                            onClick={() => setOpen(!open)}
+                            aria-controls="example-collapse-text"
+                          >
+                            {lesson.title}
+                          </Link>
+                        </h6>
+
+                        <div
+                          id="collapseOne"
+                          className="card-collapse collapse"
+                        >
+                          <ul>
+                            <li>
+                              <p>
+                                <img src={Play} alt="" className="me-2" />
+                                Lecture1.1 Introduction to the User
+                                ExperienceCourse
+                              </p>
+                              <div>
+                                <Link to="#">Preview</Link>
+                                <span>02:53</span>
+                              </div>
+                            </li>
+                            <li>
+                              <p>
+                                <img src={Play} alt="" className="me-2" />
+                                Lecture1.2 Exercise: Your first design challenge
+                              </p>
+                              <div>
+                                <Link to="#">Preview</Link>
+                                <span>02:53</span>
+                              </div>
+                            </li>
+                            <li>
+                              <p>
+                                <img src={Play} alt="" className="me-2" />
+                                Lecture1.3 How to solve the previous exercise
+                              </p>
+                              <div>
+                                <Link to="#">Preview</Link>
+                                <span>02:53</span>
+                              </div>
+                            </li>
+                            <li>
+                              <p>
+                                <img src={Play} alt="" className="me-2" />
+                                Lecture1.3 How to solve the previous exercise
+                              </p>
+                              <div>
+                                <Link to="#">Preview</Link>
+                                <span>02:53</span>
+                              </div>
+                            </li>
+                            <li>
+                              <p>
+                                <img src={Play} alt="" className="me-2" />
+                                Lecture1.5 How to use text layers effectively
+                              </p>
+                              <div>
+                                <Link to="#">Preview</Link>
+                                <span>02:53</span>
+                              </div>
+                            </li>
+                          </ul>
+                        </div>
+                      </div>
+                    </React.Fragment>
+                  ))}
                 </div>
               </div>
               {/* /Course Content */}
@@ -421,11 +143,7 @@ const DetailsContent = () => {
                     <div className="about-instructor">
                       <div className="abt-instructor-img">
                         <Link to="/instructor-profile">
-                          <img
-                            src={User1}
-                            alt="img"
-                            className="img-fluid"
-                          />
+                          <img src={User1} alt="img" className="img-fluid" />
                         </Link>
                       </div>
                       <div className="instructor-detail">
@@ -494,11 +212,7 @@ const DetailsContent = () => {
                     <div className="about-instructor">
                       <div className="abt-instructor-img">
                         <Link to="instructor-profile">
-                          <img
-                            src={User1}
-                            alt="img"
-                            className="img-fluid"
-                          />
+                          <img src={User1} alt="img" className="img-fluid" />
                         </Link>
                       </div>
                       <div className="instructor-detail">
@@ -528,8 +242,8 @@ const DetailsContent = () => {
                   </p>
                   <Link to="#" className=" btn-reply">
                     {/* <i className="feather-corner-up-left" /> */}
-                    <FeatherIcon icon="corner-up-left"/>
-                     Reply
+                    <FeatherIcon icon="corner-up-left" />
+                    Reply
                   </Link>
                 </div>
               </div>
@@ -538,7 +252,7 @@ const DetailsContent = () => {
               <div className="card comment-sec">
                 <div className="card-body">
                   <h5 className="subs-title">Post A comment</h5>
-                  <form action='#'>
+                  <form action="#">
                     <div className="row">
                       <div className="col-md-6">
                         <div className="form-group">
@@ -614,26 +328,19 @@ const DetailsContent = () => {
                               className=" btn btn-wish w-100"
                             >
                               {/* <i className="feather-heart" />  */}
-                              <FeatherIcon icon="heart"/>
+                              <FeatherIcon icon="heart" />
                               Add to Wishlist
                             </Link>
                           </div>
                           <div className="col-md-6 addHeart">
-                            <Link
-                              to="#"
-                              className="btn btn-wish w-100"
-                            >
+                            <Link to="#" className="btn btn-wish w-100">
                               {/* <i className="feather-share-2" />  */}
-                              <FeatherIcon icon="share-2"/>
-                              
+                              <FeatherIcon icon="share-2" />
                               Share
                             </Link>
                           </div>
                         </div>
-                        <Link
-                          to="/checkout"
-                          className="btn btn-enroll w-100"
-                        >
+                        <Link to="/checkout" className="btn btn-enroll w-100">
                           Enroll Now
                         </Link>
                       </div>
@@ -649,51 +356,26 @@ const DetailsContent = () => {
                     </div>
                     <ul>
                       <li>
-                        <img
-                          src={Import}
-                          className="me-2"
-                          alt=""
-                        />{" "}
-                        11 hours on-demand video
+                        <img src={Import} className="me-2" alt="" /> 11 hours
+                        on-demand video
                       </li>
                       <li>
-                        <img
-                          src={Play}
-                          className="me-2"
-                          alt=""
-                        />{" "}
-                        69 downloadable resources
+                        <img src={Play} className="me-2" alt="" /> 69
+                        downloadable resources
                       </li>
                       <li>
-                        <img
-                          src={Key}
-                          className="me-2"
-                          alt=""
-                        />{" "}
-                        Full lifetime access
+                        <img src={Key} className="me-2" alt="" /> Full lifetime
+                        access
                       </li>
                       <li>
-                        <img
-                          src={Mobile}
-                          className="me-2"
-                          alt=""
-                        />{" "}
-                        Access on mobile and TV
+                        <img src={Mobile} className="me-2" alt="" /> Access on
+                        mobile and TV
                       </li>
                       <li>
-                        <img
-                          src={Cloud}
-                          className="me-2"
-                          alt=""
-                        />{" "}
-                        Assignments
+                        <img src={Cloud} className="me-2" alt="" /> Assignments
                       </li>
                       <li>
-                        <img
-                          src={Teacher}
-                          className="me-2"
-                          alt=""
-                        />{" "}
+                        <img src={Teacher} className="me-2" alt="" />{" "}
                         Certificate of Completion
                       </li>
                     </ul>
@@ -708,44 +390,24 @@ const DetailsContent = () => {
                     </div>
                     <ul>
                       <li>
-                        <img
-                          src={Users}
-                          className="me-2"
-                          alt=""
-                        />{" "}
-                        Enrolled: <span>32 students</span>
+                        <img src={Users} className="me-2" alt="" /> Enrolled:{" "}
+                        <span>32 students</span>
                       </li>
                       <li>
-                        <img
-                          src={Timer2}
-                          className="me-2"
-                          alt=""
-                        />{" "}
-                        Duration: <span>20 hours</span>
+                        <img src={Timer2} className="me-2" alt="" /> Duration:{" "}
+                        <span>20 hours</span>
                       </li>
                       <li>
-                        <img
-                          src={Chapter}
-                          className="me-2"
-                          alt=""
-                        />{" "}
-                        Chapters: <span>15</span>
+                        <img src={Chapter} className="me-2" alt="" /> Chapters:{" "}
+                        <span>15</span>
                       </li>
                       <li>
-                        <img
-                          src={Video2}
-                          className="me-2"
-                          alt=""
-                        />{" "}
-                        Video:<span> 12 hours</span>
+                        <img src={Video2} className="me-2" alt="" /> Video:
+                        <span> 12 hours</span>
                       </li>
                       <li>
-                        <img
-                          src={Chart}
-                          className="me-2"
-                          alt=""
-                        />{" "}
-                        Level: <span>Beginner</span>
+                        <img src={Chart} className="me-2" alt="" /> Level:{" "}
+                        <span>Beginner</span>
                       </li>
                     </ul>
                   </div>
@@ -758,6 +420,10 @@ const DetailsContent = () => {
       </section>
     </>
   );
+};
+
+DetailsContent.propTypes = {
+  cours: PropTypes.object.isRequired, // Remplacez `object` par le type attendu pour `cours`
 };
 
 export default DetailsContent;

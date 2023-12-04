@@ -2,9 +2,10 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import PropTypes from "prop-types";
 import { toast } from "react-toastify";
-
+import { Oval } from "react-loader-spinner";
 import { useSelector, useDispatch } from "react-redux";
 import { addCours } from "../../../../redux/slice/coursSlice";
+import Button from "../../../Button";
 
 // eslint-disable-next-line react/prop-types
 const CourseMedia = ({
@@ -18,6 +19,7 @@ const CourseMedia = ({
   const [image, setImage] = useState(null);
   const dispatch = useDispatch();
   console.log(cours);
+  const [loading, setLoading] = useState(false);
 
   const handleFileChange = (e) => {
     const { files } = e.target;
@@ -29,6 +31,7 @@ const CourseMedia = ({
     // setCours({ ...cours, [e.target.name]: e.target.files[0] });
   };
   const handleSubmit = (event) => {
+    setLoading(true);
     event.preventDefault();
     console.log(cours);
     const descriptionWithoutParagraphs = cours.description.replace(
@@ -61,7 +64,8 @@ const CourseMedia = ({
           ...lecon,
           course_id: result.payload.data.id,
         });
-        toast.success("Cours ajouter avec succes");
+        setLoading(false);
+        // toast.success("Cours ajouter avec succes");
 
         nextTab2();
       } else {
@@ -81,6 +85,8 @@ const CourseMedia = ({
         Object.values(result.payload.data).forEach((errorArray) => {
           toast.error(errorArray[0]);
         });
+
+        setLoading(false);
       }
     });
   };
@@ -97,7 +103,7 @@ const CourseMedia = ({
               <div className="form-group">
                 <label className="add-course-label">Image mise en Avant</label>
                 <div className="relative-form">
-                  <span>No File Selected</span>
+                  <span>{image ? "Image Chargée " : "Image non Chargée"}</span>
                   <label className="relative-file-upload">
                     Upload File{" "}
                     <input
@@ -126,11 +132,14 @@ const CourseMedia = ({
               </div>
               <div className="widget-btn">
                 <Link className="btn btn-black prev_btn" onClick={prevTab1}>
-                  Previous
+                  Précédent
                 </Link>
-                <button className="btn btn-info-light next_btn" type="submit">
-                  Continue
-                </button>
+                <Button loading={loading}>
+                  <button className="btn btn-info-light next_btn" type="submit">
+                    Continuer
+                  </button>
+                </Button>
+
                 {/* <Link
                   className="btn btn-info-light next_btn"
                   onClick={nextTab2}

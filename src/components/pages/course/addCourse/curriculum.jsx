@@ -3,14 +3,20 @@ import { Link } from "react-router-dom";
 import { Oval } from "react-loader-spinner";
 import PropTypes from "prop-types";
 import { useSelector, useDispatch } from "react-redux";
-import { addLesson, deleteLesson, getCourLesson } from "../../../../redux/slice/leconSlice";
+import {
+  addLesson,
+  deleteLesson,
+  getCourLesson,
+} from "../../../../redux/slice/leconSlice";
 import { toast } from "react-toastify";
-import { profCours } from "../../../../redux/slice/coursSlice";
+import { profCours, updateCours } from "../../../../redux/slice/coursSlice";
 import { useStateContext } from "../../../../context/ContextProvider";
 import Modal from "react-modal";
 import EditCourse from "../../../modal/EditCourse";
 import SeeCourse from "../../../modal/SeeCourse";
+import Button from "../../../Button";
 Modal.setAppElement("#root");
+import {useNavigate} from "react-router-dom"
 
 // eslint-disable-next-line react/prop-types
 const Curriculum = ({
@@ -21,23 +27,23 @@ const Curriculum = ({
   lecon,
   setLecon,
 }) => {
+  const navigate=useNavigate()
   // lecon 20
   const dispatch = useDispatch();
   const [selectedLecon, setSelectedLecon] = useState(null);
   const [modalIsOpen, setModalIsOpen] = useState(false);
-  const [seeOpen,setSetOpen]=useState(false)
+  const [seeOpen, setSetOpen] = useState(false);
   const openModal = (lecon) => {
     setSelectedLecon(lecon);
     setModalIsOpen(true);
   };
-const seeModal=(lecon)=>{
-  setSelectedLecon(lecon);
-  setSetOpen(true)
-}
+  const seeModal = (lecon) => {
+    setSelectedLecon(lecon);
+    setSetOpen(true);
+  };
   const closeModal = () => {
     setModalIsOpen(false);
   };
- 
 
   // let loading=false
   const data = useSelector((state) => state.leconReducer);
@@ -90,7 +96,7 @@ const seeModal=(lecon)=>{
         toast.success("Lecon ajouté avec succès");
         // const [loading, setLoading] = useState(false);
       } else {
-      // console.log(result)
+        // console.log(result)
         // toast.error("Cours non ajouter");
         // for (const key in result.payload.data) {
         //   if (errorObject.hasOwnProperty(key)) {
@@ -128,11 +134,29 @@ const seeModal=(lecon)=>{
       });
     } else {
       // L'utilisateur a cliqué sur "Annuler", aucune action nécessaire
-      toast.error("Error lors de la suppression")
+      toast.error("Error lors de la suppression");
       console.log("Suppression annulée");
     }
   };
-  
+
+  const updateCour = () => {
+    // console.log(cours);
+    const update_cours = { status: 1, id: lecon.course_id };
+    console.log(lecon.course_id);
+
+    console.log(update_cours);
+    dispatch(updateCours(update_cours)).then((result) => {
+      if (result.type == "updateCours/fulfilled") {
+        toast.success("Cours Publié à jour avec succès");
+        navigate("/prof-cours")
+      } else {
+        Object.values(result?.payload.data).forEach((errorArray) => {
+          toast.error(errorArray[0]);
+        });
+      }
+      console.log(result);
+    });
+  };
 
   return (
     <>
@@ -161,10 +185,10 @@ const seeModal=(lecon)=>{
                   </label>
                   <div className="relative-form">
                     <span>
-                      {video ? video.name : " Aucun element selectionné"}
+                      {video ? "Vidéo Chargée" : " Aucun element selectionné"}
                     </span>
                     <label className="relative-file-upload">
-                      Upload File{" "}
+                      Charger un fichier{" "}
                       <input
                         type="file"
                         name="video"
@@ -180,23 +204,26 @@ const seeModal=(lecon)=>{
                 {/* <Link className="btn btn-black prev_btn" onClick={prevTab2}>
               Previous
             </Link> */}
-                {loading == true ? (
-                  <Oval
-                    height={40}
-                    width={40}
-                    color="#58BBDE"
-                    wrapperStyle={{}}
-                    wrapperClass=""
-                    visible={true}
-                    ariaLabel="oval-loading"
-                    secondaryColor="#A2CDDC"
-                    strokeWidth={3}
-                    strokeWidthSecondary={3}
-                  />
-                ) : (
+                <Link className="btn btn-black prev_btn" onClick={prevTab2}>
+                  Précédent
+                </Link>
+                <Button loading={loading}>
                   <button className="btn btn-info-light next_btn" type="submit">
-                    Continuer
+                    Ajouter une leçon
                   </button>
+                </Button>
+
+                {data.lecons.length > 0 && (
+                  // <Link
+                  //   className="btn btn-info-light next_btn"
+                  //   onClick={prevTab2}
+                  // >
+                  <Link
+                    className="btn btn-info-light next_btn"
+                    onClick={updateCour}
+                  >
+                    Continuer
+                  </Link>
                 )}
               </div>
             </form>
@@ -204,7 +231,7 @@ const seeModal=(lecon)=>{
         </div>
         <div className="curriculum-grid">
           <div className="curriculum-head">
-            <p>Mes Leçons</p>
+            <p>Leçons</p>
             {/* <Link to="#" className="btn">
               Add Lecture
             </Link> */}
@@ -222,7 +249,11 @@ const seeModal=(lecon)=>{
                           data-bs-toggle="collapse"
                           to="#collapseOne"
                         >
-                          <i className="fas fa-align-justify" onClick={() => openModal(lecon)}/> {lecon.title}
+                          <i
+                            className="fas fa-align-justify"
+                            onClick={() => openModal(lecon)}
+                          />{" "}
+                          {lecon.title}
                         </Link>
                         <div className="faq-right">
                           <Link to="#" onClick={() => openModal(lecon)}>
@@ -231,7 +262,11 @@ const seeModal=(lecon)=>{
                           <Link to="#" onClick={() => seeModal(lecon)}>
                             <i className="far fa-eye me-1" />
                           </Link>
-                          <Link to="#" className="me-0" onClick={() => handleDelete(lecon.id)}>
+                          <Link
+                            to="#"
+                            className="me-0"
+                            onClick={() => handleDelete(lecon.id)}
+                          >
                             <i className="far fa-trash-can" />
                           </Link>
                         </div>
@@ -264,7 +299,11 @@ const seeModal=(lecon)=>{
         selectedLecon={selectedLecon}
         onClose={closeModal}
       />
-      <SeeCourse isOpen={seeOpen} selectedLecon={selectedLecon} onClose={()=>setSetOpen(false)} />
+      <SeeCourse
+        isOpen={seeOpen}
+        selectedLecon={selectedLecon}
+        onClose={() => setSetOpen(false)}
+      />
     </>
   );
 };
@@ -273,7 +312,7 @@ Curriculum.propTypes = {
     title: PropTypes.string,
     course_id: PropTypes.number,
     video: PropTypes.string,
-    id: PropTypes.number
+    id: PropTypes.number,
   }),
   setLecon: PropTypes.func,
   nextTab3: PropTypes.func,
@@ -284,7 +323,6 @@ Curriculum.propTypes = {
     price: PropTypes.number,
     old_price: PropTypes.number,
     course_id: PropTypes.number,
-  
   }),
   setCours: PropTypes.func,
 };

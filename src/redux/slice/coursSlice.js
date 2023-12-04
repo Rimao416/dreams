@@ -40,12 +40,17 @@ export const addCours = createAsyncThunk(
 export const updateCours = createAsyncThunk(
   "updateCours",
   async (data, { rejectWithValue }) => {
+    // if(typeof )
     const token = localStorage.getItem("ACCESS_TOKEN");
     API.defaults.headers.common["Authorization"] = `Bearer ${token}`;
 
     try {
-      const response = await API.put(`/courses/${data.id}`, data);
-      console.log(response);
+      const url =
+        data instanceof FormData
+          ? `/modifier-courses/${data.get("id")}`
+          : `/modifier-courses/${data.id}`;
+
+      const response = await API.post(url, data);
       return response.data;
     } catch (error) {
       if (!error.response) {
@@ -178,7 +183,7 @@ const coursSlice = createSlice({
         return {
           ...state,
           loading: false,
-          cours: action.payload.data,
+          cours: [action.payload.data],
         };
       })
       .addCase(getCour.rejected, (state, action) => {
@@ -187,20 +192,40 @@ const coursSlice = createSlice({
         state.error = true;
       })
       .addCase(deleteCours.pending, (state, action) => {
-        console.log(action)
+        console.log(action);
         state.loading = true;
-       
       })
       .addCase(deleteCours.fulfilled, (state, action) => {
-        const updateCours= state.cours.filter((cours) => cours.id !== action.payload);
+        const updateCours = state.cours.filter(
+          (cours) => cours.id !== action.payload
+        );
         return {
           ...state,
           loading: false,
-          cours: updateCours
-          
+          cours: updateCours,
         };
       })
       .addCase(deleteCours.rejected, (state, action) => {
+        console.log(action);
+        state.loading = false;
+        state.error = true;
+      })
+      .addCase(updateCours.pending, (state) => {
+        state.loading = true;
+      })
+      .addCase(updateCours.fulfilled, (state, action) => {
+        console.log(action);
+        const updateCour = action.payload.data;
+        const updateCours = state.cours.map((cour) =>
+          cour.id === updateCour.id ? updateCour : cour
+        );
+        return {
+          ...state,
+          loading: false,
+          cours: updateCours,
+        };
+      })
+      .addCase(updateCours.rejected, (state, action) => {
         console.log(action);
         state.loading = false;
         state.error = true;

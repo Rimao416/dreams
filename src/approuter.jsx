@@ -119,13 +119,22 @@ const Approuter = () => {
           <Route path="/profile" element={<InstructorEditProfile />} />
           <Route path="/instructor-list" element={<InstructorList />} />
 
-
           {/* STUDENT */}
-          <Route path="/setting-edit-profile" element={<StudentEditProfile />} />
-        <Route path="/setting-student-security" element={<StudentSecurity />} />
+          <Route
+            path="/setting-edit-profile"
+            element={<StudentEditProfile />}
+          />
+          <Route
+            path="/setting-student-security"
+            element={<StudentSecurity />}
+          />
+          <Route path="/course-student" element={<CourseStudent />} />
 
-        <Route path="/instructor-profile/:pseudo" element={<InstructorProfile />} />
-          
+          <Route
+            path="/instructor-profile/:pseudo"
+            element={<InstructorProfile />}
+          />
+          <Route path="/course-lesson/:slug" element={<CourseLesson />} />
         </Route>
 
         {/* Blog */}
@@ -139,10 +148,8 @@ const Approuter = () => {
         <Route path="/wishlist" element={<Wishlist />} />
 
         <Route path="/course-grid" element={<CourseGrid />} />
-        <Route path="/course-details" element={<CourseDetails />} />
-        <Route path="/course-details1" element={<CourseDetails1 />} />
-        <Route path="/course-details2" element={<CourseDetails2 />} />
-        <Route path="/course-lesson" element={<CourseLesson />} />
+        <Route path="/course-details/:slug" element={<CourseDetails />} />
+
         <Route path="/come-soon" element={<ComingSoon />} />
         <Route path="/error-404" element={<Error404 />} />
         <Route path="/error-500" element={<Error500 />} />
@@ -271,12 +278,13 @@ const Approuter = () => {
         <Route path="/students-grid" element={<StudentsGrid />} />
         <Route path="/students-grid2" element={<StudentsGrid2 />} />
         <Route path="/students-list" element={<StudentsList />} />
-        <Route path="/course-student" element={<CourseStudent />} />
+
         <Route path="/course-wishlist" element={<CourseWishlist />} />
         <Route path="/course-message" element={<CourseMessage />} />
         <Route path="/purchase-history" element={<PurchaseHistory />} />
         <Route path="/deposit-student" element={<DepositStudent />} />
         <Route path="/transactions-student" element={<TransactionStudent />} />
+        <Route path="*" element={<Error404 />} />
       </Routes>
     </BrowserRouter>
   );

@@ -43,6 +43,24 @@ export const getCourLesson = createAsyncThunk(
     }
   }
 );
+export const getCourLessonSlug = createAsyncThunk(
+  "getCourLessonSlug",
+  async (id, { rejectWithValue }) => {
+    const token = localStorage.getItem("ACCESS_TOKEN");
+    API.defaults.headers.common["Authorization"] = `Bearer ${token}`;
+
+    try {
+      const response = await API.get(`/course-lessons-slug/${id}`);
+      console.log(response);
+      return response.data;
+    } catch (error) {
+      if (!error.response) {
+        throw error;
+      }
+      return rejectWithValue(error.response.data);
+    }
+  }
+);
 export const updateLesson = createAsyncThunk(
   "updateLesson",
   async (data, { rejectWithValue }) => {
@@ -172,8 +190,6 @@ const leconSlice = createSlice({
         state.loading = true;
       })
       .addCase(deleteLesson.fulfilled, (state, action) => {
-       
-
         // Créer un nouveau tableau de leçons en supprimant la leçon supprimé
         const updatedFinal = state.lecons.filter(
           (lecon) => lecon.id !== action.payload
@@ -187,6 +203,22 @@ const leconSlice = createSlice({
         };
       })
       .addCase(deleteLesson.rejected, (state, action) => {
+        console.log(action);
+        state.loading = false;
+        state.error = true;
+      })
+      .addCase(getCourLessonSlug.pending, (state) => {
+        state.loading = true;
+      })
+      .addCase(getCourLessonSlug.fulfilled, (state, action) => {
+        console.log(action);
+        return {
+          ...state,
+          loading: false,
+          lecons: action.payload.data,
+        };
+      })
+      .addCase(getCourLessonSlug.rejected, (state, action) => {
         console.log(action);
         state.loading = false;
         state.error = true;

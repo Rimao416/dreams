@@ -11,17 +11,10 @@ export default function CourseMenu({ activeMenu }) {
             className={activeMenu === "Courses" ? "active" : ""}
             to="/course-student"
           >
-            Courses
+            Cours
           </Link>
         </li>
-        <li>
-          <Link
-            className={activeMenu === "Wishlists" ? "active" : ""}
-            to="/course-wishlist"
-          >
-            Wishlists
-          </Link>
-        </li>
+
         <li>
           <Link
             className={activeMenu === "Messages" ? "active" : ""}
@@ -35,7 +28,7 @@ export default function CourseMenu({ activeMenu }) {
             className={activeMenu === "Purchase" ? "active" : ""}
             to="/purchase-history"
           >
-            Purchase history
+            HIstorique de Paiement
           </Link>
         </li>
       </ul>

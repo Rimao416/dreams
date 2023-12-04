@@ -202,7 +202,7 @@ export default function InstructorCourse() {
                                       <td>
                                         <div className="sell-table-group d-flex align-items-center">
                                           <div className="sell-group-img">
-                                            <Link to="/course-details">
+                                            <Link to={`/course-details/${cours.slug}`}>
                                               <img
                                                 // src={Course14}
                                                 src={cours.image}
@@ -223,7 +223,7 @@ export default function InstructorCourse() {
                                           </div>
                                           <div className="sell-tabel-info">
                                             <p>
-                                              <Link to="/course-details">
+                                              <Link to={`/course-details/${cours.slug}`}>
                                                 {cours.title}
                                               </Link>
                                             </p>

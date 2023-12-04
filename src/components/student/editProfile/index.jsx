@@ -6,9 +6,14 @@ import StudentSideBar from "../sidebar";
 import { useStateContext } from "../../../context/ContextProvider";
 import { API } from "../../../config";
 import { toast } from "react-toastify";
+import Button from "../../Button";
 
 export default function StudentEditProfile() {
   const [loading, setLoading] = useState(false);
+  const [picLoad, setPicLoad] = useState({
+    pro: false,
+    banner: false,
+  });
   const { user, setUser } = useStateContext();
   const [profile, setProfile] = useState({});
   useEffect(() => {
@@ -18,6 +23,7 @@ export default function StudentEditProfile() {
     photo: "",
     banner: "",
   });
+
   // const [profile,setProfile]=useState({
   //   first_name:user?.first_name,
   //   last_name:user?.last_name,
@@ -102,6 +108,7 @@ export default function StudentEditProfile() {
     }),
   };
   const profilePic = async (event) => {
+    setPicLoad({ ...picLoad, pro: true });
     event.preventDefault();
     console.log(profile);
     console.log(user);
@@ -116,11 +123,13 @@ export default function StudentEditProfile() {
         toast.success("Modification effectuée avec succès");
         setUser({ ...user, photo: profile?.photo.name });
         window.location.reload();
+        setPicLoad({ ...picLoad, pro: false });
       }
       // console.log("s");
       console.log(response);
     } catch (error) {
       console.log(error);
+      setPicLoad({ ...picLoad, pro: false });
     }
   };
   const handleBanner = async (e) => {
@@ -131,12 +140,9 @@ export default function StudentEditProfile() {
     }
   };
   const bannerPic = async (event) => {
-    setLoading(true);
+    setPicLoad({ ...picLoad, ban: true });
     event.preventDefault();
-    console.log(profile);
-    event.preventDefault();
-    console.log(profile);
-    console.log(user);
+
     // create form
     const formData = new FormData();
     // // update formData
@@ -147,23 +153,42 @@ export default function StudentEditProfile() {
         toast.success("Modification effectuée avec succès");
         setUser({ ...user, banner: profile?.banner.name });
         window.location.reload();
+        setPicLoad({ ...picLoad, ban: false });
       }
       // console.log("s");
       console.log(response);
     } catch (error) {
       // console.log(error);
       toast.error(error.response.data.message);
+      setPicLoad({ ...picLoad, ban: false });
     }
-    setLoading(false);
+    // setLoading(false);
   };
   const handleSubmit = async (event) => {
+    setLoading(true);
     event.preventDefault();
     try {
-      const response = await API.put(`/users/${user?.id}`, profile);
+      const modifiedValues = Object.keys(profile).reduce((acc, key) => {
+        if (profile[key] !== user[key]) {
+          acc[key] = profile[key];
+        }
+        return acc;
+      }, {});
+
+      if (Object.keys(modifiedValues).length === 0) {
+        // Aucune valeur modifiée, pas besoin d'envoyer de requête
+        toast.info("Aucune modification détectée");
+        setLoading(false);
+        return;
+      }
+
+      const response = await API.put(`/users/${user?.id}`, modifiedValues);
       console.log(response);
+      // const dataSen
       if (response.status === 200) {
         setUser(response.data.data);
         toast.success("Modification effectuée avec succès");
+        setLoading(false);
         // window.location.reload()
       }
     } catch (error) {
@@ -171,6 +196,7 @@ export default function StudentEditProfile() {
       Object.values(error.response.data.data).forEach((errorArray) => {
         toast.error(errorArray[0]);
       });
+      setLoading(false);
     }
   };
   return (
@@ -180,7 +206,7 @@ export default function StudentEditProfile() {
         <div className="container">
           <div className="row">
             {/* Sidebar */}
-            <StudentSideBar  activeMenu={"EditProfile"} />
+            <StudentSideBar activeMenu={"EditProfile"} />
             {/* Sidebar */}
 
             {/* Profile Details */}
@@ -218,9 +244,16 @@ export default function StudentEditProfile() {
                         </div>
                         <div className="profile-share d-flex align-items-center justify-content-center">
                           {picture?.photo && (
-                            <button type="submit" className="btn btn-success">
-                              Mettre à jour
-                            </button>
+                            <>
+                              <Button loading={picLoad?.pro}>
+                                <button
+                                  type="submit"
+                                  className="btn btn-success"
+                                >
+                                  Mettre à jour
+                                </button>
+                              </Button>
+                            </>
                           )}
                         </div>
                       </div>
@@ -251,27 +284,14 @@ export default function StudentEditProfile() {
                         <div className="profile-share d-flex align-items-center justify-content-center">
                           {picture?.banner && (
                             <>
-                              {loading == true ? (
-                                <Oval
-                                  height={40}
-                                  width={40}
-                                  color="#58BBDE"
-                                  wrapperStyle={{}}
-                                  wrapperClass=""
-                                  visible={true}
-                                  ariaLabel="oval-loading"
-                                  secondaryColor="#A2CDDC"
-                                  strokeWidth={3}
-                                  strokeWidthSecondary={3}
-                                />
-                              ) : (
+                              <Button loading={picLoad?.banner}>
                                 <button
                                   type="submit"
                                   className="btn btn-success"
                                 >
                                   Mettre à jour
                                 </button>
-                              )}
+                              </Button>
                             </>
                           )}
                         </div>
@@ -340,9 +360,11 @@ export default function StudentEditProfile() {
                         </div>
 
                         <div className="update-profile">
-                          <button type="submit" className="btn btn-primary">
-                            Modifier
-                          </button>
+                          <Button loading={loading}>
+                            <button type="submit" className="btn btn-primary">
+                              Modifier
+                            </button>
+                          </Button>
                         </div>
                       </div>
                     </form>

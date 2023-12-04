@@ -6,6 +6,7 @@ import authReducer from "./authSlice";
 import blogReducer from "./blogSlice";
 import categoryReducer from "./categorySlice";
 import leconReducer from "./leconSlice";
+import studentReducer from "./studentSlice";
 
 import { configureStore } from "@reduxjs/toolkit";
 
@@ -19,6 +20,7 @@ export const store = configureStore({
     blogReducer,
     categoryReducer,
     leconReducer,
+    studentReducer,
   },
 });
 // export const store = configureStore({ auth: authReducer });

@@ -111,7 +111,7 @@ const AddCourse = () => {
                           }
                         >
                           <p>
-                            <span></span> Basic Information
+                            <span></span> Informations de base
                           </p>
                         </li>
                         <li
@@ -124,7 +124,7 @@ const AddCourse = () => {
                           }
                         >
                           <p>
-                            <span></span> Courses Media
+                            <span></span> Cours Médias
                           </p>
                         </li>
                         <li
@@ -137,7 +137,7 @@ const AddCourse = () => {
                           }
                         >
                           <p>
-                            <span></span> Curriculum
+                            <span></span> Leçons
                           </p>
                         </li>
                         <li
@@ -149,9 +149,7 @@ const AddCourse = () => {
                               : ""
                           }
                         >
-                          <p>
-                            <span /> Settings
-                          </p>
+                       
                         </li>
                       </ul>
                     </div>
@@ -193,17 +191,7 @@ const AddCourse = () => {
                       ) : (
                         ""
                       )}
-                      {PageChange === "settings" ? (
-                        <Settings
-                          nextTab4={nextTab4}
-                          prevTab3={prevTab3}
-                          cours={cours}
-                          setCours={setCours}
-                          handleChange={handleChange}
-                        />
-                      ) : (
-                        ""
-                      )}
+                    
                       {PageChange === "success" ? <Success /> : ""}
                     </div>
                   </div>
