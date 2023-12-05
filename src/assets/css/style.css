@@ -7,7 +7,7 @@ Version      : 1.0
 /*============================
  [Table of CSS]
 
-1. General
+1. General15
 2. Bootstrap Classes
 3. Header
 4. Mobile Menu
@@ -12765,7 +12765,7 @@ input[type=password]::-ms-clear
 }
 .course-card ul li a {
 	font-size: 14px;
-	text-decoration: underline !important;
+	text-decoration: none !important;
     color: #000;
 }
 .course-card ul li span {
@@ -15947,13 +15947,14 @@ input[type=password]::-ms-clear
 }
 .progress-stip {
 	display: flex;
-    height: 20px;
+    height: 15px;
     overflow: hidden;
     background-color: #e9ecef;
     border-radius: 50px;
 }
 .active-stip {
-	width: 35%;
+/* height: 20px; */
+	/* width: 35%; */
 }
 .progress-stip .bg-success {
     background-color: #159f46 !important;

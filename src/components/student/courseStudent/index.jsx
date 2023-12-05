@@ -17,10 +17,13 @@ import CourseMenu from "../courseMenu";
 import { Search } from "react-feather";
 import { useSelector, useDispatch } from "react-redux";
 import { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import { useStateContext } from "../../../context/ContextProvider";
 import { getPaidCourses } from "../../../redux/slice/studentSlice";
+import { startCours } from "../../../redux/slice/coursSlice";
 
 export default function CourseStudent() {
+  const navigate = useNavigate();
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(getPaidCourses()).then((result) => {
@@ -78,6 +81,18 @@ export default function CourseStudent() {
       transform: state.selectProps.menuIsOpen ? "rotate(-180deg)" : "rotate(0)",
       transition: "250ms",
     }),
+  };
+  const startStudy = (cour) => {
+    // console.log(console.lg)
+    // "course_id": 1
+    // console.log(cour);
+    const start_data = { course_id: cour.id };
+    // console.log(start_data);
+    dispatch(startCours(start_data)).then((result) => {
+      console.log(result);
+
+      navigate(`/course-lesson/${cour.slug}`);
+    });
   };
   return (
     <div className="main-wrapper">
@@ -192,14 +207,21 @@ export default function CourseStudent() {
                                     </div> */}
                                   </div>
                                   <div className="progress-stip">
-                                    <div className="progress-bar bg-success progress-bar-striped active-stip"></div>
+                                    <div
+                                      className="progress-bar bg-success progress-bar-striped active-stip"
+                                      style={{
+                                        width: `${cour.user_progression}`,
+                                      }}
+                                    ></div>
                                   </div>
                                   <div className="student-percent">
-                                    <p>35% Completed</p>
+                                    <p>{cour.user_progression} Completé</p>
                                   </div>
                                   <div className="start-leason hoverBlue d-flex align-items-center">
                                     <Link
-                                      to={`/course-lesson/${cour.slug}`}
+                                      onClick={() => startStudy(cour)}
+                                      to={`#`}
+                                      // to={`/course-lesson/${cour.slug}`}
                                       className={
                                         cours?.user_start
                                           ? "btn btn-primary"

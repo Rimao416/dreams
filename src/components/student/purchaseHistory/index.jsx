@@ -14,8 +14,10 @@ import {
 } from "../../imagepath";
 import { Link } from "react-router-dom";
 import CourseMenu from "../courseMenu";
+import { useStateContext } from "../../../context/ContextProvider";
 
 export default function PurchaseHistory() {
+  const { user } = useStateContext();
   return (
     <div className="main-wrapper">
       <StudentHeader />
@@ -26,21 +28,26 @@ export default function PurchaseHistory() {
             <div className="course-group ">
               <div className="course-group-img d-flex">
                 <Link to="/students-profile">
-                  <img src={User11} alt="" className="img-fluid" />
+                  <img
+                    src={user?.photo}
+                    alt=""
+                    className="img-fluid"
+                    width={"300px"}
+                    height={"300px"}
+                  />
                 </Link>
                 <div className="d-flex align-items-center">
                   <div className="course-name">
                     <h4>
-                      <Link to="/students-profile">Rolands R</Link>
-                      <span>Beginner</span>
+                      <Link to="/students-profile">{user?.first_name+ " " + user?.last_name}</Link>
                     </h4>
-                    <p>Student</p>
+                    <p>{user?.role}</p>
                   </div>
                 </div>
               </div>
               <div className="course-share ">
                 <Link to="#;" className="btn btn-primary">
-                  Account Settings
+                  Paramètres du compte
                 </Link>
               </div>
             </div>
@@ -119,7 +126,9 @@ export default function PurchaseHistory() {
                                 </Link>
                                 <div className="course-name">
                                   <h4>
-                                    <Link to="/students-profile">Rolands R</Link>
+                                    <Link to="/students-profile">
+                                      Rolands R
+                                    </Link>
                                   </h4>
                                   <p>Instructor</p>
                                 </div>

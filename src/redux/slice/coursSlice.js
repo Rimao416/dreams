@@ -60,6 +60,25 @@ export const updateCours = createAsyncThunk(
     }
   }
 );
+export const startCours = createAsyncThunk(
+  "startCours",
+  async (data,{ rejectWithValue }) => {
+    console.log(data)
+    const token = localStorage.getItem("ACCESS_TOKEN");
+    API.defaults.headers.common["Authorization"] = `Bearer ${token}`;
+
+    try {
+      const response = await API.post(`/startCourse`,data);
+      console.log(response);
+      return data.course_id;
+    } catch (error) {
+      if (!error.response) {
+        throw error;
+      }
+      return rejectWithValue(error.response.data);
+    }
+  }
+);
 export const deleteCours = createAsyncThunk(
   "deleteCours",
   async (id, { rejectWithValue }) => {
@@ -226,6 +245,26 @@ const coursSlice = createSlice({
         };
       })
       .addCase(updateCours.rejected, (state, action) => {
+        console.log(action);
+        state.loading = false;
+        state.error = true;
+      })
+      .addCase(startCours.pending, (state) => {
+        state.loading = true;
+      })
+      .addCase(startCours.fulfilled, (state, action) => {
+        console.log(action)
+        const updateCour = action.payload;
+        const updateCours = state.cours.map((cour) =>
+          cour.id === updateCour.id ? updateCour : cour
+        );
+        return {
+          ...state,
+          loading: false,
+          cours: updateCours,
+        };
+      })
+      .addCase(startCours.rejected, (state, action) => {
         console.log(action);
         state.loading = false;
         state.error = true;

@@ -1,8 +1,11 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useRef } from "react";
 import { useState } from "react";
 import Collapse from "react-bootstrap/Collapse";
 import { Link, useParams } from "react-router-dom";
+
 import Footer from "../../../footer";
+import Videojs from "video.js";
+import "video.js/dist/video-js.css";
 import { Lock, Play, Video1 } from "../../../imagepath";
 import PageHeader from "../../header";
 import { useSelector, useDispatch } from "react-redux";
@@ -16,7 +19,59 @@ const CourseLesson = () => {
     slug && dispatch(getCourLessonSlug(slug));
     slug && dispatch(getCour(slug));
   }, []);
+  const videoRef = useRef(null);
   const { lecons } = useSelector((state) => state.leconReducer);
+
+  const [currentLessonIndex, setCurrentLessonIndex] = useState(0);
+  useEffect(() => {
+    if (!videoRef.current) {
+      // L'élément vidéo n'est pas encore disponible, ne rien faire
+      return;
+    }
+    
+
+    if (videoRef.current && lecons[currentLessonIndex]) {
+      setTimeout(() => {
+        const player = Videojs(videoRef.current, {
+          controls: true,
+          autoplay: false,
+          fluid: true,
+          sources: [
+            {
+              src: lecons[currentLessonIndex].video,
+              type: "video/mp4",
+            },
+            // Ajoutez d'autres sources si dés disponibles (par exemple, pour plusieurs formats)
+          ],
+        });
+        player.src(lecons[currentLessonIndex].video);
+        return () => {
+          if (player) {
+            player.dispose();
+          }
+        };
+      }, 3000);
+      // const player = Videojs(videoRef.current, {
+      //   controls: true,
+      //   autoplay: false,
+      //   fluid: true,
+      //   sources: [
+      //     {
+      //       src: lecons[2].video,
+      //       type: "video/mp4",
+      //     },
+      //     // Ajoutez d'autres sources si nécessaire (par exemple, pour différents formats)
+      //   ],
+      // });
+      // player.src(lecons[2].video);
+
+      // Nettoyez le lecteur vidéo lorsque le composant est démonté
+    }
+  }, [lecons, currentLessonIndex]);
+
+  const switchToLesson = (index) => {
+    setCurrentLessonIndex(index);
+  };
   const { cours } = useSelector((state) => state.coursReducer);
   console.log(cours);
 
@@ -39,18 +94,14 @@ const CourseLesson = () => {
                 <div className="student-widget lesson-introduction">
                   <div className="lesson-widget-group">
                     <h4 className="tittle">{cours[0]?.title}</h4>
-                    <div className="introduct-video">
-                      <Link
-                        to="https://www.youtube.com/embed/1trvO6dqQUI"
-                        className="video-thumbnail"
-                        data-fancybox=""
-                      >
-                        <div className="play-icon">
-                          <i className="fa-solid fa-play" />
-                        </div>
-                        <img className="" src={Video1} alt="" />
-                      </Link>
-                    </div>
+                    {lecons && (
+                      <div data-vjs-player>
+                        <video ref={videoRef} className="video-js" />
+                      </div>
+                    )}
+                    {/* <div className="introduct-video">
+                    <Videojs {...videoJsOptions} />
+                    </div> */}
                   </div>
                 </div>
                 {/* /Introduction */}
@@ -66,7 +117,10 @@ const CourseLesson = () => {
                         // onClick={() => setDrop(true)}
                       >
                         {cours[0]?.title}
-                        <span>{cours[0]?.total_lessons} {cours[0]?.total_lessons > 1 ? "Leçons" : "Leçon"}</span>{" "}
+                        <span>
+                          {cours[0]?.total_lessons}{" "}
+                          {cours[0]?.total_lessons > 1 ? "Leçons" : "Leçon"}
+                        </span>{" "}
                       </Link>
                     </h6>
                     <Collapse in={drop}>
@@ -76,22 +130,37 @@ const CourseLesson = () => {
                         style={{}}
                       >
                         <div className="progress-stip">
-                          <div className="progress-bar bg-success progress-bar-striped active-stip" />
+                          <div
+                            className="progress-bar bg-success progress-bar-striped active-stip"
+                            style={{ width: `${cours[0]?.user_progression}` }}
+                          />
                         </div>
                         <div className="student-percent lesson-percent">
                           <p>
-                            10hrs<span>50%</span>
+                            {cours[0]?.duration}
+                            <span>{cours[0]?.user_progression}</span>
                           </p>
                         </div>
                         <ul>
                           {lecons &&
-                            lecons.map((lecon) => (
+                            lecons.map((lecon, index) => (
                               <React.Fragment key={lecon.id}>
                                 <li>
-                                  <p className="play-intro">{lecon.title}</p>
-                                  <div>
-                                    <img src={Play} alt="" />
-                                  </div>
+                                  <Link
+                                    onClick={() => switchToLesson(index)}
+                                    className="play-intro cursor-pointer"
+                                  >
+                                    {lecon.title}
+                                  </Link>
+                                  <Link
+                                    to="#"
+                                    className="play-intro cursor-pointer"
+                                  >
+                                    {lecon.duration}
+                                  </Link>
+                                  {/* <div>
+                                    {lecon.duration}
+                                  </div> */}
                                 </li>
                               </React.Fragment>
                             ))}
@@ -101,7 +170,6 @@ const CourseLesson = () => {
                               <img src={Lock} alt="" />
                             </div>
                           </li> */}
-
                         </ul>
                       </div>
                     </Collapse>

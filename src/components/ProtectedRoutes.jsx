@@ -8,7 +8,7 @@ import { InstructorHeader } from "./instructor/header/index.jsx";
 
 export default function ProtectedRoutes() {
   const { user, token, setUser, setToken, notification } = useStateContext();
-
+console.log(user)
   if (!token) {
     return <Navigate to="/login" />;
   }

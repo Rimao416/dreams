@@ -19,6 +19,7 @@ import { useStateContext } from "../../../context/ContextProvider";
 // eslint-disable-next-line react/prop-types
 export default function StudentSideBar({ activeMenu }) {
   const { user } = useStateContext();
+  console.log(user)
   return (
     <div className="col-xl-3 col-md-4 theiaStickySidebar">
       <div className="settings-widget dash-profile mb-3">

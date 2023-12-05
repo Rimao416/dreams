@@ -101,24 +101,26 @@ import ViewInvoice from "./components/student/invoice/viewInvoice";
 import NewPassword from "./components/pages/newPassword";
 import ProtectedRoutes from "./components/ProtectedRoutes";
 import GuestLayout from "./components/GuestRoute";
+import RestrictedRoutes from "./components/RestrictedRoutes";
 const Approuter = () => {
   return (
     <BrowserRouter basename="/reactjs">
       <Routes>
-        <Route element={<ProtectedRoutes />}>
-          <Route path="/" element={<Home />} />
-
+        <Route element={<RestrictedRoutes roles={["professeur"]} />}>
           <Route path="/instructor-dashboard" element={<Dashboard />} />
           <Route path="/instructor-list" element={<InstructorList />} />
           <Route path="/instructor-grid" element={<InstructorGrid />} />
           <Route path="/prof-cours" element={<InstructorCourse />} />
           <Route path="/add-course" element={<AddCourse />} />
+
           <Route path="/edit-course/:id" element={<EditCourse />} />
           <Route path="/course-list" element={<CourseList />} />
           <Route path="/instructor-reviews" element={<InstructorReviews />} />
           <Route path="/profile" element={<InstructorEditProfile />} />
           <Route path="/instructor-list" element={<InstructorList />} />
-
+        </Route>
+        <Route element={<ProtectedRoutes />}>
+          <Route path="/" element={<Home />} />
           {/* STUDENT */}
           <Route
             path="/setting-edit-profile"
@@ -134,7 +136,11 @@ const Approuter = () => {
             path="/instructor-profile/:pseudo"
             element={<InstructorProfile />}
           />
+          <Route path="/purchase-history" element={<PurchaseHistory />} />
+
           <Route path="/course-lesson/:slug" element={<CourseLesson />} />
+          <Route path="/setting-student-invoice" element={<StudentInvoice />} />
+          <Route path="/course-details/:slug" element={<CourseDetails />} />
         </Route>
 
         {/* Blog */}
@@ -148,7 +154,6 @@ const Approuter = () => {
         <Route path="/wishlist" element={<Wishlist />} />
 
         <Route path="/course-grid" element={<CourseGrid />} />
-        <Route path="/course-details/:slug" element={<CourseDetails />} />
 
         <Route path="/come-soon" element={<ComingSoon />} />
         <Route path="/error-404" element={<Error404 />} />
@@ -244,7 +249,7 @@ const Approuter = () => {
           path="/setting-student-delete-profile"
           element={<StudentDeleteProfile />}
         />
-        <Route path="/setting-student-invoice" element={<StudentInvoice />} />
+
         <Route path="/view-invoice" element={<ViewInvoice />} />
         <Route
           path="/setting-student-notification"
@@ -281,7 +286,6 @@ const Approuter = () => {
 
         <Route path="/course-wishlist" element={<CourseWishlist />} />
         <Route path="/course-message" element={<CourseMessage />} />
-        <Route path="/purchase-history" element={<PurchaseHistory />} />
         <Route path="/deposit-student" element={<DepositStudent />} />
         <Route path="/transactions-student" element={<TransactionStudent />} />
         <Route path="*" element={<Error404 />} />

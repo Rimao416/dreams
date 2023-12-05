@@ -36,16 +36,16 @@ const CourseDetails = () => {
                   <nav aria-label="breadcrumb" className="page-breadcrumb">
                     <ol className="breadcrumb">
                       <li className="breadcrumb-item">
-                        <Link to="/">Home</Link>
+                        <Link to="/">Accueil</Link>
                       </li>
                       <li className="breadcrumb-item" aria-current="page">
-                        Courses
+                        Cours
                       </li>
                       <li className="breadcrumb-item" aria-current="page">
-                        All Courses
+                        Tous les cours
                       </li>
                       <li className="breadcrumb-item" aria-current="page">
-                        The Complete Web Developer Course 2.0
+                        {cours[0]?.title}
                       </li>
                     </ol>
                   </nav>
@@ -113,7 +113,7 @@ const CourseDetails = () => {
                   </div>
                   <div className="cou-info">
                     <img src={Timer} alt="" />
-                    <p>9hr 30min</p>
+                    <p>{cours[0]?.duration}</p>
                   </div>
                   <div className="cou-info">
                     <img src={People} alt="" />
