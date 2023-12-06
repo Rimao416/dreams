@@ -11,8 +11,9 @@ import { login } from "../../../redux/slice/authSlice";
 import { API } from "../../../config";
 import { useStateContext } from "../../../context/ContextProvider";
 import Message from "../../Message";
-
+import { useNavigate } from "react-router-dom";
 const Login = () => {
+  const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
   const dispatch = useDispatch();
   const [credentials, setCredentials] = useState({
@@ -34,6 +35,18 @@ const Login = () => {
         console.log(data);
         // setUser(data.user)
         setToken(data.access_token);
+        const me = API.get("/me");
+        me.then(({ data }) => {
+          console.log(data);
+          setUser(data.data);
+          if (data.data.role == "etudiant") {
+            navigate("/setting-edit-profile");
+          } else if (data.data.role == "professeur") {
+            navigate("/profile");
+          }
+        });
+        // dispatch(login());
+        // toast.success(data.message);
         setLoading(false);
       })
       .catch((err) => {
@@ -138,7 +151,12 @@ const Login = () => {
               <div className="loginbox">
                 <div className="w-100">
                   <div className="img-logo">
-                     <img src={"https://themusichall.fr/assets/logo.svg"} width={"50%"}  className="img-fluid" alt="Logo" />
+                    <img
+                      src={"https://themusichall.fr/assets/logo.svg"}
+                      width={"50%"}
+                      className="img-fluid"
+                      alt="Logo"
+                    />
                     <div className="back-home">
                       <Link to="/">Retourner à l&apos;accueil</Link>
                     </div>
@@ -188,7 +206,7 @@ const Login = () => {
                         </Link>
                       </span>
                     </div>
-                   
+
                     <div className="d-grid">
                       <button
                         disabled={isDisabled()}
@@ -201,7 +219,6 @@ const Login = () => {
                   </form>
                 </div>
               </div>
-           
             </div>
             {/* /Login */}
           </div>

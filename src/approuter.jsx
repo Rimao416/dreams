@@ -103,29 +103,24 @@ import NewPassword from "./components/pages/newPassword";
 import ProtectedRoutes from "./components/ProtectedRoutes";
 import GuestLayout from "./components/GuestRoute";
 import RestrictedRoutes from "./components/RestrictedRoutes";
-// const userInfo = await authApi.getUserInfo();
+
 // console.log(userInfo);
 const Approuter = () => {
+  // const userInfo = authApi.getUserInfo();
+  // console.log(userInfo);
   return (
     <BrowserRouter basename="/reactjs">
       <Routes>
         <Route path="/" element={<Home />} />
-        <Route element={<ProtectedRoutes />}>
-          <Route path="/instructor-dashboard" element={<Dashboard />} />{" "}
-          {/* toi */}
-          <Route path="/instructor-list" element={<InstructorList />} />
-          <Route path="/confirm/:id" element={<UnderConstruction />} />
-          <Route path="/instructor-grid" element={<InstructorGrid />} />
-          <Route path="/prof-cours" element={<InstructorCourse />} />
+        {/* RESERVE AUX PROF */}
+        <Route element={<RestrictedRoutes roles={["professeur"]} />}>
           <Route path="/add-course" element={<AddCourse />} />
           <Route path="/edit-course/:id" element={<EditCourse />} />
-          <Route path="/course-list" element={<CourseList />} />
-          <Route path="/instructor-reviews" element={<InstructorReviews />} />
           <Route path="/profile" element={<InstructorEditProfile />} />
-          <Route path="/instructor-list" element={<InstructorList />} />
-          {/* <Route path="/instructor-earnings" element={<Dashboard />} /> */}
-          <Route path="/instructor-earnings" element={<InstructorEarnings />} />
-          {/* STUDENT */}
+          <Route path="/prof-cours" element={<InstructorCourse />} />
+        </Route>
+        {/* RESERVE AUX ETUDIANTS */}
+        <Route element={<RestrictedRoutes roles={["etudiant"]} />}>
           <Route
             path="/setting-edit-profile"
             element={<StudentEditProfile />}
@@ -135,6 +130,20 @@ const Approuter = () => {
             element={<StudentSecurity />}
           />
           <Route path="/course-student" element={<CourseStudent />} />
+        </Route>
+
+        <Route element={<ProtectedRoutes />}>
+          <Route path="/instructor-dashboard" element={<Dashboard />} />{" "}
+          {/* toi */}
+          <Route path="/instructor-list" element={<InstructorList />} />
+          <Route path="/confirm/:id" element={<UnderConstruction />} />
+          <Route path="/instructor-grid" element={<InstructorGrid />} />
+          <Route path="/course-list" element={<CourseList />} />
+          <Route path="/instructor-reviews" element={<InstructorReviews />} />
+          <Route path="/instructor-list" element={<InstructorList />} />
+          {/* <Route path="/instructor-earnings" element={<Dashboard />} /> */}
+          <Route path="/instructor-earnings" element={<InstructorEarnings />} />
+          {/* STUDENT */}
           <Route
             path="/instructor-profile/:pseudo"
             element={<InstructorProfile />}
@@ -144,11 +153,10 @@ const Approuter = () => {
           <Route path="/setting-student-invoice" element={<StudentInvoice />} />
           <Route path="/course-details/:slug" element={<CourseDetails />} />
           <Route path="/course-message" element={<CourseMessage />} />
+          {/* Blog */}
+          <Route path="/blog" element={<BlogMasonry />} />
+          <Route path="/blog/:slug" element={<BlogDetails />} />
         </Route>
-
-        {/* Blog */}
-        <Route path="/blog" element={<BlogMasonry />} />
-        <Route path="/blog/:slug" element={<BlogDetails />} />
 
         {/* Pages */}
         <Route path="/page-notification" element={<Notification />} />

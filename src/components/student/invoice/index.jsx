@@ -8,6 +8,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { useStateContext } from "../../../context/ContextProvider";
 import { useEffect } from "react";
 import { getStudentPaiement } from "../../../redux/slice/studentSlice";
+import { InstructorHeader } from "../../instructor/header";
 
 export default function StudentInvoice() {
   const dispatch = useDispatch();
@@ -20,7 +21,8 @@ export default function StudentInvoice() {
   const { payments } = useSelector((state) => state.studentReducer);
   return (
     <div className="main-wrapper">
-      <StudentHeader activeMenu={"Invoice"} />
+      {/* <StudentHeader activeMenu={"Invoice"} /> */}
+      <InstructorHeader />
       {/* Student Dashboard */}
       <div className="page-content">
         <div className="container">

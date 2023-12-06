@@ -1704,7 +1704,6 @@ html.menu-opened body {
 
 .home-slide {
   position: relative;
-  background-image: url("../img/banner.png");
   background-repeat: no-repeat;
   background-position: center;
   background-size: cover;

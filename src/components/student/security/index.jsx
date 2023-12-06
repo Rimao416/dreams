@@ -5,6 +5,7 @@ import StudentSideBar from "../sidebar";
 import { API } from "../../../config";
 import { toast } from "react-toastify";
 import Button from "../../Button";
+import { InstructorHeader } from "../../instructor/header";
 export default function StudentSecurity() {
   const [password, setPassword] = useState({
     old_password: "",
@@ -58,7 +59,8 @@ export default function StudentSecurity() {
   };
   return (
     <div className="main-wrapper">
-      <StudentHeader activeMenu={"Security"} />
+      {/* <StudentHeader activeMenu={"Security"} /> */}
+      <InstructorHeader />
       {/* Student Dashboard */}
       <div className="page-content">
         <div className="container">

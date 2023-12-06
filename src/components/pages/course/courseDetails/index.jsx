@@ -8,6 +8,7 @@ import { Link, useParams } from "react-router-dom";
 import { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { getCour } from "../../../../redux/slice/coursSlice";
+import { InstructorHeader } from "../../../instructor/header";
 const CourseDetails = () => {
   const { slug } = useParams();
   const dispatch = useDispatch();
@@ -26,8 +27,8 @@ const CourseDetails = () => {
   return (
     <>
       <div className="main-wrapper">
-        <CourseHeader activeMenu={"CourseDetails"} />
-
+        {/* <CourseHeader activeMenu={"CourseDetails"} /> */}
+        <InstructorHeader />
         <div className="breadcrumb-bar">
           <div className="container">
             <div className="row">

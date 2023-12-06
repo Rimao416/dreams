@@ -11,6 +11,7 @@ import { useNavigate } from "react-router-dom";
 import { useStateContext } from "../../../context/ContextProvider";
 import { getPaidCourses } from "../../../redux/slice/studentSlice";
 import { startCours } from "../../../redux/slice/coursSlice";
+import { InstructorHeader } from "../../instructor/header";
 
 export default function CourseStudent() {
   const navigate = useNavigate();
@@ -45,7 +46,8 @@ export default function CourseStudent() {
   };
   return (
     <div className="main-wrapper">
-      <StudentHeader />
+      {/* <StudentHeader /> */}
+      <InstructorHeader />
       <div className="course-student-header">
         <div className="container">
           <div className="student-group">
@@ -182,7 +184,7 @@ export default function CourseStudent() {
                                           : "btn btn-dark"
                                       }
                                     >
-                                      {cour.user_start===false
+                                      {cour.user_start === false
                                         ? "Démarrer le cours"
                                         : "Continuer le cours"}
                                     </Link>

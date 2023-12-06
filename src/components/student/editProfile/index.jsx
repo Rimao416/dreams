@@ -7,6 +7,7 @@ import { useStateContext } from "../../../context/ContextProvider";
 import { API } from "../../../config";
 import { toast } from "react-toastify";
 import Button from "../../Button";
+import { InstructorHeader } from "../../instructor/header";
 
 export default function StudentEditProfile() {
   const [loading, setLoading] = useState(false);
@@ -201,7 +202,8 @@ export default function StudentEditProfile() {
   };
   return (
     <div className="main-wrapper">
-      <StudentHeader activeMenu={"Profile"} />
+      {/* <StudentHeader activeMenu={"Profile"} /> */}
+      <InstructorHeader />
       <div className="page-content">
         <div className="container">
           <div className="row">

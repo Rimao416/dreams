@@ -147,79 +147,45 @@ export const Home = () => {
         {/* banner */}
         <section
           className="home-slide d-flex align-items-center"
-          style={{ backgroundImage: "url(" + Loginbg + ")" }}
+          style={{ minHeight: " 100vh", marginTop: "7%" }}
         >
           <div className="container">
             <div className="row ">
-              <div className="col-md-7">
+              <div className="col-md-6">
                 <div className="home-slide-face aos" data-aos="fade-up">
                   <div className="home-slide-text ">
-                    <h5>The Leader in Online Learning</h5>
-                    <h1>Engaging &amp; Accessible Online Courses For All</h1>
-                    <p>Own your future learning new skills online</p>
-                  </div>
-                  <div className="banner-content">
-                    <form className="form" action="/course-list">
-                      <div className="form-inner">
-                        <div className="input-group homeSearch">
-                          <i className="fa-solid fa-magnifying-glass search-icon" />
-                          <input
-                            type="email"
-                            className="form-control"
-                            placeholder="Search School, Online eductional centers, etc"
-                          />
-                          <span className="drop-detail">
-                            <Select
-                              // className="select2-container"
-                              options={options}
-                              value={options.value}
-                              defaultValue={options[0]}
-                              placeholder="Category"
-                              onChange={setValue}
-                              styles={style}
-                            ></Select>
-                          </span>
-                          <button className="btn sub-btn" type="submit">
-                            <i className="fas fa-arrow-right" />
-                          </button>
-                        </div>
-                      </div>
-                    </form>
-                  </div>
-                  <div className="trust-user">
-                    <p>
-                      Trusted by over 15K Users <br />
-                      worldwide since 2022
-                    </p>
-                    <div className="trust-rating d-flex align-items-center">
-                      <div className="rate-head">
-                        <h2>
-                          <span className="d-flex">
-                            <CountUp
-                              start={0}
-                              end={1000}
-                              delay={1}
-                              format={formatValue}
-                            />
-                            +
-                          </span>
-                        </h2>
-                      </div>
-                      <div className="rating d-flex align-items-center">
-                        <h2 className="d-inline-block average-rating">4.4</h2>
-                        <i className="fas fa-star filled" />
-                        <i className="fas fa-star filled" />
-                        <i className="fas fa-star filled" />
-                        <i className="fas fa-star filled" />
-                        <i className="fas fa-star filled" />
+                    <h5>Put music in your life</h5>
+                    <h1 className="text-black">
+                      Journey Through Melodies and Emotions!
+                    </h1>
+                    <p>Trouvez le cours de musique parfait pour vous</p>
+                    <div className="container">
+                      <div className="row">
+                        <a
+                          style={{ backgroundColor: "rgb(88 187 222 )" }}
+                          className="col-md-4 mx-2 text-center nav-link text-white rounded py-1 px-4"
+                          href="login.html"
+                        >
+                          S&apos;inscrire
+                        </a>
+                        <a
+                          className="col-md-4 text-center nav-link border border-black font-gray rounded py-1 px-4"
+                          href="login.html"
+                        >
+                          Donner des cours
+                        </a>
                       </div>
                     </div>
                   </div>
                 </div>
               </div>
-              <div className="col-md-5 d-flex align-items-center">
+              <div className="col-md-6 d-flex align-items-center">
                 <div className="girl-slide-img aos" data-aos="fade-up">
-                  <img src={bannerimg} alt="" />
+                  <img
+                    style={{ marginTop: "-9.5rem" }}
+                    src="https://themusichall.fr/assets/hero.png"
+                    alt=""
+                  />
                 </div>
               </div>
             </div>
@@ -228,121 +194,7 @@ export const Home = () => {
         {/* /banner */}
 
         {/* Home banner bottom */}
-        <section className="section student-course">
-          <div className="container">
-            <div className="course-widget">
-              <div className="row">
-                <div className="col-lg-3 col-md-6">
-                  <div className="course-full-width">
-                    <div
-                      className="blur-border course-radius align-items-center aos"
-                      data-aos="fade-up"
-                    >
-                      <div className="online-course d-flex align-items-center">
-                        <div className="course-img">
-                          <img src={PencilIcon} alt="" />
-                        </div>
-                        <div className="course-inner-content">
-                          <h4>
-                            {/* <span>10</span>K */}
-                            <span className="d-flex">
-                              <CountUp
-                                start={0}
-                                end={10}
-                                delay={1}
-                                duration={4}
-                              />
-                              K
-                            </span>
-                          </h4>
-                          <p>Online Courses</p>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div className="col-lg-3 col-md-6 d-flex">
-                  <div className="course-full-width">
-                    <div
-                      className="blur-border course-radius aos"
-                      data-aos="fade-up"
-                    >
-                      <div className="online-course d-flex align-items-center">
-                        <div className="course-img">
-                          <img src={CourseIcon} alt="" />
-                        </div>
-                        <div className="course-inner-content">
-                          <h4>
-                            <span className="d-flex">
-                              <CountUp start={0} end={200} delay={1} />+
-                            </span>
-                          </h4>
-                          <p>Expert Tutors</p>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div className="col-lg-3 col-md-6 d-flex">
-                  <div className="course-full-width">
-                    <div
-                      className="blur-border course-radius aos"
-                      data-aos="fade-up"
-                    >
-                      <div className="online-course d-flex align-items-center">
-                        <div className="course-img">
-                          <img src={CertificateIcon} alt="" />
-                        </div>
-                        <div className="course-inner-content">
-                          <h4>
-                            <span className="d-flex">
-                              <CountUp
-                                start={0}
-                                end={6}
-                                delay={1}
-                                duration={5}
-                              />
-                              K+
-                            </span>
-                          </h4>
-                          <p>Ceritified Courses</p>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div className="col-lg-3 col-md-6 d-flex">
-                  <div className="course-full-width">
-                    <div
-                      className="blur-border course-radius aos"
-                      data-aos="fade-up"
-                    >
-                      <div className="online-course d-flex align-items-center">
-                        <div className="course-img">
-                          <img src={GratuateIcon} alt="" />
-                        </div>
-                        <div className="course-inner-content">
-                          <h4>
-                            <span className="d-flex">
-                              <CountUp
-                                start={0}
-                                end={60}
-                                delay={1}
-                                duration={2}
-                              />
-                              K +
-                            </span>
-                          </h4>
-                          <p>Online Students</p>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </section>
+   
         {/* Home banner bottom */}
 
         {/* Top Category with Owl Carousel */}

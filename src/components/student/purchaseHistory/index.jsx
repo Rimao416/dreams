@@ -15,12 +15,14 @@ import {
 import { Link } from "react-router-dom";
 import CourseMenu from "../courseMenu";
 import { useStateContext } from "../../../context/ContextProvider";
+import { InstructorHeader } from "../../instructor/header";
 
 export default function PurchaseHistory() {
   const { user } = useStateContext();
   return (
     <div className="main-wrapper">
-      <StudentHeader />
+      {/* <StudentHeader /> */}
+      <InstructorHeader />
 
       <div className="course-student-header">
         <div className="container">
@@ -39,7 +41,9 @@ export default function PurchaseHistory() {
                 <div className="d-flex align-items-center">
                   <div className="course-name">
                     <h4>
-                      <Link to="/students-profile">{user?.first_name+ " " + user?.last_name}</Link>
+                      <Link to="/students-profile">
+                        {user?.first_name + " " + user?.last_name}
+                      </Link>
                     </h4>
                     <p>{user?.role}</p>
                   </div>

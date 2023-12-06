@@ -6,6 +6,7 @@ import { Link } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getCours } from "../../../../redux/slice/coursSlice";
+import { InstructorHeader } from "../../../instructor/header";
 
 const CourseList = () => {
   const [search, setSearchQuery] = useState({
@@ -43,7 +44,8 @@ const CourseList = () => {
   return (
     <>
       <div className="main-wrapper">
-        <CourseHeader activeMenu={"CourseList"} />
+        {/* <CourseHeader activeMenu={"CourseList"} /> */}
+        <InstructorHeader />
         <div className="breadcrumb-bar">
           <div className="container">
             <div className="row">
@@ -52,7 +54,7 @@ const CourseList = () => {
                   <nav aria-label="breadcrumb" className="page-breadcrumb">
                     <ol className="breadcrumb">
                       <li className="breadcrumb-item">
-                        <Link to="/">Home</Link>
+                        <Link to="/">Accueil</Link>
                       </li>
                       <li className="breadcrumb-item" aria-current="page">
                         Cours
@@ -61,7 +63,7 @@ const CourseList = () => {
                         className="breadcrumb-item active"
                         aria-current="page"
                       >
-                        All Courses
+                        Tous les cours
                       </li>
                     </ol>
                   </nav>
@@ -173,7 +175,7 @@ const CourseList = () => {
                 <div className="stickysidebar">
                   <div className="filter-clear">
                     {/* Search Filter */}
-                    <div className="card search-filter categories-filter-blk">
+                    {/* <div className="card search-filter categories-filter-blk">
                       <div className="card-body">
                         <div className="filter-widget mb-0">
                           <div className="categories-head d-flex align-items-center">
@@ -240,10 +242,10 @@ const CourseList = () => {
                           </div>
                         </div>
                       </div>
-                    </div>
+                    </div> */}
                     {/* /Search Filter */}
                     {/* Search Filter */}
-                    <div className="card search-filter">
+                    {/* <div className="card search-filter">
                       <div className="card-body">
                         <div className="filter-widget mb-0">
                           <div className="categories-head d-flex align-items-center">
@@ -280,7 +282,7 @@ const CourseList = () => {
                           </div>
                         </div>
                       </div>
-                    </div>
+                    </div> */}
                     {/* /Search Filter */}
                     {/* Search Filter */}
 

@@ -12,6 +12,7 @@ import {
   getUsersMessage,
   sendMessage,
 } from "../../../redux/slice/studentSlice";
+import { InstructorHeader } from "../../instructor/header";
 export default function CourseMessage() {
   const [content, setcontent] = useState({
     message: "",
@@ -69,7 +70,8 @@ export default function CourseMessage() {
 
   return (
     <div className="main-wrapper">
-      <StudentHeader />
+      {/* <StudentHeader /> */}
+      <InstructorHeader />
 
       <div className="course-student-header">
         <div className="container">
