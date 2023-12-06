@@ -16,7 +16,7 @@ const Error500 = () => {
         <div className="error-box">
           <div className="error-logo">
             <Link to="/">
-              <img src={logo} className="img-fluid" alt="Logo" />
+               <img src={"https://themusichall.fr/assets/logo.svg"} width={"50%"}  className="img-fluid" alt="Logo" />
             </Link>
           </div>
           <div className="error-box-img">

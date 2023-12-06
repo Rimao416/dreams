@@ -138,7 +138,7 @@ const Login = () => {
               <div className="loginbox">
                 <div className="w-100">
                   <div className="img-logo">
-                    <img src={logo} className="img-fluid" alt="Logo" />
+                     <img src={"https://themusichall.fr/assets/logo.svg"} width={"50%"}  className="img-fluid" alt="Logo" />
                     <div className="back-home">
                       <Link to="/">Retourner à l&apos;accueil</Link>
                     </div>

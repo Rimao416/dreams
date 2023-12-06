@@ -103,7 +103,7 @@ const RegisterThree = () => {
             <div className="login-wrapper">
               <div className="loginbox register-box">
                 <div className="img-logo">
-                  <img src={logo} className="img-fluid" alt="Logo" />
+                   <img src={"https://themusichall.fr/assets/logo.svg"} width={"50%"}  className="img-fluid" alt="Logo" />
                   <div className="back-home">
                     <Link to="/login">Back to Home</Link>
                   </div>
