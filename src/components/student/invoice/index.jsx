@@ -42,7 +42,7 @@ export default function StudentInvoice() {
                       <table className="table table-borderless mb-0">
                         <thead>
                           <tr>
-                            <th>ID</th>
+                            <th>COURS</th>
                             <th>date</th>
                             <th>PRIX</th>
                             <th>STATUT</th>
@@ -56,10 +56,10 @@ export default function StudentInvoice() {
                                 <tr>
                                   <td>
                                     <Link
-                                      to="view-invoice"
+                                      to={`/course-details/${payment.course_slug}`}
                                       className="invoice-no"
                                     >
-                                      #1001
+                                      {payment.course_name}
                                     </Link>
                                   </td>
                                   <td>{payment.date}</td>

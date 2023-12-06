@@ -1,4 +1,5 @@
 import React from "react";
+import authApi from "./services/authApi";
 import { Route, Routes } from "react-router-dom";
 import BlogDetails from "./components/blog/blogDetails";
 import BlogGrid from "./components/blog/blogGrid";
@@ -99,6 +100,9 @@ import PurchaseHistory from "./components/student/purchaseHistory";
 import ViewInvoice from "./components/student/invoice/viewInvoice";
 import NewPassword from "./components/pages/newPassword";
 import ProtectedRoutes from "./components/ProtectedRoutes";
+
+// const userInfo=get();
+console.log(userInfo)
 export const App = () => {
   return (
     <Routes>

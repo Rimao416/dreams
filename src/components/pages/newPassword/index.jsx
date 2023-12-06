@@ -1,121 +1,166 @@
-import React from "react";
+import React, { useEffect } from "react";
 import "owl.carousel/dist/assets/owl.carousel.css";
 import "owl.carousel/dist/assets/owl.theme.default.css";
 import OwlCarousel from "react-owl-carousel";
 import { LoginImg, logo } from "../../imagepath";
 import { useState } from "react";
 import { Link } from "react-router-dom";
+// import Button from "../../Button";
+import { toast } from "react-toastify";
+import ButtonLoader from "../../ButtonLoader";
+import { API } from "../../../config";
+import { useLocation, useNavigate } from "react-router-dom";
 
 const NewPassword = () => {
-
-    const [eye,seteye] = useState(true)
-    const [eye2,seteye2] = useState(true)
-
-    const onEyeClick = () =>{
-      seteye(!eye)
+  const navigate = useNavigate();
+  const location = useLocation();
+  const data = location.state;
+  useEffect(() => {
+    if (!data || !data.email) {
+      toast.error("Veuillez renseigner votre email");
+      navigate("/forgot-password");
     }
+    // console.log(data);
+  }, [data?.email]);
+  const [eye, seteye] = useState(true);
+  const [eye2, seteye2] = useState(true);
+  const [loading, setLoading] = useState(false);
+  const [password, setPassword] = useState({
+    password: "",
+    confirmPassword: "",
+    code: "",
+    email: "",
+  });
+  const handleChange = (e) => {
+    setPassword({ ...password, [e.target.name]: e.target.value });
+  };
+  const handleSubmit = async (e) => {
+    console.log("envoyé");
+    setLoading(true);
+    e.preventDefault();
 
-    const onEyeClick2 = () =>{
-        seteye2(!eye2)
+    try {
+      const response = await API.post(`/updatePassword`, {
+        ...password,
+        email: data.email,
+      });
+      console.log(response);
+      if (response.status == 200) {
+        toast.success("Mot de passe reinitialisé!");
+        navigate("/login");
+      } else {
+        ("");
       }
+      // console.log(response)
+      // toast.success(response.data.message);
+      // console.log(response.data);
+      // navigate("/login");
 
-    var settings = {
-        //autoWidth: true,
-        items: 2,
-        margin: 25,
-        dots: true,
-        nav: true,
-        navText: [
-          '<i className="fas fa-arrow-left"></i>',
-          '<i className="fas fa-arrow-right"></i>',
-        ],
-    
-        loop: true,
-        responsiveClass: true,
-        responsive: {
-          0: {
-            items: 1,
-          },
-          768: {
-            items: 1,
-          },
-          1170: {
-            items: 1,
-          },
-        },
-    };
+      // Object.keys(errorData).forEach((fieldName) => {
+      //   const errorMessages = errorData[fieldName];
+      //   errorMessages.forEach((errorMessage) => {
+      //     console.error(`${fieldName}: ${errorMessage}`);
+      //   });
+      // });
+    } catch (error) {
+      console.log(error.response.data);
+      if (error.response.data.data) {
+        Object.keys(error.response.data.data).forEach((fieldName) => {
+          const errorMessages = error.response.data.data[fieldName];
+          errorMessages.forEach((errorMessage) => {
+            toast.error(`${errorMessage}`);
+          });
+        });
+      } else {
+        toast.error(error.response.data.message);
+        navigate("/forgot-password");
+      }
+      // toast.error(error.response.response);
+      // console.log(error/)
+    }
+    setLoading(false);
+    setLoading(false);
+  };
+
+  const onEyeClick = () => {
+    seteye(!eye);
+  };
+
+  const onEyeClick2 = () => {
+    seteye2(!eye2);
+  };
+
+  var settings = {
+    items: 2,
+    margin: 25,
+    dots: false,
+    nav: false,
+    navText: [
+      '<i className="fas fa-arrow-left"></i>',
+      '<i className="fas fa-arrow-right"></i>',
+    ],
+
+    loop: true,
+    responsiveClass: true,
+    responsive: {
+      0: {
+        items: 1,
+      },
+      768: {
+        items: 1,
+      },
+      1170: {
+        items: 1,
+      },
+    },
+  };
   return (
     <>
       <div className="main-wrapper">
         <div className="row">
           {/* Login Banner */}
           <div className="col-md-6 login-bg">
-
             <OwlCarousel
-             {...settings}
-             className="owl-carousel login-slide owl-theme">
+              {...settings}
+              className="owl-carousel login-slide owl-theme"
+            >
               <div className="welcome-login">
                 <div className="login-banner">
-                  <img
-                    src={LoginImg}
-                    className="img-fluid"
-                    alt="Logo"
-                  />
+                  <img src={LoginImg} className="img-fluid" alt="Logo" />
                 </div>
                 <div className="mentor-course text-center">
                   <h2>
-                    Welcome to <br />
-                    DreamsLMS Courses.
+                    Bienvenue sur <br />
+                    The Music Hall
                   </h2>
-                  <p>
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
-                    do eiusmod tempor incididunt ut labore et dolore magna
-                    aliqua. Ut enim ad minim veniam.
-                  </p>
+                  <p></p>
                 </div>
               </div>
               <div className="welcome-login">
                 <div className="login-banner">
-                  <img
-                    src={LoginImg}
-                    className="img-fluid"
-                    alt="Logo"
-                  />
+                  <img src={LoginImg} className="img-fluid" alt="Logo" />
                 </div>
                 <div className="mentor-course text-center">
                   <h2>
-                    Welcome to <br />
-                    DreamsLMS Courses.
+                    Bienvenue sur <br />
+                    The Music Hall
                   </h2>
-                  <p>
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
-                    do eiusmod tempor incididunt ut labore et dolore magna
-                    aliqua. Ut enim ad minim veniam.
-                  </p>
+                  <p></p>
                 </div>
               </div>
               <div className="welcome-login">
                 <div className="login-banner">
-                  <img
-                    src={LoginImg}
-                    className="img-fluid"
-                    alt="Logo"
-                  />
+                  <img src={LoginImg} className="img-fluid" alt="Logo" />
                 </div>
                 <div className="mentor-course text-center">
                   <h2>
-                    Welcome to <br />
-                    DreamsLMS Courses.
+                    Bienvenue sur <br />
+                    The Music Hall
                   </h2>
-                  <p>
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
-                    do eiusmod tempor incididunt ut labore et dolore magna
-                    aliqua. Ut enim ad minim veniam.
-                  </p>
+                  <p></p>
                 </div>
               </div>
             </OwlCarousel>
-
           </div>
           {/* /Login Banner */}
           <div className="col-md-6 login-wrap-bg">
@@ -123,74 +168,105 @@ const NewPassword = () => {
             <div className="login-wrapper">
               <div className="loginbox">
                 <div className="img-logo">
-                  <img
-                    src={logo}
-                    className="img-fluid"
-                    alt="Logo"
-                  />
+                  <img src={logo} className="img-fluid" alt="Logo" />
                   <div className="back-home">
-                    <Link to="#">Back to Home</Link>
+                    <Link to="#">Retour à l&apos;accueil</Link>
                   </div>
                 </div>
-                <h1>Setup New Password</h1>
-                <form action="#">
-                  <div className="form-group">
-                    <label className="form-control-label">Password</label>
+                <h1>Configuration d&apos;un nouveau mot de passe</h1>
+                <form onSubmit={handleSubmit}>
+                  {/* <div className="form-group">
+                    <label className="form-control-label">Email</label>
                     <div className="pass-group" id="passwordInput">
-                    <input className="form-control pass-input" placeholder="Enter your password" type={eye ? "password" : "text"}/>
-                    <span onClick={onEyeClick} className={`fa toggle-password feather-eye" ${eye ? "fa-eye" : "fa-eye-slash" }`}/>
+                      <input
+                        className="form-control pass-input"
+                        // placeholder="Entrer votre code"
+                        type={"text"}
+                        name="code"
+                        value={email}
+                        disabled
+                      />
+                    </div>
+                  </div> */}
+                  <div className="form-group">
+                    <label className="form-control-label">Code</label>
+                    <div className="pass-group" id="passwordInput">
+                      <input
+                        className="form-control pass-input"
+                        placeholder="Entrer votre code"
+                        type={"text"}
+                        name="code"
+                        value={password.code}
+                        onChange={handleChange}
+                      />
+                    </div>
+                  </div>
+                  <div className="form-group">
+                    <label className="form-control-label">Mot de passe</label>
+                    <div className="pass-group" id="passwordInput">
+                      <input
+                        className="form-control pass-input"
+                        placeholder="Entrer votre mot de passe"
+                        type={eye ? "password" : "text"}
+                        name="password"
+                        value={password.password}
+                        onChange={handleChange}
+                      />
+                      <span
+                        onClick={onEyeClick}
+                        className={`fa toggle-password feather-eye" ${
+                          eye ? "fa-eye" : "fa-eye-slash"
+                        }`}
+                      />
                       <span className="pass-checked">
                         <i className="feather-check" />
                       </span>
                     </div>
-                    <div className="password-strength" id="passwordStrength">
+                    {/* <div className="password-strength" id="passwordStrength">
                       <span id="poor" />
                       <span id="weak" />
                       <span id="strong" />
                       <span id="heavy" />
-                    </div>
-                    <div id="passwordInfo" />
+                    </div> */}
                   </div>
                   <div className="form-group">
                     <label className="form-control-label">
-                      Confirm Password
+                      Confirmez votre mot de passe
                     </label>
                     <div className="pass-group" id="passwordInputs">
-                    <input className="form-control pass-input" placeholder="Enter your password" type={eye2 ? "password" : "text"}/>
-                    <span onClick={onEyeClick2} className={`fa toggle-password feather-eye" ${eye2 ? "fa-eye" : "fa-eye-slash" }`}/>
+                      <input
+                        className="form-control pass-input"
+                        placeholder="Confirmer votre mot de passe"
+                        type={eye2 ? "password" : "text"}
+                        name="confirmPassword"
+                        value={password.confirmPassword}
+                        onChange={handleChange}
+                      />
+                      <span
+                        onClick={onEyeClick2}
+                        className={`fa toggle-password feather-eye" ${
+                          eye2 ? "fa-eye" : "fa-eye-slash"
+                        }`}
+                      />
                       <span className="pass-checked">
                         <i className="feather-check" />
                       </span>
                     </div>
-                    <div className="password-strength" id="passwordStrengths">
-                      <span id="poors" />
-                      <span id="weaks" />
-                      <span id="strongs" />
-                      <span id="heavys" />
-                    </div>
-                    <div id="passwordInfos" />
                   </div>
-                  <div className="form-check remember-me">
-                    <label className="form-check-label mb-0">
-                      <input
-                        className="form-check-input"
-                        type="checkbox"
-                        name="remember"
-                      />{" "}
-                      I agree to the <Link to="#">Terms of Service</Link> and{" "}
-                      <Link to="#">Privacy Policy.</Link>
-                    </label>
-                  </div>
+
                   <div className="d-grid">
-                    <button className="btn btn-start" type="submit">
-                      Reset Password
-                    </button>
+                    <ButtonLoader loading={loading}>Envoyer</ButtonLoader>
+                    {/* <Button loading={loading}>
+                      <button className="btn btn-start" type="submit">
+                        Envoyer
+                      </button>
+                    </Button> */}
                   </div>
-                  <div className="reset-account">
+                  {/* <div className="reset-account">
                     <p className="mb-0">
                       Already have an account? <Link to="/login">Sign in</Link>
                     </p>
-                  </div>
+                  </div> */}
                 </form>
               </div>
             </div>

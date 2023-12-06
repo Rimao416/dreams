@@ -1,701 +1,141 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import { Course10, Course11, Course12, Course13, Course14, Course15, Course16, Course17, Icon1, Icon2, User1, User2, User3, User4, User5, User6 } from "../../../imagepath";
-
-const InnerPage = () => {
+import { toast } from "react-toastify";
+import { Icon1, Icon2 } from "../../../imagepath";
+import PropTypes from "prop-types";
+import { API } from "../../../../config";
+import { useNavigate } from "react-router-dom";
+import Button from "../../../Button";
+const InnerPage = ({ cours }) => {
+  const [loading, setLoading] = useState(false);
+  const navigate = useNavigate();
+  const payCourse = async (id) => {
+    setLoading(true);
+    console.log(id);
+    try {
+      const response = await API.post(`/payCourse`, { course_id: id });
+      toast.info("Envoie");
+      console.log(response);
+      toast.success(response.data.message);
+      window.location.href = response.data.lien;
+    } catch (error) {
+      console.log(error);
+      toast.error(error.response.data.message);
+      if (!error.response) {
+        throw error;
+      }
+    }
+    setLoading(false);
+  };
   return (
     <>
       <div className="row">
-        <div className="col-lg-12 col-md-12 d-flex">
-          <div className="course-box course-design list-course d-flex">
-            <div className="product">
-              <div className="product-img">
-                <Link to="/course-details">
-                  <img
-                    className="img-fluid"
-                    alt=""
-                    src={Course10}
-                  />
-                </Link>
-                <div className="price">
-                  <h3>
-                    $300 <span>$99.00</span>
-                  </h3>
-                </div>
-              </div>
-              <div className="product-content">
-                <div className="head-course-title">
-                  <h3 className="title">
-                    <Link to="/course-details">
-                      Information About UI/UX Design Degree
-                    </Link>
-                  </h3>
-                  <div className="all-btn all-category d-flex align-items-center">
-                    <Link to="/checkout" className="btn btn-primary">
-                      BUY NOW
-                    </Link>
-                  </div>
-                </div>
-                <div className="course-info border-bottom-0 pb-0 d-flex align-items-center">
-                  <div className="rating-img d-flex align-items-center">
-                    <img src={Icon1} alt="" />
-                    <p>12+ Lesson</p>
-                  </div>
-                  <div className="course-view d-flex align-items-center">
-                    <img src={Icon2} alt="" />
-                    <p>9hr 30min</p>
-                  </div>
-                </div>
-                <div className="rating">
-                  <i className="fas fa-star filled me-1" />
-                  <i className="fas fa-star filled me-1" />
-                  <i className="fas fa-star filled me-1" />
-                  <i className="fas fa-star filled me-1" />
-                  <i className="fas fa-star me-1" />
-                  <span className="d-inline-block average-rating">
-                    <span>4.0</span> (15)
-                  </span>
-                </div>
-                <div className="course-group d-flex mb-0">
-                  <div className="course-group-img d-flex">
-                    <Link to="/instructor-profile">
-                      <img
-                        src={User1}
-                        alt=""
-                        className="img-fluid"
-                      />
-                    </Link>
-                    <div className="course-name">
-                      <h4>
-                        <Link to="/instructor-profile">Rolands R</Link>
-                      </h4>
-                      <p>Instructor</p>
+        {cours &&
+          cours?.map((cour) => (
+            <>
+              <div className="col-lg-12 col-md-12 d-flex" key={cour.id}>
+                <div className="course-box course-design list-course d-flex">
+                  <div className="product">
+                    <div className="product-img">
+                      <Link to={`/course-details/${cour.slug}`}>
+                        <img
+                          className="img-fluid"
+                          alt=""
+                          src={cour.image}
+                          style={{
+                            width: "240px",
+                            height: "179px",
+                            backgroundPosition: "center",
+                            objectFit: "cover",
+                          }}
+                        />
+                      </Link>
+                      <div className="price">
+                        <h3>
+                          {cour.price} <span>{cour.old_price}</span>
+                        </h3>
+                      </div>
+                    </div>
+                    <div className="product-content">
+                      <div className="head-course-title">
+                        <h3 className="title">
+                          <Link to={`/course-details/${cour.slug}`}>
+                            {cour.title}
+                          </Link>
+                        </h3>
+                        <div className="all-btn all-category d-flex align-items-center">
+                          <Button loading={loading}>
+                            <Link
+                              to="#"
+                              onClick={() => payCourse(cour.id)}
+                              className="btn btn-primary"
+                            >
+                              ACHETER
+                            </Link>
+                          </Button>
+                        </div>
+                      </div>
+                      <div className="course-info border-bottom-0 pb-0 d-flex align-items-center">
+                        <div className="rating-img d-flex align-items-center">
+                          <img src={Icon1} alt="" />
+                          <p>
+                            {cour.total_lessons}{" "}
+                            {cour.total_lessons > 1 ? "Leçons" : "Leçon"}
+                          </p>
+                        </div>
+                        <div className="course-view d-flex align-items-center">
+                          <img src={Icon2} alt="" />
+                          <p>{cour.duration}</p>
+                        </div>
+                      </div>
+                      <div className="rating">
+                        {[...Array(5)].map((_, index) => (
+                          <i
+                            key={index}
+                            className={`fas fa-star ${
+                              index < cour.note ? "filled" : ""
+                            }`}
+                          ></i>
+                        ))}
+
+                        <span className="d-inline-block average-rating">
+                          <span>{cour.note}</span> ({cour.total_note})
+                        </span>
+                      </div>
+                      <div className="course-group d-flex mb-0">
+                        <div className="course-group-img d-flex">
+                          <Link to="/instructor-profile">
+                            <img
+                              src={cour.prof.photo}
+                              alt=""
+                              className="img-fluid"
+                              width={"40px"}
+                              height={"40px"}
+                            />
+                          </Link>
+                          <div className="course-name">
+                            <h4>
+                              <Link to="/instructor-profile">
+                                {cour.prof.first_name} {cour.prof.last_name}
+                              </Link>
+                            </h4>
+                            <p>{cour.prof.role}</p>
+                          </div>
+                        </div>
+                      </div>
                     </div>
                   </div>
-                  <div className="course-share d-flex align-items-center justify-content-center">
-                    <Link to="#">
-                      <i className="fa-regular fa-heart" />
-                    </Link>
-                  </div>
                 </div>
               </div>
-            </div>
-          </div>
-        </div>
-        <div className="col-lg-12 col-md-12 d-flex">
-          <div className="course-box course-design list-course d-flex">
-            <div className="product">
-              <div className="product-img">
-                <Link to="/course-details">
-                  <img
-                    className="img-fluid"
-                    alt=""
-                    src={Course11}
-                  />
-                </Link>
-                <div className="price">
-                  <h3>
-                    $300 <span>$99.00</span>
-                  </h3>
-                </div>
-              </div>
-              <div className="product-content">
-                <div className="head-course-title">
-                  <h3 className="title">
-                    <Link to="/course-details">
-                      Sketch from A to Z (2022): Become an app designer
-                    </Link>
-                  </h3>
-                  <div className="all-btn all-category d-flex align-items-center">
-                    <Link to="/checkout" className="btn btn-primary">
-                      BUY NOW
-                    </Link>
-                  </div>
-                </div>
-                <div className="course-info border-bottom-0 pb-0 d-flex align-items-center">
-                  <div className="rating-img d-flex align-items-center">
-                    <img src={Icon1} alt="" />
-                    <p>12+ Lesson</p>
-                  </div>
-                  <div className="course-view d-flex align-items-center">
-                    <img src={Icon2} alt="" />
-                    <p>9hr 30min</p>
-                  </div>
-                </div>
-                <div className="rating">
-                  <i className="fas fa-star filled me-1" />
-                  <i className="fas fa-star filled me-1" />
-                  <i className="fas fa-star filled me-1" />
-                  <i className="fas fa-star filled me-1" />
-                  <i className="fas fa-star me-1" />
-                  <span className="d-inline-block average-rating">
-                    <span>4.0</span> (15)
-                  </span>
-                </div>
-                <div className="course-group d-flex mb-0">
-                  <div className="course-group-img d-flex">
-                    <Link to="/instructor-profile">
-                      <img
-                        src={User2}
-                        alt=""
-                        className="img-fluid"
-                      />
-                    </Link>
-                    <div className="course-name">
-                      <h4>
-                        <Link to="/instructor-profile">Jesse Stevens</Link>
-                      </h4>
-                      <p>Instructor</p>
-                    </div>
-                  </div>
-                  <div className="course-share d-flex align-items-center justify-content-center">
-                    <Link to="#">
-                      <i className="fa-regular fa-heart" />
-                    </Link>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div className="col-lg-12 col-md-12 d-flex">
-          <div className="course-box course-design list-course d-flex">
-            <div className="product">
-              <div className="product-img">
-                <Link to="/course-details">
-                  <img
-                    className="img-fluid"
-                    alt=""
-                    src={Course12}
-                  />
-                </Link>
-                <div className="price">
-                  <h3>
-                    $300 <span>$99.00</span>
-                  </h3>
-                </div>
-              </div>
-              <div className="product-content">
-                <div className="head-course-title">
-                  <h3 className="title">
-                    <Link to="/course-details">
-                      Learn Angular Fundamentals From beginning to advance lavel
-                    </Link>
-                  </h3>
-                  <div className="all-btn all-category d-flex align-items-center">
-                    <Link to="/checkout" className="btn btn-primary">
-                      BUY NOW
-                    </Link>
-                  </div>
-                </div>
-                <div className="course-info border-bottom-0 pb-0 d-flex align-items-center">
-                  <div className="rating-img d-flex align-items-center">
-                    <img src={Icon1} alt="" />
-                    <p>12+ Lesson</p>
-                  </div>
-                  <div className="course-view d-flex align-items-center">
-                    <img src={Icon2} alt="" />
-                    <p>9hr 30min</p>
-                  </div>
-                </div>
-                <div className="rating">
-                  <i className="fas fa-star filled me-1" />
-                  <i className="fas fa-star filled me-1" />
-                  <i className="fas fa-star filled me-1" />
-                  <i className="fas fa-star filled me-1" />
-                  <i className="fas fa-star me-1" />
-                  <span className="d-inline-block average-rating">
-                    <span>4.0</span> (15)
-                  </span>
-                </div>
-                <div className="course-group d-flex mb-0">
-                  <div className="course-group-img d-flex">
-                    <Link to="/instructor-profile">
-                      <img
-                        src={User3}
-                        alt=""
-                        className="img-fluid"
-                      />
-                    </Link>
-                    <div className="course-name">
-                      <h4>
-                        <Link to="/instructor-profile">Jesse Stevens</Link>
-                      </h4>
-                      <p>Instructor</p>
-                    </div>
-                  </div>
-                  <div className="course-share d-flex align-items-center justify-content-center">
-                    <Link to="#">
-                      <i className="fa-regular fa-heart" />
-                    </Link>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div className="col-lg-12 col-md-12 d-flex">
-          <div className="course-box course-design list-course d-flex">
-            <div className="product">
-              <div className="product-img">
-                <Link to="/course-details">
-                  <img
-                    className="img-fluid"
-                    alt=""
-                    src={Course13}
-                  />
-                </Link>
-                <div className="price">
-                  <h3>
-                    $300 <span>$99.00</span>
-                  </h3>
-                </div>
-              </div>
-              <div className="product-content">
-                <div className="head-course-title">
-                  <h3 className="title">
-                    <Link to="/course-details">
-                      Build Responsive Real World Websites with HTML5 and CSS3
-                    </Link>
-                  </h3>
-                  <div className="all-btn all-category d-flex align-items-center">
-                    <Link to="/checkout" className="btn btn-primary">
-                      BUY NOW
-                    </Link>
-                  </div>
-                </div>
-                <div className="course-info border-bottom-0 pb-0 d-flex align-items-center">
-                  <div className="rating-img d-flex align-items-center">
-                    <img src={Icon1} alt="" />
-                    <p>12+ Lesson</p>
-                  </div>
-                  <div className="course-view d-flex align-items-center">
-                    <img src={Icon2} alt="" />
-                    <p>9hr 30min</p>
-                  </div>
-                </div>
-                <div className="rating">
-                  <i className="fas fa-star filled me-1" />
-                  <i className="fas fa-star filled me-1" />
-                  <i className="fas fa-star filled me-1" />
-                  <i className="fas fa-star filled me-1" />
-                  <i className="fas fa-star me-1" />
-                  <span className="d-inline-block average-rating">
-                    <span>4.0</span> (15)
-                  </span>
-                </div>
-                <div className="course-group d-flex mb-0">
-                  <div className="course-group-img d-flex">
-                    <Link to="/instructor-profile">
-                      <img
-                        src={User3}
-                        alt=""
-                        className="img-fluid"
-                      />
-                    </Link>
-                    <div className="course-name">
-                      <h4>
-                        <Link to="/instructor-profile">John Smith</Link>
-                      </h4>
-                      <p>Instructor</p>
-                    </div>
-                  </div>
-                  <div className="course-share d-flex align-items-center justify-content-center">
-                    <Link to="#">
-                      <i className="fa-regular fa-heart" />
-                    </Link>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div className="col-lg-12 col-md-12 d-flex">
-          <div className="course-box course-design list-course d-flex">
-            <div className="product">
-              <div className="product-img">
-                <Link to="/course-details">
-                  <img
-                    className="img-fluid"
-                    alt=""
-                    src={Course14}
-                  />
-                </Link>
-                <div className="price">
-                  <h3>
-                    $300 <span>$99.00</span>
-                  </h3>
-                </div>
-              </div>
-              <div className="product-content">
-                <div className="head-course-title">
-                  <h3 className="title">
-                    <Link to="/course-details">
-                      C# Developers Double Your Coding Speed with Visual Studio
-                    </Link>
-                  </h3>
-                  <div className="all-btn all-category d-flex align-items-center">
-                    <Link to="/checkout" className="btn btn-primary">
-                      BUY NOW
-                    </Link>
-                  </div>
-                </div>
-                <div className="course-info border-bottom-0 pb-0 d-flex align-items-center">
-                  <div className="rating-img d-flex align-items-center">
-                    <img src={Icon1} alt="" />
-                    <p>12+ Lesson</p>
-                  </div>
-                  <div className="course-view d-flex align-items-center">
-                    <img src={Icon2} alt="" />
-                    <p>9hr 30min</p>
-                  </div>
-                </div>
-                <div className="rating">
-                  <i className="fas fa-star filled me-1" />
-                  <i className="fas fa-star filled me-1" />
-                  <i className="fas fa-star filled me-1" />
-                  <i className="fas fa-star filled me-1" />
-                  <i className="fas fa-star me-1" />
-                  <span className="d-inline-block average-rating">
-                    <span>4.0</span> (15)
-                  </span>
-                </div>
-                <div className="course-group d-flex mb-0">
-                  <div className="course-group-img d-flex">
-                    <Link to="/instructor-profile">
-                      <img
-                        src={User4}
-                        alt=""
-                        className="img-fluid"
-                      />
-                    </Link>
-                    <div className="course-name">
-                      <h4>
-                        <Link to="/instructor-profile">Stella Johnson</Link>
-                      </h4>
-                      <p>Instructor</p>
-                    </div>
-                  </div>
-                  <div className="course-share d-flex align-items-center justify-content-center">
-                    <Link to="#">
-                      <i className="fa-regular fa-heart" />
-                    </Link>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div className="col-lg-12 col-md-12 d-flex">
-          <div className="course-box course-design list-course d-flex">
-            <div className="product">
-              <div className="product-img">
-                <Link to="/course-details">
-                  <img
-                    className="img-fluid"
-                    alt=""
-                    src={Course15}
-                  />
-                </Link>
-                <div className="price">
-                  <h3>
-                    $300 <span>$99.00</span>
-                  </h3>
-                </div>
-              </div>
-              <div className="product-content">
-                <div className="head-course-title">
-                  <h3 className="title">
-                    <Link to="/course-details">
-                      Learn JavaScript and Express to become a professional
-                      JavaScript
-                    </Link>
-                  </h3>
-                  <div className="all-btn all-category d-flex align-items-center">
-                    <Link to="/checkout" className="btn btn-primary">
-                      BUY NOW
-                    </Link>
-                  </div>
-                </div>
-                <div className="course-info border-bottom-0 pb-0 d-flex align-items-center">
-                  <div className="rating-img d-flex align-items-center">
-                    <img src={Icon1} alt="" />
-                    <p>12+ Lesson</p>
-                  </div>
-                  <div className="course-view d-flex align-items-center">
-                    <img src={Icon2} alt="" />
-                    <p>9hr 30min</p>
-                  </div>
-                </div>
-                <div className="rating">
-                  <i className="fas fa-star filled me-1" />
-                  <i className="fas fa-star filled me-1" />
-                  <i className="fas fa-star filled me-1" />
-                  <i className="fas fa-star filled me-1" />
-                  <i className="fas fa-star me-1" />
-                  <span className="d-inline-block average-rating">
-                    <span>4.0</span> (15)
-                  </span>
-                </div>
-                <div className="course-group d-flex mb-0">
-                  <div className="course-group-img d-flex">
-                    <Link to="/instructor-profile">
-                      <img
-                        src={User5}
-                        alt=""
-                        className="img-fluid"
-                      />
-                    </Link>
-                    <div className="course-name">
-                      <h4>
-                        <Link to="/instructor-profile">John Michael</Link>
-                      </h4>
-                      <p>Instructor</p>
-                    </div>
-                  </div>
-                  <div className="course-share d-flex align-items-center justify-content-center">
-                    <Link to="#">
-                      <i className="fa-regular fa-heart" />
-                    </Link>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div className="col-lg-12 col-md-12 d-flex">
-          <div className="course-box course-design list-course d-flex">
-            <div className="product">
-              <div className="product-img">
-                <Link to="/course-details">
-                  <img
-                    className="img-fluid"
-                    alt=""
-                    src={Course16}
-                  />
-                </Link>
-                <div className="price">
-                  <h3>
-                    $300 <span>$99.00</span>
-                  </h3>
-                </div>
-              </div>
-              <div className="product-content">
-                <div className="head-course-title">
-                  <h3 className="title">
-                    <Link to="/course-details">
-                      Learn and Understand AngularJS to become a professional
-                      developer
-                    </Link>
-                  </h3>
-                  <div className="all-btn all-category d-flex align-items-center">
-                    <Link to="/checkout" className="btn btn-primary">
-                      BUY NOW
-                    </Link>
-                  </div>
-                </div>
-                <div className="course-info border-bottom-0 pb-0 d-flex align-items-center">
-                  <div className="rating-img d-flex align-items-center">
-                    <img src={Icon1} alt="" />
-                    <p>12+ Lesson</p>
-                  </div>
-                  <div className="course-view d-flex align-items-center">
-                    <img src={Icon2} alt="" />
-                    <p>9hr 30min</p>
-                  </div>
-                </div>
-                <div className="rating">
-                  <i className="fas fa-star filled me-1" />
-                  <i className="fas fa-star filled me-1" />
-                  <i className="fas fa-star filled me-1" />
-                  <i className="fas fa-star filled me-1" />
-                  <i className="fas fa-star me-1" />
-                  <span className="d-inline-block average-rating">
-                    <span>4.0</span> (15)
-                  </span>
-                </div>
-                <div className="course-group d-flex mb-0">
-                  <div className="course-group-img d-flex">
-                    <Link to="/instructor-profile">
-                      <img
-                        src={User6}
-                        alt=""
-                        className="img-fluid"
-                      />
-                    </Link>
-                    <div className="course-name">
-                      <h4>
-                        <Link to="/instructor-profile">Nicole Brown</Link>
-                      </h4>
-                      <p>Instructor</p>
-                    </div>
-                  </div>
-                  <div className="course-share d-flex align-items-center justify-content-center">
-                    <Link to="#">
-                      <i className="fa-regular fa-heart" />
-                    </Link>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div className="col-lg-12 col-md-12 d-flex">
-          <div className="course-box course-design list-course d-flex">
-            <div className="product">
-              <div className="product-img">
-                <Link to="/course-details">
-                  <img
-                    className="img-fluid"
-                    alt=""
-                    src={Course13}
-                  />
-                </Link>
-                <div className="price">
-                  <h3>
-                    $300 <span>$99.00</span>
-                  </h3>
-                </div>
-              </div>
-              <div className="product-content">
-                <div className="head-course-title">
-                  <h3 className="title">
-                    <Link to="/course-details">
-                      Responsive Web Design Essentials HTML5 CSS3 and Bootstrap
-                    </Link>
-                  </h3>
-                  <div className="all-btn all-category d-flex align-items-center">
-                    <Link to="/checkout" className="btn btn-primary">
-                      BUY NOW
-                    </Link>
-                  </div>
-                </div>
-                <div className="course-info border-bottom-0 pb-0 d-flex align-items-center">
-                  <div className="rating-img d-flex align-items-center">
-                    <img src={Icon1} alt="" />
-                    <p>12+ Lesson</p>
-                  </div>
-                  <div className="course-view d-flex align-items-center">
-                    <img src={Icon2} alt="" />
-                    <p>9hr 30min</p>
-                  </div>
-                </div>
-                <div className="rating">
-                  <i className="fas fa-star filled me-1" />
-                  <i className="fas fa-star filled me-1" />
-                  <i className="fas fa-star filled me-1" />
-                  <i className="fas fa-star filled me-1" />
-                  <i className="fas fa-star me-1" />
-                  <span className="d-inline-block average-rating">
-                    <span>4.0</span> (15)
-                  </span>
-                </div>
-                <div className="course-group d-flex mb-0">
-                  <div className="course-group-img d-flex">
-                    <Link to="/instructor-profile">
-                      <img
-                        src={User4}
-                        alt=""
-                        className="img-fluid"
-                      />
-                    </Link>
-                    <div className="course-name">
-                      <h4>
-                        <Link to="/instructor-profile">Monroe Parker</Link>
-                      </h4>
-                      <p>Instructor</p>
-                    </div>
-                  </div>
-                  <div className="course-share d-flex align-items-center justify-content-center">
-                    <Link to="#">
-                      <i className="fa-regular fa-heart" />
-                    </Link>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div className="col-lg-12 col-md-12 d-flex">
-          <div className="course-box course-design list-course d-flex">
-            <div className="product">
-              <div className="product-img">
-                <Link to="/course-details">
-                  <img
-                    className="img-fluid"
-                    alt=""
-                    src={Course17}
-                  />
-                </Link>
-                <div className="price">
-                  <h3>
-                    $300 <span>$99.00</span>
-                  </h3>
-                </div>
-              </div>
-              <div className="product-content">
-                <div className="head-course-title">
-                  <h3 className="title">
-                    <Link to="/course-details">
-                      The Complete App Design Course - UX, UI and Design
-                      Thinking
-                    </Link>
-                  </h3>
-                  <div className="all-btn all-category d-flex align-items-center">
-                    <Link to="/checkout" className="btn btn-primary">
-                      BUY NOW
-                    </Link>
-                  </div>
-                </div>
-                <div className="course-info border-bottom-0 pb-0 d-flex align-items-center">
-                  <div className="rating-img d-flex align-items-center">
-                    <img src={Icon1} alt="" />
-                    <p>12+ Lesson</p>
-                  </div>
-                  <div className="course-view d-flex align-items-center">
-                    <img src={Icon2} alt="" />
-                    <p>9hr 30min</p>
-                  </div>
-                </div>
-                <div className="rating">
-                  <i className="fas fa-star filled me-1" />
-                  <i className="fas fa-star filled me-1" />
-                  <i className="fas fa-star filled me-1" />
-                  <i className="fas fa-star filled me-1" />
-                  <i className="fas fa-star me-1" />
-                  <span className="d-inline-block average-rating">
-                    <span>4.0</span> (15)
-                  </span>
-                </div>
-                <div className="course-group d-flex mb-0">
-                  <div className="course-group-img d-flex">
-                    <Link to="/instructor-profile">
-                      <img
-                        src={User6}
-                        alt=""
-                        className="img-fluid"
-                      />
-                    </Link>
-                    <div className="course-name">
-                      <h4>
-                        <Link to="/instructor-profile">Lavern M.</Link>
-                      </h4>
-                      <p>Instructor</p>
-                    </div>
-                  </div>
-                  <div className="course-share d-flex align-items-center justify-content-center">
-                    <Link to="#">
-                      <i className="fa-regular fa-heart" />
-                    </Link>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
+            </>
+          ))}
       </div>
     </>
   );
+};
+InnerPage.propTypes = {
+  cours: PropTypes.array.isRequired, // ou le type approprié pour votre cas
+  // ... autres propriétés
 };
 
 export default InnerPage;

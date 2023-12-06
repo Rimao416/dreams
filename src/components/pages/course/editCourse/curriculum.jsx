@@ -95,8 +95,10 @@ const Curriculum = ({
       if (result.type == "addLesson/prof/fulfilled") {
         // nextTab3();
         // setLecon()
+        setLecon({ ...lecon, title: "", video: "" });
+        setVideo(null);
+        toast.success("Lecon ajouté avec succès");
 
-        console.log("BIEN BIEN BIEN");
         // const [loading, setLoading] = useState(false);
       }
       setLoading(false);
@@ -181,6 +183,16 @@ const Curriculum = ({
               </div>
 
               <div className="form-group"></div>
+              {loading == true && (
+                <div className="progress-stip">
+                  <div
+                    className="progress-bar bg-success progress-bar-striped active-stip"
+                    style={{
+                      width: `${data.uploadProgress}%`,
+                    }}
+                  ></div>
+                </div>
+              )}
               <div className="widget-btn">
                 {/* <Link className="btn btn-black prev_btn" onClick={prevTab2}>
               Previous

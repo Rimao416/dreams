@@ -318,7 +318,7 @@ export const Dashboard = () => {
                                           <td>
                                             <div className="sell-table-group d-flex align-items-center">
                                               <div className="sell-group-img">
-                                                <Link to="/course-details">
+                                              <Link to={`/course-details/${course.slug}`}>
                                                   <img
                                                     src={course.image}
                                                     className="img-fluid "

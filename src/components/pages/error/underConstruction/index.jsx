@@ -1,36 +1,34 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { Error3, logo } from "../../../imagepath";
-
+import { useParams } from "react-router-dom";
+import { API } from "../../../../config";
+import { toast } from "react-toastify";
+import { useNavigate } from "react-router-dom";
 const UnderConstruction = () => {
-
+  const navigate = useNavigate();
+  // const getConfirmPaiements = async (id) => {
+  //   const response = await API.get(`/confirmPayment/${id}`);
+  //   return response.data;
+  // };
+  const { id } = useParams();
   useEffect(() => {
-		document.body.classList.add("error-page");
-		return () => document.body.classList.remove("error-page");
-		}, []);
-
+    if (id) {
+      API.get(`/confirmPayment/${id}`).then((response) => {
+        toast.info(response.data.message);
+        navigate("/course-student");
+      });
+      // console.log(reponse);
+    }
+  }, [id]);
+  useEffect(() => {
+    document.body.classList.add("error-page");
+    return () => document.body.classList.remove("error-page");
+  }, []);
 
   return (
     <>
-      <div className="main-wrapper">
-        <div className="error-box">
-          <div className="error-logo">
-            <Link to="/">
-              <img src={logo} className="img-fluid" alt="Logo" />
-            </Link>
-          </div>
-          <div className="error-box-img">
-            <img src={Error3} alt="" className="img-fluid" />
-          </div>
-          <h3 className="h2 mb-3"> The Website is Under Construction</h3>
-          <p className="h4 font-weight-normal">
-            We are working on fixing the problem. We back soon
-          </p>
-          <Link to="/" className="btn btn-primary">
-            Back to Home
-          </Link>
-        </div>
-      </div>
+      <div className="main-wrapper"></div>
     </>
   );
 };

@@ -42,7 +42,7 @@ export default function StudentSideBar({ activeMenu }) {
               <p>{user?.role}</p>
             </div>
             <div className="go-dashboard text-center">
-              <Link to="/deposit-student-dashboard" className="btn btn-primary">
+              <Link to="/course-student" className="btn btn-primary">
                 Tableau de bord
               </Link>
             </div>

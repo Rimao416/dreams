@@ -59,16 +59,16 @@ const Login = () => {
 
   var settings = {
     //autoWidth: true,
-    items: 2,
+    items: 1,
     margin: 25,
-    dots: true,
-    nav: true,
+    dots: false,
+    nav: false,
     navText: [
       '<i className="fas fa-arrow-left"></i>',
       '<i className="fas fa-arrow-right"></i>',
     ],
 
-    loop: true,
+    loop: false,
     responsiveClass: true,
     responsive: {
       0: {
@@ -99,14 +99,10 @@ const Login = () => {
                 </div>
                 <div className="mentor-course text-center">
                   <h2>
-                    Welcome to <br />
-                    DreamsLMS Courses.
+                    Bienvenue sur <br />
+                    The Music Hall
                   </h2>
-                  <p>
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
-                    do eiusmod tempor incididunt ut labore et dolore magna
-                    aliqua. Ut enim ad minim veniam.
-                  </p>
+                  <p></p>
                 </div>
               </div>
               <div className="welcome-login">
@@ -115,14 +111,10 @@ const Login = () => {
                 </div>
                 <div className="mentor-course text-center">
                   <h2>
-                    Bienvenue<br />
-                    DreamsLMS Courses.
+                    Bienvenue sur <br />
+                    The Music Hall
                   </h2>
-                  <p>
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
-                    do eiusmod tempor incididunt ut labore et dolore magna
-                    aliqua. Ut enim ad minim veniam.
-                  </p>
+                  <p></p>
                 </div>
               </div>
               <div className="welcome-login">
@@ -131,14 +123,10 @@ const Login = () => {
                 </div>
                 <div className="mentor-course text-center">
                   <h2>
-                    Welcome to <br />
-                    DreamsLMS Courses.
+                    Bienvenue sur <br />
+                    The Music Hall
                   </h2>
-                  <p>
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
-                    do eiusmod tempor incididunt ut labore et dolore magna
-                    aliqua. Ut enim ad minim veniam.
-                  </p>
+                  <p></p>
                 </div>
               </div>
             </OwlCarousel>
@@ -152,10 +140,10 @@ const Login = () => {
                   <div className="img-logo">
                     <img src={logo} className="img-fluid" alt="Logo" />
                     <div className="back-home">
-                      <Link to="/">Back to Home</Link>
+                      <Link to="/">Retourner à l&apos;accueil</Link>
                     </div>
                   </div>
-                  <h1>Sign into Your Account</h1>
+                  <h1>Connexion</h1>
                   {errors && <Message message={errors} />}
                   <form onSubmit={handleSubmit}>
                     <div className="form-group">
@@ -163,7 +151,7 @@ const Login = () => {
                       <input
                         type="email"
                         className="form-control"
-                        placeholder="Enter your email address"
+                        placeholder="Email"
                         onChange={handleChange}
                         name="email"
                         value={credentials.email}
@@ -171,7 +159,7 @@ const Login = () => {
                     </div>
 
                     <div className="form-group">
-                      <label className="form-control-label">Password</label>
+                      <label className="form-control-label">Mot de passe</label>
                       <div className="pass-group">
                         <input
                           type={passwordType}
@@ -179,7 +167,7 @@ const Login = () => {
                           value={credentials.password}
                           name="password"
                           className="form-control"
-                          placeholder="Password"
+                          placeholder="Mot de passe"
                         />
                         <span
                           className="toggle-password feather-eye"
@@ -196,18 +184,11 @@ const Login = () => {
                     <div className="forgot">
                       <span>
                         <Link className="forgot-link" to="/forgot-password">
-                          Forgot Password ?
+                          Mot de passe oublié ?
                         </Link>
                       </span>
                     </div>
-                    <div className="remember-me">
-                      <label className="custom_check mr-2 mb-0 d-inline-flex remember-me">
-                        {" "}
-                        Remember me
-                        <input type="checkbox" name="radio" />
-                        <span className="checkmark" />
-                      </label>
-                    </div>
+                   
                     <div className="d-grid">
                       <button
                         disabled={isDisabled()}
@@ -220,30 +201,7 @@ const Login = () => {
                   </form>
                 </div>
               </div>
-              <div className="google-bg text-center">
-                <span>
-                  <Link to="#">Or sign in with</Link>
-                </span>
-                <div className="sign-google">
-                  <ul>
-                    <li>
-                      <Link to="#">
-                        <img src={NetIcon1} className="img-fluid" alt="Logo" />{" "}
-                        Sign In using Google
-                      </Link>
-                    </li>
-                    <li>
-                      <Link to="#">
-                        <img src={NetIcon2} className="img-fluid" alt="Logo" />
-                        Sign In using Facebook
-                      </Link>
-                    </li>
-                  </ul>
-                </div>
-                <p className="mb-0">
-                  New User ? <Link to="/register">Create an Account</Link>
-                </p>
-              </div>
+           
             </div>
             {/* /Login */}
           </div>

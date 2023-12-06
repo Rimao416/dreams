@@ -10,17 +10,30 @@ import { Lock, Play, Video1 } from "../../../imagepath";
 import PageHeader from "../../header";
 import { useSelector, useDispatch } from "react-redux";
 import { getCourLessonSlug } from "../../../../redux/slice/leconSlice";
-import { getCour } from "../../../../redux/slice/coursSlice";
+import {
+  course_progression,
+  getCour,
+} from "../../../../redux/slice/coursSlice";
+import { API } from "../../../../config";
 
 const CourseLesson = () => {
+  // const [progression, setProgression] = useState(0);
   const { slug } = useParams();
   const dispatch = useDispatch();
   useEffect(() => {
     slug && dispatch(getCourLessonSlug(slug));
     slug && dispatch(getCour(slug));
+    slug && dispatch(course_progression(slug));
+    // .then(() => {
+    //   API.get(`/course-progression/${slug}`).then((res) => {
+    //     // setProgression(res.data.data.progression);
+    //   });
+    // });
   }, []);
   const videoRef = useRef(null);
   const { lecons } = useSelector((state) => state.leconReducer);
+  const { progression } = useSelector((state) => state.coursReducer);
+  console.log(progression);
 
   const [currentLessonIndex, setCurrentLessonIndex] = useState(0);
   useEffect(() => {
@@ -28,7 +41,6 @@ const CourseLesson = () => {
       // L'élément vidéo n'est pas encore disponible, ne rien faire
       return;
     }
-    
 
     if (videoRef.current && lecons[currentLessonIndex]) {
       setTimeout(() => {
@@ -71,15 +83,26 @@ const CourseLesson = () => {
 
   const switchToLesson = (index) => {
     setCurrentLessonIndex(index);
+
+    // API.post(`/watchLesson`, sendId).then((res) => {
+    //   console.log(res);
+    // });
   };
+ 
+  const sendClick = (lecon) => {
+    console.log(lecon)
+    const sendId = { lesson_id: lecon };
+    console.log(sendId);
+    API.post(`/watchLesson`, sendId).then((res) => {
+      console.log(res)
+      dispatch(course_progression(slug));
+    });
+  };
+
   const { cours } = useSelector((state) => state.coursReducer);
-  console.log(cours);
+  // console.log(cours);
 
   const [drop, setDrop] = useState(true);
-  const [drop2, setDrop2] = useState(false);
-  const [drop3, setDrop3] = useState(false);
-  const [drop4, setDrop4] = useState(false);
-  const [drop5, setDrop5] = useState(false);
 
   return (
     <>
@@ -132,13 +155,13 @@ const CourseLesson = () => {
                         <div className="progress-stip">
                           <div
                             className="progress-bar bg-success progress-bar-striped active-stip"
-                            style={{ width: `${cours[0]?.user_progression}` }}
+                            style={{ width: `${progression}` }}
                           />
                         </div>
                         <div className="student-percent lesson-percent">
                           <p>
                             {cours[0]?.duration}
-                            <span>{cours[0]?.user_progression}</span>
+                            <span>{progression}</span>
                           </p>
                         </div>
                         <ul>
@@ -147,7 +170,10 @@ const CourseLesson = () => {
                               <React.Fragment key={lecon.id}>
                                 <li>
                                   <Link
-                                    onClick={() => switchToLesson(index)}
+                                    onClick={() => {
+                                      switchToLesson(index);
+                                      sendClick(lecon.id);
+                                    }}
                                     className="play-intro cursor-pointer"
                                   >
                                     {lecon.title}

@@ -45,8 +45,7 @@ const Register = () => {
       !credentials.last_name ||
       !credentials.pseudo ||
       !credentials.email ||
-      !credentials.password ||
-      validationError != 5
+      !credentials.password
     );
   };
   // const [pwdError, setPwdError] = useState("Use 8 or more characters with a mix of letters, numbers & symbols.")
@@ -95,52 +94,6 @@ const Register = () => {
       });
   };
 
-  const messages = () => {
-    if (validationError == 1) {
-      return "";
-    } else if (validationError == 2) {
-      return (
-        <span
-          id="poor"
-          className="active"
-          style={{ fontSize: 12, color: "#DC3545" }}
-        >
-          😠 Weak. Must contain at least 8 characters
-        </span>
-      );
-    } else if (validationError == 3) {
-      return (
-        <span
-          id="weak"
-          className="active"
-          style={{ fontSize: 12, color: "#FFC107" }}
-        >
-          😲 Average. Must contain at least 1 letter or number
-        </span>
-      );
-    } else if (validationError == 4) {
-      return (
-        <span
-          id="strong"
-          className="active"
-          style={{ fontSize: 12, color: "#0D6EFD" }}
-        >
-          🙂 Almost. Must contain special symbol
-        </span>
-      );
-    } else if (validationError == 5) {
-      return (
-        <span
-          id="heavy"
-          className="active"
-          style={{ fontSize: 12, color: "#4BB543" }}
-        >
-          😊 Awesome! You have a secure password.
-        </span>
-      );
-    }
-  };
-
   const strengthIndicator = (value) => {
     let strengths = 0;
 
@@ -161,8 +114,8 @@ const Register = () => {
   var settings = {
     items: 2,
     margin: 25,
-    dots: true,
-    nav: true,
+    dots: false,
+    nav: false,
     navText: [
       '<i className="fas fa-arrow-left"></i>',
       '<i className="fas fa-arrow-right"></i>',
@@ -236,7 +189,7 @@ const Register = () => {
         <div className="row">
           {/* Login Banner */}
           <div className="col-md-6 login-bg">
-            <OwlCarousel
+          <OwlCarousel
               {...settings}
               className="owl-carousel login-slide owl-theme"
             >
@@ -246,14 +199,10 @@ const Register = () => {
                 </div>
                 <div className="mentor-course text-center">
                   <h2>
-                    Welcome to <br />
-                    DreamsLMS Courses.
+                    Bienvenue sur <br />
+                    The Music Hall
                   </h2>
-                  <p>
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
-                    do eiusmod tempor incididunt ut labore et dolore magna
-                    aliqua. Ut enim ad minim veniam.
-                  </p>
+                  <p></p>
                 </div>
               </div>
               <div className="welcome-login">
@@ -262,14 +211,10 @@ const Register = () => {
                 </div>
                 <div className="mentor-course text-center">
                   <h2>
-                    Welcome to <br />
-                    DreamsLMS Courses.
+                    Bienvenue sur <br />
+                    The Music Hall
                   </h2>
-                  <p>
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
-                    do eiusmod tempor incididunt ut labore et dolore magna
-                    aliqua. Ut enim ad minim veniam.
-                  </p>
+                  <p></p>
                 </div>
               </div>
               <div className="welcome-login">
@@ -278,14 +223,10 @@ const Register = () => {
                 </div>
                 <div className="mentor-course text-center">
                   <h2>
-                    Welcome to <br />
-                    DreamsLMS Courses.
+                    Bienvenue sur <br />
+                    The Music Hall
                   </h2>
-                  <p>
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
-                    do eiusmod tempor incididunt ut labore et dolore magna
-                    aliqua. Ut enim ad minim veniam.
-                  </p>
+                  <p></p>
                 </div>
               </div>
             </OwlCarousel>
@@ -298,36 +239,36 @@ const Register = () => {
                 <div className="img-logo">
                   <img src={logo} className="img-fluid" alt="Logo" />
                   <div className="back-home">
-                    <Link to="/">Back to Home</Link>
+                    <Link to="/">Retour à l&apos;accueil</Link>
                   </div>
                 </div>
-                <h1>Sign up</h1>
+                <h1>Inscription</h1>
                 <form onSubmit={handleSubmit}>
                   <FormField
                     label="Email"
                     type="email"
-                    placeholder="Enter your email"
+                    placeholder="Mail"
                     name="email"
                     value={credentials.email}
                     onChange={handleChange}
                     error={errors?.email}
                   />
                   <div className="form-group">
-                    <label className="form-control-label">First Name</label>
+                    <label className="form-control-label">Nom</label>
                     <input
                       type="text"
                       className="form-control"
-                      placeholder="Enter your first name"
+                      placeholder="Nom"
                       name="first_name"
                       onChange={handleChange}
                     />
                   </div>
                   <div className="form-group">
-                    <label className="form-control-label">Last Name</label>
+                    <label className="form-control-label">Prenom</label>
                     <input
                       type="text"
                       className="form-control"
-                      placeholder="Enter your last name"
+                      placeholder="Prenom"
                       name="last_name"
                       onChange={handleChange}
                     />
@@ -336,7 +277,7 @@ const Register = () => {
                   <FormField
                     label="Pseudo"
                     type="text"
-                    placeholder="Enter your pseudo"
+                    placeholder="Pseudo"
                     name="pseudo"
                     value={credentials.pseudo}
                     onChange={handleChange}
@@ -344,11 +285,11 @@ const Register = () => {
                   />
 
                   <div className="form-group">
-                    <label className="form-control-label">Password</label>
+                    <label className="form-control-label">Mot de passe</label>
                     <div className="pass-group" id="passwordInput">
                       <input
                         className="form-control pass-input"
-                        placeholder="Enter your password"
+                        placeholder="Mot de passe"
                         type={eye ? "password" : "text"}
                         onChange={handlePasswordChange}
                         name="password"
@@ -365,76 +306,18 @@ const Register = () => {
                         <i className="feather-check"></i>
                       </span>
                     </div>
-                    <div
-                      id="passwordStrength"
-                      style={{ display: "flex" }}
-                      className={`password-strength ${
-                        strength === "poor"
-                          ? "poor-active"
-                          : strength === "weak"
-                          ? "avg-active"
-                          : strength === "strong"
-                          ? "strong-active"
-                          : strength === "heavy"
-                          ? "heavy-active"
-                          : ""
-                      }`}
-                    >
-                      <span id="poor" className="active"></span>
-                      <span id="weak" className="active"></span>
-                      <span id="strong" className="active"></span>
-                      <span id="heavy" className="active"></span>
-                    </div>
-                    <div id="passwordInfo">{messages()}</div>
                   </div>
 
-                  <div className="form-check remember-me">
-                    <label className="form-check-label mb-0">
-                      <input
-                        className="form-check-input"
-                        type="checkbox"
-                        name="remember"
-                      />
-                      I agree to the&nbsp;
-                      <Link to="/term-condition">Terms of Service</Link>{" "}
-                      and&nbsp;
-                      <Link to="/privacy-policy">Privacy Policy.</Link>
-                    </label>
-                  </div>
                   <div className="d-grid">
                     <button
                       disabled={isDisabled()}
                       type="submit"
                       className="btn btn-primary btn-start"
                     >
-                      Create Account
+                      S&apos;inscrire
                     </button>
                   </div>
                 </form>
-              </div>
-              <div className="google-bg text-center">
-                <span>
-                  <Link to="#">Or sign in with</Link>
-                </span>
-                <div className="sign-google">
-                  <ul>
-                    <li>
-                      <Link to="#">
-                        <img src={NetIcon1} className="img-fluid" alt="Logo" />
-                        Sign In using Google
-                      </Link>
-                    </li>
-                    <li>
-                      <Link to="#">
-                        <img src={NetIcon2} className="img-fluid" alt="Logo" />
-                        Sign In using Facebook
-                      </Link>
-                    </li>
-                  </ul>
-                </div>
-                <p className="mb-0">
-                  Already have an account? <Link to="/login">Sign in</Link>
-                </p>
               </div>
             </div>
             {/* /Login */}

@@ -1,4 +1,5 @@
 import React from "react";
+import authApi from "./services/authApi";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import BlogDetails from "./components/blog/blogDetails";
 import BlogGrid from "./components/blog/blogGrid";
@@ -102,25 +103,28 @@ import NewPassword from "./components/pages/newPassword";
 import ProtectedRoutes from "./components/ProtectedRoutes";
 import GuestLayout from "./components/GuestRoute";
 import RestrictedRoutes from "./components/RestrictedRoutes";
+// const userInfo = await authApi.getUserInfo();
+// console.log(userInfo);
 const Approuter = () => {
   return (
     <BrowserRouter basename="/reactjs">
       <Routes>
-        <Route element={<RestrictedRoutes roles={["professeur"]} />}>
-          <Route path="/instructor-dashboard" element={<Dashboard />} />
+        <Route path="/" element={<Home />} />
+        <Route element={<ProtectedRoutes />}>
+          <Route path="/instructor-dashboard" element={<Dashboard />} />{" "}
+          {/* toi */}
           <Route path="/instructor-list" element={<InstructorList />} />
+          <Route path="/confirm/:id" element={<UnderConstruction />} />
           <Route path="/instructor-grid" element={<InstructorGrid />} />
           <Route path="/prof-cours" element={<InstructorCourse />} />
           <Route path="/add-course" element={<AddCourse />} />
-
           <Route path="/edit-course/:id" element={<EditCourse />} />
           <Route path="/course-list" element={<CourseList />} />
           <Route path="/instructor-reviews" element={<InstructorReviews />} />
           <Route path="/profile" element={<InstructorEditProfile />} />
           <Route path="/instructor-list" element={<InstructorList />} />
-        </Route>
-        <Route element={<ProtectedRoutes />}>
-          <Route path="/" element={<Home />} />
+          {/* <Route path="/instructor-earnings" element={<Dashboard />} /> */}
+          <Route path="/instructor-earnings" element={<InstructorEarnings />} />
           {/* STUDENT */}
           <Route
             path="/setting-edit-profile"
@@ -131,16 +135,15 @@ const Approuter = () => {
             element={<StudentSecurity />}
           />
           <Route path="/course-student" element={<CourseStudent />} />
-
           <Route
             path="/instructor-profile/:pseudo"
             element={<InstructorProfile />}
           />
           <Route path="/purchase-history" element={<PurchaseHistory />} />
-
           <Route path="/course-lesson/:slug" element={<CourseLesson />} />
           <Route path="/setting-student-invoice" element={<StudentInvoice />} />
           <Route path="/course-details/:slug" element={<CourseDetails />} />
+          <Route path="/course-message" element={<CourseMessage />} />
         </Route>
 
         {/* Blog */}
@@ -158,7 +161,7 @@ const Approuter = () => {
         <Route path="/come-soon" element={<ComingSoon />} />
         <Route path="/error-404" element={<Error404 />} />
         <Route path="/error-500" element={<Error500 />} />
-        <Route path="/under-construction" element={<UnderConstruction />} />
+        {/* <Route path="/under-construction" element={<UnderConstruction />} /> */}
         <Route path="/faq" element={<Faq />} />
         <Route path="/support" element={<Support />} />
         <Route path="/job-category" element={<JobCategory />} />
@@ -168,14 +171,15 @@ const Approuter = () => {
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
         </Route>
-        <Route path="/new-password" element={<NewPassword />} />
+        <Route path="/forgot-password" element={<ForgotPassword />} />
+        <Route path="/reset-password" element={<NewPassword />} />
 
         <Route path="/register1" element={<RegisterOne />} />
         <Route path="/register2" element={<RegisterTwo />} />
         <Route path="/register3" element={<RegisterThree />} />
         <Route path="/register4" element={<RegisterFour />} />
         <Route path="/register5" element={<RegisterFive />} />
-        <Route path="/forgot-password" element={<ForgotPassword />} />
+
         <Route path="/term-condition" element={<TermsCondition />} />
         <Route path="/privacy-policy" element={<PrivacyPolicy />} />
 
@@ -184,7 +188,6 @@ const Approuter = () => {
         <Route path="/instructor-grid" element={<InstructorGrid />} />
         {/* <Route path="/instructor-course" element={<InstructorCourse />} /> */}
 
-        <Route path="/instructor-earnings" element={<InstructorEarnings />} />
         <Route path="/instructor-orders" element={<InstructorOrders />} />
         <Route path="/instructor-payouts" element={<InstructorPayouts />} />
         <Route path="/instructor-tickets" element={<InstructorTickets />} />
@@ -285,7 +288,6 @@ const Approuter = () => {
         <Route path="/students-list" element={<StudentsList />} />
 
         <Route path="/course-wishlist" element={<CourseWishlist />} />
-        <Route path="/course-message" element={<CourseMessage />} />
         <Route path="/deposit-student" element={<DepositStudent />} />
         <Route path="/transactions-student" element={<TransactionStudent />} />
         <Route path="*" element={<Error404 />} />

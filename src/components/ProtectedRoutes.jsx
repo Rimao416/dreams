@@ -1,5 +1,5 @@
 import { Link, Navigate, Outlet } from "react-router-dom";
-
+import { toast } from "react-toastify";
 import { useEffect } from "react";
 import { useStateContext } from "../context/ContextProvider.jsx";
 import { API } from "../config.js";
@@ -8,8 +8,9 @@ import { InstructorHeader } from "./instructor/header/index.jsx";
 
 export default function ProtectedRoutes() {
   const { user, token, setUser, setToken, notification } = useStateContext();
-console.log(user)
+  console.log(user);
   if (!token) {
+    toast.error("Veuillez vous connecter");
     return <Navigate to="/login" />;
   }
 

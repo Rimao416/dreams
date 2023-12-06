@@ -41,10 +41,9 @@ export const InstructorList = () => {
                 <nav aria-label="breadcrumb" className="page-breadcrumb">
                   <ol className="breadcrumb">
                     <li className="breadcrumb-item">
-                      <Link to="/">Home</Link>
+                      <Link to="/">Accueil</Link>
                     </li>
-                    <li className="breadcrumb-item">Pages</li>
-                    <li className="breadcrumb-item">Instructors List</li>
+                    <li className="breadcrumb-item">Professeurs</li>
                   </ol>
                 </nav>
               </div>
@@ -59,14 +58,12 @@ export const InstructorList = () => {
           <div className="row">
             <div className="col-lg-9">
               {/* Filter */}
-              <div className="showing-list">
+              {/* <div className="showing-list">
                 <div className="row">
                   <div className="col-lg-6">
                     <div className="d-flex align-items-center">
                       <div className="view-icons">
-                        <Link to="/instructor-grid" className="grid-view ">
-                          <Grid />
-                        </Link>
+                      
                         <Link
                           to="/instructor-list"
                           className="list-view active"
@@ -118,7 +115,7 @@ export const InstructorList = () => {
                     </div>
                   </div>
                 </div>
-              </div>
+              </div> */}
               {/* Filter */}
 
               <div className="row">
@@ -243,7 +240,7 @@ export const InstructorList = () => {
 
             <div className="col-lg-3">
               <div className="filter-clear">
-                <div className="clear-filter d-flex align-items-center">
+                {/* <div className="clear-filter d-flex align-items-center">
                   <h4>
                     <Filter size={18} />
                     Filters
@@ -251,109 +248,17 @@ export const InstructorList = () => {
                   <div className="clear-text">
                     <p>CLEAR</p>
                   </div>
-                </div>
+                </div> */}
 
-                {/* Search Filter */}
-                <div className="card search-filter">
-                  <div className="card-body">
-                    <div className="filter-widget mb-0">
-                      <div className="categories-head d-flex align-items-center">
-                        <h4>Course categories</h4>
-                        <i className="fas fa-angle-down"></i>
-                      </div>
-                      <div>
-                        <label className="custom_check">
-                          <input type="checkbox" name="select_specialist" />
-                          <span className="checkmark"></span> Backend (3)
-                        </label>
-                      </div>
-                      <div>
-                        <label className="custom_check">
-                          <input type="checkbox" name="select_specialist" />
-                          <span className="checkmark"></span> CSS (2)
-                        </label>
-                      </div>
-                      <div>
-                        <label className="custom_check">
-                          <input type="checkbox" name="select_specialist" />
-                          <span className="checkmark"></span> Frontend (2)
-                        </label>
-                      </div>
-                      <div>
-                        <label className="custom_check">
-                          <input type="checkbox" name="select_specialist" />
-                          <span className="checkmark"></span> General (2)
-                        </label>
-                      </div>
-                      <div>
-                        <label className="custom_check">
-                          <input type="checkbox" name="select_specialist" />
-                          <span className="checkmark"></span> IT & Software (2)
-                        </label>
-                      </div>
-                      <div>
-                        <label className="custom_check">
-                          <input type="checkbox" name="select_specialist" />
-                          <span className="checkmark"></span> Photography (2)
-                        </label>
-                      </div>
-                      <div>
-                        <label className="custom_check">
-                          <input type="checkbox" name="select_specialist" />
-                          <span className="checkmark"></span> Programming
-                          Language (3)
-                        </label>
-                      </div>
-                      <div>
-                        <label className="custom_check mb-0">
-                          <input type="checkbox" name="select_specialist" />
-                          <span className="checkmark"></span> Technology (2)
-                        </label>
-                      </div>
-                    </div>
-                  </div>
-                </div>
+          
                 {/* Search Filter */}
 
                 {/* Search Filter */}
-                <div className="card search-filter">
-                  <div className="card-body">
-                    <div className="filter-widget mb-0">
-                      <div className="categories-head d-flex align-items-center">
-                        <h4>Instructors</h4>
-                        <i className="fas fa-angle-down"></i>
-                      </div>
-                      <div>
-                        <label className="custom_check">
-                          <input type="checkbox" name="select_specialist" />
-                          <span className="checkmark"></span> Keny White (10)
-                        </label>
-                      </div>
-                      <div>
-                        <label className="custom_check">
-                          <input type="checkbox" name="select_specialist" />
-                          <span className="checkmark"></span> Hinata Hyuga (5)
-                        </label>
-                      </div>
-                      <div>
-                        <label className="custom_check">
-                          <input type="checkbox" name="select_specialist" />
-                          <span className="checkmark"></span> John Doe (3)
-                        </label>
-                      </div>
-                      <div>
-                        <label className="custom_check mb-0">
-                          <input type="checkbox" name="select_specialist" />
-                          <span className="checkmark"></span> Nicole Brown
-                        </label>
-                      </div>
-                    </div>
-                  </div>
-                </div>
+         
                 {/* Search Filter */}
 
                 {/* Search Filter */}
-                <div className="card search-filter ">
+                {/* <div className="card search-filter ">
                   <div className="card-body">
                     <div className="filter-widget mb-0">
                       <div className="categories-head d-flex align-items-center">
@@ -380,7 +285,7 @@ export const InstructorList = () => {
                       </div>
                     </div>
                   </div>
-                </div>
+                </div> */}
                 {/* Search Filter */}
               </div>
             </div>

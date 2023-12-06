@@ -1,27 +1,42 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import Footer from "../../footer";
-import {
-  User1,
-  User2,
-  User3,
-  User4,
-} from "../../imagepath";
+import { User1, User2, User3, User4 } from "../../imagepath";
 import { InstructorHeader } from "../header";
 import InstructorSidebar from "../sidebar";
 import Select from "react-select";
 import FeatherIcon from "feather-icons-react";
-
-
+import { useSelector, useDispatch } from "react-redux";
+import { useEffect } from "react";
+import { getProfReviews } from "../../../redux/slice/profSlice";
 export default function InstructorReviews() {
   const [setReview] = useState(null);
   const [setRating] = useState(null);
   const [setSort] = useState(null);
-  const options1 = [
-    { label: "All", value: "All" },
-    { label: "review 1", value: "1" },
-    { label: "review 2", value: "2" },
-    { label: "review 3", value: "3" },
+  const [searchQuery, setSearchQuery] = useState("");
+  const handleFilter = (event) => {
+    setSearchQuery({
+      ...searchQuery,
+      [event.target.name]: event.target.value,
+    });
+  };
+  const { reviews } = useSelector((state) => state.profReducer);
+
+  const filteredCours = reviews?.filter((row) => {
+    const noteString = String(row.note);
+
+    const nameMatch = noteString.includes(searchQuery);
+    console.log(nameMatch);
+    return nameMatch;
+  });
+  const options = [
+    { label: "Tout", value: "" },
+    { label: "1 étoile", value: "1" },
+    { label: "2 étoiles", value: "2" },
+    { label: "3 étoiles", value: "3" },
+    { label: "4 étoiles", value: "4" },
+    { label: "5 étoiles", value: "5" },
+    // { label: "Node", value: "Node" },
   ];
   const options2 = [
     { label: "Rating", value: "rating" },
@@ -77,6 +92,12 @@ export default function InstructorReviews() {
       transition: "250ms",
     }),
   };
+  useEffect(() => {
+    dispatch(getProfReviews()).then((result) => {
+      console.log(result);
+    });
+  }, []);
+  const dispatch = useDispatch();
   return (
     <div className="main-wrapper">
       <InstructorHeader activeMenu={"Reviews"} />
@@ -95,11 +116,7 @@ export default function InstructorReviews() {
                   <div className="settings-widget">
                     <div className="settings-inner-blk p-0">
                       <div className="sell-course-head comman-space">
-                        <h3>Reviews</h3>
-                        <p>
-                          You have full control to manage your own account
-                          setting.
-                        </p>
+                        <h3>Avis</h3>
                       </div>
                       <div className="comman-space pb-0">
                         <div className="instruct-search-blk mb-0">
@@ -111,10 +128,12 @@ export default function InstructorReviews() {
                                     <Select
                                       className=" select"
                                       name="sellist1"
-                                      options={options1}
-                                      defaultValue={options1[0]}
-                                      placeholder="All"
-                                      onChange={setReview}
+                                      options={options}
+                                      defaultValue={options[0]}
+                                      placeholder="Tous"
+                                      onChange={(selectedOption) =>
+                                        setSearchQuery(selectedOption.value)
+                                      }
                                       styles={style}
                                     ></Select>
                                   </div>
@@ -150,187 +169,53 @@ export default function InstructorReviews() {
                           </div>
                         </div>
                       </div>
-                      <div className="comman-space bdr-bottom-line">
-                        <div className="instruct-review-blk ">
-                          <div className="review-item">
-                            <div className="instructor-wrap border-0 m-0">
-                              <div className="about-instructor">
-                                <div className="abt-instructor-img">
-                                  <Link to="/instructor-profile">
-                                    <img
-                                      src={User1}
-                                      alt="img"
-                                      className="img-fluid"
-                                    />
-                                  </Link>
+                      {reviews &&
+                        reviews?.map((review) => (
+                          <React.Fragment key={review.id}>
+                            <div className="comman-space bdr-bottom-line">
+                              <div className="instruct-review-blk ">
+                                <div className="review-item">
+                                  <div className="instructor-wrap border-0 m-0">
+                                    <div className="about-instructor">
+                                      <div className="abt-instructor-img">
+                                        <Link to="#">
+                                          <img
+                                            src={review.author_img}
+                                            alt="img"
+                                            className="img-fluid"
+                                          />
+                                        </Link>
+                                      </div>
+                                      <div className="instructor-detail">
+                                        <h5>
+                                          <Link to="#">
+                                            {review.author_first_name +
+                                              " " +
+                                              review.author_last_name}
+                                          </Link>
+                                        </h5>
+                                        <p>{review.course_title}</p>
+                                      </div>
+                                    </div>
+                                    <div className="rating">
+                                      {[...Array(5)].map((_, index) => (
+                                        <i
+                                          key={index}
+                                          className={`fas fa-star ${
+                                            index < review.note ? "filled" : ""
+                                          }`}
+                                        ></i>
+                                      ))}
+                                    </div>
+                                  </div>
+                                  <p className="rev-info">
+                                    {review.commentaire}
+                                  </p>
                                 </div>
-                                <div className="instructor-detail">
-                                  <h5>
-                                    <Link to="/instructor-profile">
-                                      Nicole Brown
-                                    </Link>
-                                  </h5>
-                                  <p>UX/UI Designer</p>
-                                </div>
-                              </div>
-                              <div className="rating">
-                                <i className="fas fa-star filled"></i>
-                                <i className="fas fa-star filled"></i>
-                                <i className="fas fa-star filled"></i>
-                                <i className="fas fa-star filled"></i>
-                                <i className="fas fa-star"></i>
                               </div>
                             </div>
-                            <p className="rev-info">
-                              “ This is the second Photoshop course I have
-                              completed with Cristian. Worth every penny and
-                              recommend it highly. To get the most out of this
-                              course, its best to to take the Beginner to
-                              Advanced course first. The sound and video quality
-                              is of a good standard. Thank you Cristian. “
-                            </p>
-                            <Link to="#;" className="btn btn-reply">
-                              <FeatherIcon icon="corner-up-left"/>
-                              Respond
-                            </Link>
-                          </div>
-                        </div>
-                      </div>
-                      <div className="comman-space bdr-bottom-line">
-                        <div className="instruct-review-blk ">
-                          <div className="review-item">
-                            <div className="instructor-wrap border-0 m-0">
-                              <div className="about-instructor">
-                                <div className="abt-instructor-img">
-                                  <Link to="/instructor-profile">
-                                    <img
-                                      src={User2}
-                                      alt="img"
-                                      className="img-fluid"
-                                    />
-                                  </Link>
-                                </div>
-                                <div className="instructor-detail">
-                                  <h5>
-                                    <Link to="/instructor-profile">
-                                      Jesse Stevens
-                                    </Link>
-                                  </h5>
-                                  <p>UX/UI Designer</p>
-                                </div>
-                              </div>
-                              <div className="rating">
-                                <i className="fas fa-star filled"></i>
-                                <i className="fas fa-star filled"></i>
-                                <i className="fas fa-star filled"></i>
-                                <i className="fas fa-star filled"></i>
-                                <i className="fas fa-star"></i>
-                              </div>
-                            </div>
-                            <p className="rev-info">
-                              “ This is the second Photoshop course I have
-                              completed with Cristian. Worth every penny and
-                              recommend it highly. To get the most out of this
-                              course, its best to to take the Beginner to
-                              Advanced course first. The sound and video quality
-                              is of a good standard. Thank you Cristian. “
-                            </p>
-                            <Link to="#;" className="btn btn-reply">
-                              <FeatherIcon icon="corner-up-left"/>Respond
-                            </Link>
-                          </div>
-                        </div>
-                      </div>
-                      <div className="comman-space bdr-bottom-line">
-                        <div className="instruct-review-blk ">
-                          <div className="review-item">
-                            <div className="instructor-wrap border-0 m-0">
-                              <div className="about-instructor">
-                                <div className="abt-instructor-img">
-                                  <Link to="/instructor-profile">
-                                    <img
-                                      src={User3}
-                                      alt="img"
-                                      className="img-fluid"
-                                    />
-                                  </Link>
-                                </div>
-                                <div className="instructor-detail">
-                                  <h5>
-                                    <Link to="/instructor-profile">
-                                      John Smith
-                                    </Link>
-                                  </h5>
-                                  <p>UX/UI Designer</p>
-                                </div>
-                              </div>
-                              <div className="rating">
-                                <i className="fas fa-star filled"></i>
-                                <i className="fas fa-star filled"></i>
-                                <i className="fas fa-star filled"></i>
-                                <i className="fas fa-star filled"></i>
-                                <i className="fas fa-star"></i>
-                              </div>
-                            </div>
-                            <p className="rev-info">
-                              “ This is the second Photoshop course I have
-                              completed with Cristian. Worth every penny and
-                              recommend it highly. To get the most out of this
-                              course, its best to to take the Beginner to
-                              Advanced course first. The sound and video quality
-                              is of a good standard. Thank you Cristian. “
-                            </p>
-                            <Link to="#;" className="btn btn-reply">
-                              <FeatherIcon icon="corner-up-left"/>Respond
-                            </Link>
-                          </div>
-                        </div>
-                      </div>
-                      <div className="comman-space">
-                        <div className="instruct-review-blk ">
-                          <div className="review-item">
-                            <div className="instructor-wrap border-0 m-0">
-                              <div className="about-instructor">
-                                <div className="abt-instructor-img">
-                                  <Link to="/instructor-profile">
-                                    <img
-                                      src={User4}
-                                      alt="img"
-                                      className="img-fluid"
-                                    />
-                                  </Link>
-                                </div>
-                                <div className="instructor-detail">
-                                  <h5>
-                                    <Link to="/instructor-profile">
-                                      Stella Johnson
-                                    </Link>
-                                  </h5>
-                                  <p>UX/UI Designer</p>
-                                </div>
-                              </div>
-                              <div className="rating">
-                                <i className="fas fa-star filled"></i>
-                                <i className="fas fa-star filled"></i>
-                                <i className="fas fa-star filled"></i>
-                                <i className="fas fa-star filled"></i>
-                                <i className="fas fa-star"></i>
-                              </div>
-                            </div>
-                            <p className="rev-info">
-                              “ This is the second Photoshop course I have
-                              completed with Cristian. Worth every penny and
-                              recommend it highly. To get the most out of this
-                              course, its best to to take the Beginner to
-                              Advanced course first. The sound and video quality
-                              is of a good standard. Thank you Cristian. “
-                            </p>
-                            <Link to="#;" className="btn btn-reply">
-                              <FeatherIcon icon="corner-up-left"/>Respond
-                            </Link>
-                          </div>
-                        </div>
-                      </div>
+                          </React.Fragment>
+                        ))}
                     </div>
                   </div>
                 </div>

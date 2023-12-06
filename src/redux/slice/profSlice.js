@@ -61,6 +61,21 @@ export const getProfReviews = createAsyncThunk(
     }
   }
 );
+export const getProfReviewsSlug = createAsyncThunk(
+  "getProfReviewsSlug",
+  async (slug, { rejectWithValue }) => {
+    try {
+      const response = await API.get(`/prof-notes/${slug}`);
+      console.log(response);
+      return response.data;
+    } catch (error) {
+      if (!error.response) {
+        throw error;
+      }
+      return rejectWithValue(error.response.data);
+    }
+  }
+);
 
 const profSlice = createSlice({
   name: "prof",
@@ -143,6 +158,22 @@ const profSlice = createSlice({
         };
       })
       .addCase(getProfReviews.rejected, (state, action) => {
+        console.log(action);
+        state.loading = false;
+        state.error = true;
+      })
+      .addCase(getProfReviewsSlug.pending, (state) => {
+        state.loading = true;
+      })
+      .addCase(getProfReviewsSlug.fulfilled, (state, action) => {
+        console.log(action);
+        return {
+          ...state,
+          loading: false,
+          reviews: action.payload.data,
+        };
+      })
+      .addCase(getProfReviewsSlug.rejected, (state, action) => {
         console.log(action);
         state.loading = false;
         state.error = true;

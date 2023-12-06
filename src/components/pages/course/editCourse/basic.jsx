@@ -180,7 +180,7 @@ const Basic = ({ nextTab, input, setInput, handleChange }) => {
               className="btn btn-info-light next_btn"
               onClick={nextTab}
             >
-              Continue
+              Continuer
             </Link>
           </div>
         </div>

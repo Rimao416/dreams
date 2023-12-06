@@ -36,6 +36,24 @@ export const addCours = createAsyncThunk(
     }
   }
 );
+export const course_progression = createAsyncThunk(
+  "course_progression",
+  async (slug, { rejectWithValue }) => {
+    const token = localStorage.getItem("ACCESS_TOKEN");
+    API.defaults.headers.common["Authorization"] = `Bearer ${token}`;
+
+    try {
+      const response = await API.get(`/course-progression/${slug}`);
+      console.log(response);
+      return response.data;
+    } catch (error) {
+      if (!error.response) {
+        throw error;
+      }
+      return rejectWithValue(error.response.data);
+    }
+  }
+);
 
 export const updateCours = createAsyncThunk(
   "updateCours",
@@ -62,13 +80,13 @@ export const updateCours = createAsyncThunk(
 );
 export const startCours = createAsyncThunk(
   "startCours",
-  async (data,{ rejectWithValue }) => {
-    console.log(data)
+  async (data, { rejectWithValue }) => {
+    console.log(data);
     const token = localStorage.getItem("ACCESS_TOKEN");
     API.defaults.headers.common["Authorization"] = `Bearer ${token}`;
 
     try {
-      const response = await API.post(`/startCourse`,data);
+      const response = await API.post(`/startCourse`, data);
       console.log(response);
       return data.course_id;
     } catch (error) {
@@ -100,12 +118,12 @@ export const deleteCours = createAsyncThunk(
 
 export const getCours = createAsyncThunk(
   "getCours",
-  async (_, { rejectWithValue }) => {
+  async (page, { rejectWithValue }) => {
     const token = localStorage.getItem("ACCESS_TOKEN");
     API.defaults.headers.common["Authorization"] = `Bearer ${token}`;
 
     try {
-      const response = await API.get(`/courses`);
+      const response = await API.get(`/courses?page=${page}`);
       console.log(response);
       return response.data;
     } catch (error) {
@@ -143,8 +161,15 @@ const coursSlice = createSlice({
     loading: false,
     error: false,
     status: "idle",
+    index: 1,
+    meta: null,
+    progression: 0,
   },
-  reducers: {},
+  reducers: {
+    increment: (state) => {
+      state.index += 1;
+    },
+  },
   extraReducers: (builder) => {
     builder
       .addCase(profCours.pending, (state) => {
@@ -187,6 +212,7 @@ const coursSlice = createSlice({
           ...state,
           loading: false,
           cours: action.payload.data,
+          meta: action.payload.meta,
         };
       })
       .addCase(getCours.rejected, (state, action) => {
@@ -253,7 +279,7 @@ const coursSlice = createSlice({
         state.loading = true;
       })
       .addCase(startCours.fulfilled, (state, action) => {
-        console.log(action)
+        console.log(action);
         const updateCour = action.payload;
         const updateCours = state.cours.map((cour) =>
           cour.id === updateCour.id ? updateCour : cour
@@ -265,6 +291,22 @@ const coursSlice = createSlice({
         };
       })
       .addCase(startCours.rejected, (state, action) => {
+        console.log(action);
+        state.loading = false;
+        state.error = true;
+      })
+      .addCase(course_progression.pending, (state) => {
+        state.loading = true;
+      })
+      .addCase(course_progression.fulfilled, (state, action) => {
+        console.log(action);
+        return {
+          ...state,
+          loading: false,
+          progression: action.payload.data,
+        };
+      })
+      .addCase(course_progression.rejected, (state, action) => {
         console.log(action);
         state.loading = false;
         state.error = true;

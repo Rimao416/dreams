@@ -15156,7 +15156,7 @@ input[type=password]::-ms-clear
 	border-radius: 5px;
 	width: 40px;
 	height: 40px;
-	color: #000000 !important;
+	color: #000 !important;
 	display: -webkit-box;
     display: -ms-flexbox;
     display: flex;
@@ -15181,6 +15181,7 @@ input[type=password]::-ms-clear
 .lms-page .page-item.active .page-link {
     background-color: #000000 !important;
     border-color: #000000 !important;
+    color:#fff !important;
 }
 .page-item:first-child .page-link {
     border-top-left-radius: 5px;

@@ -1,17 +1,7 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import Footer from "../../footer";
-import {
-  Course10,
-  Course11,
-  Course12,
-  Course13,
-  Course14,
-  Course15,
-  Course16,
-  Course17,
-  User11,
-} from "../../imagepath";
+
 import StudentHeader from "../header";
 import CourseMenu from "../courseMenu";
 import { Search } from "react-feather";
@@ -40,48 +30,7 @@ export default function CourseStudent() {
     { label: "React", value: "2" },
     { label: "Node", value: "3" },
   ];
-  const style = {
-    control: (baseStyles, state) => ({
-      ...baseStyles,
-      backgroundColor: "white",
-      width: "100%",
-      height: "40px",
-      color: "black",
-      minHeight: "40px",
-      border: "1px solid #e9ecef",
-      paddingLeft: "5px",
-      // This line disable the blue border
-      boxShadow: state.isFocused ? 0 : 0,
-      borderRadius: state.isSelected ? "0" : "10px",
-      fontSize: "14px",
-      "&:hover": {
-        cursor: "pointer",
-      },
-      outline: "none",
-    }),
-    menu: (base) => ({ ...base, marginTop: "0px" }),
-    menuList: (base) => ({ ...base, padding: "0" }),
-    option: (provided, state) => ({
-      ...provided,
-      backgroundColor: state.isSelected ? "#FFDEDA" : "white",
-      color: "black",
-      fontSize: "14px",
-      "&:hover": {
-        backgroundColor: "#FFDEDA",
-        // #dddddd
-      },
-    }),
-    indicatorSeparator: (base) => ({
-      ...base,
-      display: "none",
-    }),
-    dropdownIndicator: (base, state) => ({
-      ...base,
-      color: "black",
-      transform: state.selectProps.menuIsOpen ? "rotate(-180deg)" : "rotate(0)",
-      transition: "250ms",
-    }),
-  };
+
   const startStudy = (cour) => {
     // console.log(console.lg)
     // "course_id": 1
@@ -176,8 +125,13 @@ export default function CourseStudent() {
                                       className="img-fluid"
                                       alt=""
                                       src={cour.image}
-                                      width={"271px"}
-                                      height={"203px"}
+                                      style={{
+                                        width: "271px",
+                                        height: "203px",
+                                        objectFit: "cover",
+                                        objectPosition: "center",
+                                        overflow: "hidden",
+                                      }}
                                       // 271 X 203
                                     />
                                   </Link>
@@ -223,12 +177,12 @@ export default function CourseStudent() {
                                       to={`#`}
                                       // to={`/course-lesson/${cour.slug}`}
                                       className={
-                                        cours?.user_start
+                                        cour.user_start
                                           ? "btn btn-primary"
                                           : "btn btn-dark"
                                       }
                                     >
-                                      {cours?.user_start
+                                      {cour.user_start===false
                                         ? "Démarrer le cours"
                                         : "Continuer le cours"}
                                     </Link>

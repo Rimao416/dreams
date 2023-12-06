@@ -3,7 +3,7 @@ import { API } from "../../config";
 
 export const addLesson = createAsyncThunk(
   "addlessons",
-  async (data, { rejectWithValue }) => {
+  async (data, { rejectWithValue, dispatch }) => {
     const token = localStorage.getItem("ACCESS_TOKEN");
     API.defaults.headers.common["Authorization"] = `Bearer ${token}`;
 
@@ -13,6 +13,7 @@ export const addLesson = createAsyncThunk(
           const { loaded, total } = progressEvent;
           const progress = Math.round((loaded * 100) / total);
           console.log(progress);
+          dispatch(setUploadProgress(progress));
         },
       });
       console.log(response);
@@ -25,6 +26,10 @@ export const addLesson = createAsyncThunk(
     }
   }
 );
+export const setUploadProgress = (progress) => ({
+  type: "lecons/setUploadProgress",
+  payload: progress,
+});
 export const getCourLesson = createAsyncThunk(
   "getCourLesson",
   async (id, { rejectWithValue }) => {
@@ -66,9 +71,13 @@ export const updateLesson = createAsyncThunk(
   async (data, { rejectWithValue }) => {
     const token = localStorage.getItem("ACCESS_TOKEN");
     API.defaults.headers.common["Authorization"] = `Bearer ${token}`;
-
+    console.log(data.get("id"));
     try {
-      const response = await API.post(`/modifier-lessons/${data.id}`, data);
+      const url =
+        data instanceof FormData
+          ? `/modifier-lessons/${data.get("id")}`
+          : `/modifier-lessons/${data.id}`;
+      const response = await API.post(url, data);
       console.log(response);
       return response.data;
     } catch (error) {
@@ -124,8 +133,13 @@ const leconSlice = createSlice({
     error: false,
     status: "idle",
     type: "",
+    uploadProgress: 0,
   },
-  reducers: {},
+  reducers: {
+    setUploadProgress: (state, action) => {
+      state.uploadProgress = action.payload;
+    },
+  },
   extraReducers: (builder) => {
     builder
       .addCase(addLesson.pending, (state) => {
@@ -138,6 +152,7 @@ const leconSlice = createSlice({
           loading: false,
           lecons: [...state.lecons, action.payload.data],
           type: action.type,
+          uploadProgress: 0,
         };
       })
       .addCase(addLesson.rejected, (state, action) => {
@@ -179,6 +194,7 @@ const leconSlice = createSlice({
           lecons: updatedFinal,
           //   COMPLETE LE CODE
           type: action.type,
+          uploadProgress: 0,
         };
       })
       .addCase(updateLesson.rejected, (state, action) => {

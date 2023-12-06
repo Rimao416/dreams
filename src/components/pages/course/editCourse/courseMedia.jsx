@@ -125,7 +125,7 @@ const CourseMedia = ({ prevTab1, nextTab2, lecon, setLecon }) => {
               </div>
               <div className="widget-btn">
                 <Link className="btn btn-black prev_btn" onClick={prevTab1}>
-                  Previous
+                  Précédent
                 </Link>
                 <Button loading={loading}>
                   <button className="btn btn-info-light next_btn" type="submit">

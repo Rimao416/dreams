@@ -16,7 +16,7 @@ import EditCourse from "../../../modal/EditCourse";
 import SeeCourse from "../../../modal/SeeCourse";
 import Button from "../../../Button";
 Modal.setAppElement("#root");
-import {useNavigate} from "react-router-dom"
+import { useNavigate } from "react-router-dom";
 
 // eslint-disable-next-line react/prop-types
 const Curriculum = ({
@@ -27,7 +27,7 @@ const Curriculum = ({
   lecon,
   setLecon,
 }) => {
-  const navigate=useNavigate()
+  const navigate = useNavigate();
   // lecon 20
   const dispatch = useDispatch();
   const [selectedLecon, setSelectedLecon] = useState(null);
@@ -62,6 +62,7 @@ const Curriculum = ({
   //   course_id: null,
   //   video: "",
   // });
+
   const handleChange = (e) => {
     setLecon({
       ...lecon,
@@ -92,24 +93,12 @@ const Curriculum = ({
       console.log(result);
       if (result.type == "addlessons/fulfilled") {
         // nextTab3();
-
+        setLecon({...lecon,title:"",video:""})
+        setVideo(null)
         toast.success("Lecon ajouté avec succès");
         // const [loading, setLoading] = useState(false);
       } else {
-        // console.log(result)
-        // toast.error("Cours non ajouter");
-        // for (const key in result.payload.data) {
-        //   if (errorObject.hasOwnProperty(key)) {
-        //     const errorMessage = errorObject[key][0];
-        //     console.log(errorMessage);
-        //     // Vous pouvez utiliser la valeur de errorMessage comme vous le souhaitez
-        //   }
-        // }
-        // const errorMessages = Object.values(result.payload.data).map(
-        //   (errorArray) => errorArray[0]
-        // );
-
-        // console.log(errorMessages);
+      
         Object.values(result?.payload.data).forEach((errorArray) => {
           toast.error(errorArray[0]);
         });
@@ -117,8 +106,6 @@ const Curriculum = ({
       setLoading(false);
     });
 
-    // setLoading(false);
-    // loading=false
   };
   const handleDelete = (id) => {
     const shouldDelete = window.confirm(
@@ -134,7 +121,7 @@ const Curriculum = ({
       });
     } else {
       // L'utilisateur a cliqué sur "Annuler", aucune action nécessaire
-      toast.error("Error lors de la suppression");
+      // toast.error("Error lors de la suppression");
       console.log("Suppression annulée");
     }
   };
@@ -148,7 +135,7 @@ const Curriculum = ({
     dispatch(updateCours(update_cours)).then((result) => {
       if (result.type == "updateCours/fulfilled") {
         toast.success("Cours Publié à jour avec succès");
-        navigate("/prof-cours")
+        navigate("/prof-cours");
       } else {
         Object.values(result?.payload.data).forEach((errorArray) => {
           toast.error(errorArray[0]);
@@ -200,6 +187,16 @@ const Curriculum = ({
               </div>
 
               <div className="form-group"></div>
+              {loading == true && (
+                <div className="progress-stip">
+                  <div
+                    className="progress-bar bg-success progress-bar-striped active-stip"
+                    style={{
+                      width: `${data.uploadProgress}%`,
+                    }}
+                  ></div>
+                </div>
+              )}
               <div className="widget-btn">
                 {/* <Link className="btn btn-black prev_btn" onClick={prevTab2}>
               Previous
@@ -207,6 +204,7 @@ const Curriculum = ({
                 <Link className="btn btn-black prev_btn" onClick={prevTab2}>
                   Précédent
                 </Link>
+
                 <Button loading={loading}>
                   <button className="btn btn-info-light next_btn" type="submit">
                     Ajouter une leçon
