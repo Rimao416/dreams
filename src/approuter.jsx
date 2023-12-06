@@ -109,7 +109,7 @@ const Approuter = () => {
   // const userInfo = authApi.getUserInfo();
   // console.log(userInfo);
   return (
-    <BrowserRouter basename="/reactjs">
+    <BrowserRouter>
       <Routes>
         <Route path="/" element={<Home />} />
         {/* RESERVE AUX PROF */}
