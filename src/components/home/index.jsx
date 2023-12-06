@@ -161,19 +161,19 @@ export const Home = () => {
                     <p>Trouvez le cours de musique parfait pour vous</p>
                     <div className="container">
                       <div className="row">
-                        <a
+                        <Link
                           style={{ backgroundColor: "rgb(88 187 222 )" }}
                           className="col-md-4 mx-2 text-center nav-link text-white rounded py-1 px-4"
                           href="login.html"
                         >
                           S&apos;inscrire
-                        </a>
-                        <a
+                        </Link>
+                        <Link
                           className="col-md-4 text-center nav-link border border-black font-gray rounded py-1 px-4"
                           href="login.html"
                         >
                           Donner des cours
-                        </a>
+                        </Link>
                       </div>
                     </div>
                   </div>

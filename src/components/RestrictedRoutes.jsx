@@ -42,5 +42,4 @@ export default function RestrictedRoutes({roles}) {
 
 RestrictedRoutes.propTypes = {
   roles: PropTypes.arrayOf(PropTypes.string).isRequired,
-  children: PropTypes.node.isRequired,
 };
